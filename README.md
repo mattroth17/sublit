@@ -1,10 +1,9 @@
 # Title
 
-*description*
-
-[deployed url](http://url-if-deployed-here)
+[deployed url](http://ct-cs52-starter.surge.sh/)
 
 ## What Worked Well
+It all worked fine
 
 ## What Didn't
 

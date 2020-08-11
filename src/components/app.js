@@ -3,6 +3,8 @@ import {
   BrowserRouter as Router, Route, NavLink, Switch,
 } from 'react-router-dom';
 import React from 'react';
+import Main from './main_page';
+import NewPost from './new_post';
 
 const App = (props) => {
   return (
@@ -10,6 +12,9 @@ const App = (props) => {
       <div>
         <Nav />
         <Switch>
+          <Route exact path="/" component={Main} />
+          <Route path="/posts/new" component={NewPost} />
+          <Route path="/posts/:listingID" component={Listing} />
           <Route render={() => (<div>post not found </div>)} />
         </Switch>
       </div>

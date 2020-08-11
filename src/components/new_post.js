@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Chat = (props) => {
+const NewPost = (props) => {
     return (
       <div>
         
@@ -9,4 +9,4 @@ const Chat = (props) => {
     );
   };
   
-export default connect(null, { })(Chat);
+export default connect(null, { })(NewPost);

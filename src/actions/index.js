@@ -9,6 +9,9 @@ export const ActionTypes = {
   FETCH_LISTING: 'FETCH_LISTING',
   ERROR_SET: 'ERROR_SET',
   ERROR_CLEAR: 'ERROR_CLEAR',
+  AUTH_USER: 'AUTH_USER',
+  DEAUTH_USER: 'DEAUTH_USER',
+  AUTH_ERROR: 'AUTH_ERROR',
   // UPDATE_POST: 'UPDATE_POST',
   // CREATE_POST: 'CREATE_POST',
   // DELETE_POST: 'DELETE_POST',
@@ -31,7 +34,15 @@ export function fetchListings() {
 export function createListing(listing, history) {
   return (dispatch) => {
     const fields = {
-      title: `${listing.title}`, description: `${listing.description}`, images: `${listing.images}`, features: `${listing.features}`, availability: `${listing.availability}`, price: `${listing.price}`,
+      address: `${listing.address}`, 
+      rent: `${listing.rent}`, 
+      numberOfRooms: `${listing.numberOfRooms}`, 
+      isFullApartment: `${listing.isFullApartment}`, 
+      pictures: `${listing.pictures}`, 
+      numParkingSpaces: `${listing.numParkingSpaces}`, 
+      description: `${listting.description}`, 
+      renterName: `${listting.renterName}`, 
+      ammenities: `${listting.ammenities}`, 
     };
     axios.post(`${ROOT_URL}/listings`, fields)
       .then((response) => {
@@ -44,14 +55,22 @@ export function createListing(listing, history) {
 }
 
 
-export function updateListing(post) {
+export function updateListing(listing) {
   return (dispatch) => {
     const fields = {
-      title: `${listing.title}`, description: `${listing.description}`, images: `${listing.images}`, features: `${listing.features}`, availability: `${listing.availability}`, price: `${listing.price}`,
+      address: `${listing.address}`, 
+      rent: `${listing.rent}`, 
+      numberOfRooms: `${listing.numberOfRooms}`, 
+      isFullApartment: `${listing.isFullApartment}`, 
+      pictures: `${listing.pictures}`, 
+      numParkingSpaces: `${listing.numParkingSpaces}`, 
+      description: `${listting.description}`, 
+      renterName: `${listting.renterName}`, 
+      ammenities: `${listting.ammenities}`, 
     };
     axios.put(`${ROOT_URL}/listings/${post.id}`, fields)
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
+        dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });
@@ -84,7 +103,13 @@ export function deleteListing(id, history) {
 }
 
 // need to be filled in 
-export function getMessages(id) {
+export function getConversation(id1, id2) {
+  return (dispatch) => {
+    
+  }
+}
+
+export function getConversations(id) {
   return (dispatch) => {
     
   }
@@ -112,3 +137,5 @@ export function clearError() {
     dispatch({ type: ActionTypes.ERROR_CLEAR });
   };
 }
+
+

@@ -1,6 +1,6 @@
 # Sublit
 
-![Team Photo](<img width="608" alt="Screen Shot 2020-08-13 at 1 43 43 PM" src="https://user-images.githubusercontent.com/62867125/90168444-17472880-dd6b-11ea-922d-962cfbbc5aeb.png">)
+<img width="608" alt="Screen Shot 2020-08-13 at 1 43 43 PM" src="https://user-images.githubusercontent.com/62867125/90168444-17472880-dd6b-11ea-922d-962cfbbc5aeb.png">
 [*how?*](https://help.github.com/articles/about-readmes/#relative-links-and-image-paths-in-readme-files)
 
 TODO: short project description, some sample screenshots or mockups

@@ -1,20 +1,28 @@
 import '../style.scss';
 import {
-  BrowserRouter as Router, Route, NavLink, Switch,
+  BrowserRouter as Router, Route, Switch,
 } from 'react-router-dom';
+import { connect } from 'react-redux';
 import React from 'react';
 import Main from './main_page';
-import NewPost from './new_post';
+import NewListing from './new_listing';
+import NavBar from './nav_bar';
+
+// eventually include frontend for dropdown menu and chat
+// need to discuss w/ team where to include
 
 const App = (props) => {
   return (
     <Router>
       <div>
-        <Nav />
+        <div className="title">
+          <h1> Sublit </h1>
+        </div>
+        <NavBar />
         <Switch>
           <Route exact path="/" component={Main} />
-          <Route path="/posts/new" component={NewPost} />
-          <Route path="/posts/:listingID" component={Listing} />
+          <Route path="/listings/new" component={NewListing} />
+          <Route path="/listings/:listingID" component={Listing} />
           <Route render={() => (<div>post not found </div>)} />
         </Switch>
       </div>
@@ -22,4 +30,4 @@ const App = (props) => {
   );
 };
 
-export default App;
+export default connect(null, null)(App);

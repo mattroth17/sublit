@@ -7,7 +7,7 @@ const NavBar = (props) => {
   return (
     <div id="menu">
       <NavLink exact to="/"> Main Page </NavLink>
-      <NavLink to="/posts/new"> Add a listing. </NavLink>
+      <NavLink to="/listings/new"> Add a listing. </NavLink>
     </div>
   );
 };

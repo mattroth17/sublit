@@ -17,7 +17,7 @@ export const ActionTypes = {
 // need to incorporate sorting based on season, number of people, etc.
 export function fetchListings() {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/listings`)
+    axios.get(`${ROOT_URL}/posts`)
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTINGS, payload: response.data });
       })

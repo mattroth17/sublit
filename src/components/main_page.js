@@ -1,6 +1,7 @@
 import { React, Component } from 'react';
 import { connect } from 'react-redux';
-// import { fetchListings } from '../actions/index';
+import { NavLink } from 'react-router-dom';
+import { fetchListings } from '../actions';
 
 class Main extends Component {
   componentDidMount() {
@@ -24,10 +25,10 @@ class Main extends Component {
       })
     );
   }
-};
+}
 
 const mapStateToProps = (reduxState) => ({
-  posts: reduxState.posts.all,
+  listings: reduxState.listings.all,
 });
 
-export default connect(mapStateToProps, { })(Main);
+export default connect(mapStateToProps, { fetchListings })(Main);

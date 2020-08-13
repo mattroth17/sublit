@@ -6,28 +6,27 @@ class Listing extends Component {
     super(props);
     this.state = {
       editing: 0,
-      title: '',
-      tags: '',
-      description: '',
-      coverUrl: '',
+      // title: '',
+      // tags: '',
+      // description: '',
+      // coverUrl: '',
     };
   }
 
   render() {
     // need to add authorization for editing posts
     if (this.state.editing === 1) {
-      return <div> editing </div> 
+      return <div> editing </div>;
     }
 
     return (
-      <div className="listing"> 
+      <div className="listing">
         <div id="title">
           {this.props.currentPost.address}
           {this.props.currentPost.rent}
           {this.props.currentPost.renterName}
           <button type="button" id="editb" onClick={() => this.stEdits()}> Edit me. </button>
         </div>
-
       </div>
     );
   }

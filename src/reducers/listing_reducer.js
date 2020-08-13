@@ -1,9 +1,9 @@
 import { ActionTypes } from '../actions';
 
-//define initial state
+// define initial state
 const init = {
-  all = [],
-  current = {},
+  all: [],
+  current: {},
 };
 
 /**

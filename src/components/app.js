@@ -8,6 +8,7 @@ import Main from './main_page';
 import NewListing from './new_listing';
 import NavBar from './nav_bar';
 import Login from './login';
+import Listing from './listing';
 
 // eventually include frontend for dropdown menu and chat
 // need to discuss w/ team where to include

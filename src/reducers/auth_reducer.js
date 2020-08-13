@@ -1,10 +1,10 @@
 import { ActionTypes } from '../actions';
 
-const initialState = {
+const init = {
   authenticated: false,
 };
 
-const AuthReducer = (state = initialState, action) => {
+const AuthReducer = (state = init, action) => {
   switch (action.type) {
     case ActionTypes.AUTH_USER:
       return { authenticated: true };

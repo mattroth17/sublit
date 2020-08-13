@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import ListingReducer from './posts_reducer';
+import ListingReducer from './listing_reducer';
 import ErrorReducer from './error_reducer';
 import AuthReducer from './auth_reducer';
 

@@ -7,14 +7,11 @@ const ROOT_URL = '';
 export const ActionTypes = {
   FETCH_LISTINGS: 'FETCH_LISTINGS',
   FETCH_LISTING: 'FETCH_LISTING',
-  ERROR_SET: 'ERROR_SET',
-  ERROR_CLEAR: 'ERROR_CLEAR',
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
-  // UPDATE_POST: 'UPDATE_POST',
-  // CREATE_POST: 'CREATE_POST',
-  // DELETE_POST: 'DELETE_POST',
+  ERROR_SET: 'ERROR_SET',
+  ERROR_CLEAR: 'ERROR_CLEAR',
 };
 
 // need to incorporate sorting based on season, number of people, etc. 
@@ -102,7 +99,7 @@ export function deleteListing(id, history) {
   };
 }
 
-// need to be filled in 
+// needs to be filled in 
 export function getConversation(id1, id2) {
   return (dispatch) => {
     
@@ -129,6 +126,55 @@ export function sendChatMessage(message, id1, id2) {
         dispatch({ type: ActionTypes.ERROR_SET, error });
       });
   }
+}
+
+// trigger to deauth if there is error
+// added auth actions/reducers, still needs to be implemented on backend and in components
+export function authError(error) {
+  return {
+    type: ActionTypes.AUTH_ERROR,
+    message: error,
+  };
+}
+
+export function signinUser({ email, password }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/signin`, { email, password })
+      .then((response) => {
+        dispatch({ type: ActionTypes.AUTH_USER });
+        localStorage.setItem('token', response.data.token);
+        history.push('/');
+      })
+      .catch((error) => {
+        dispatch(authError(`Sign In Failed: ${error.response.data.error}`));
+        history.push('/');
+      });
+  };
+}
+
+export function signupUser({ email, password }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/signup`, { email, password })
+      .then((response) => {
+        dispatch({ type: ActionTypes.AUTH_USER });
+        localStorage.setItem('token', response.data.token);
+        history.push('/');
+      })
+      .catch((error) => {
+        dispatch(authError(`Sign Up Failed: ${error.response.data.error}`));
+        history.push('/');
+      });
+  };
+}
+
+// deletes token from localstorage
+// and deauths
+export function signoutUser(history) {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch({ type: ActionTypes.DEAUTH_USER });
+    history.push('/');
+  };
 }
 
 

@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 // ideally will turn this into a drop-down type menu
 const NavBar = (props) => {
   return (
-    <div id="menu">
+    <div id="nav_bar">
       <NavLink exact to="/"> Main Page </NavLink>
       <NavLink to="/listings/new"> Add a listing. </NavLink>
     </div>

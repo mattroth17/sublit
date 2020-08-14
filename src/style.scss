@@ -2,3 +2,39 @@ body, html {
   font-family: "Roboto", sans-serif;
   height: 100%;
 }
+
+.top_bar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  h1 {
+    margin-block-start: 5px;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+.new_listing {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+
+  input {
+    margin: 5px;
+    height: 15px;
+  }
+
+  button {
+    width: 25%;
+    height: 30px;
+    background-color: #5a85c7;
+    color: white;
+    border-width: 0px;
+    border-radius: 5px;
+    align-self: center;
+  }
+}

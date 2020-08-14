@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import { createListing } from '../actions/index';
+import { createListing } from '../actions/index';
 
 class NewListing extends Component {
   constructor(props) {
@@ -23,43 +23,47 @@ class NewListing extends Component {
   }
 
   // for now just testing with address and renter name
-  onChange = (event) => {
-    this.setState({ address: event.target.value.address, renterName: event.target.value.renterName });
+  onNameChange = (event) => {
+    this.setState({ renterName: event.target.value });
   }
 
-  makePost = () => {
-    const post = {
+  onAddressChange = (event) => {
+    this.setState({ address: event.target.value });
+  }
+
+  makeListing = () => {
+    const listing = {
       address: this.state.address,
       renterName: this.state.renterName,
     };
-
-    this.props.createPost(post, this.props.history);
-
-    return post;
+    this.props.createListing(listing, this.props.history);
   }
+
+  // <input onChange={this.onChange}
+  //         placeholder="Please enter the details of your listing following this JSON format:
+  //       {
+  //         date: String,
+  //         address: String,
+  //         rent: Integer,
+  //         numberOfRooms: Integer,
+  //         isFullApartment: Boolean,
+  //         pictures: Array[String],
+  //         numParkingSpaces: Integer,
+  //         description: String,
+  //         renterName: String,
+  //         ammenities: Array,
+  //       }"
+  //       />
 
   render() {
     return (
-      <div>
-        <input onChange={this.onChange}
-          placeholder="Please enter the details of your listing following this JSON format:
-        {
-          date: String,
-          address: String,
-          rent: Integer,
-          numberOfRooms: Integer,
-          isFullApartment: Boolean,
-          pictures: Array[String],
-          numParkingSpaces: Integer,
-          description: String,
-          renterName: String,
-          ammenities: Array,
-        }"
-        />
-        <button type="button" onClick={() => this.makePost()}> Post your listing. </button>
+      <div className="new_listing">
+        <input onChange={this.onNameChange} placeholder="Renter Name" />
+        <input onChange={this.onAddressChange} placeholder="Address of Renting Space" />
+        <button type="button" onClick={() => this.makeListing()}> Post your listing. </button>
       </div>
     );
   }
 }
 
-export default withRouter(connect(null, {})(NewListing));
+export default withRouter(connect(null, { createListing })(NewListing));

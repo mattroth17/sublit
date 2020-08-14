@@ -15,6 +15,7 @@ export const ActionTypes = {
 };
 
 // need to incorporate sorting based on season, number of people, etc.
+// right now api endpoints are 'posts'
 export function fetchListings() {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/posts`)
@@ -31,6 +32,7 @@ export function fetchListings() {
 export function createListing(listing, history) {
   return (dispatch) => {
     const fields = {
+      date: `${listing.address}`,
       address: `${listing.address}`,
       rent: `${listing.rent}`,
       numberOfRooms: `${listing.numberOfRooms}`,
@@ -41,7 +43,7 @@ export function createListing(listing, history) {
       renterName: `${listing.renterName}`,
       ammenities: `${listing.ammenities}`,
     };
-    axios.post(`${ROOT_URL}/listings`, fields)
+    axios.post(`${ROOT_URL}/posts`, fields)
       .then((response) => {
         history.push('/');
       })
@@ -64,7 +66,7 @@ export function updateListing(listing) {
       renterName: `${listing.renterName}`,
       ammenities: `${listing.ammenities}`,
     };
-    axios.put(`${ROOT_URL}/listings/${listing.id}`, fields)
+    axios.put(`${ROOT_URL}/posts/${listing.id}`, fields)
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
@@ -76,7 +78,7 @@ export function updateListing(listing) {
 
 export function fetchListing(id) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/listings/${id}`)
+    axios.get(`${ROOT_URL}/posts/${id}`)
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
       })
@@ -88,7 +90,7 @@ export function fetchListing(id) {
 
 export function deleteListing(id, history) {
   return (dispatch) => {
-    axios.delete(`${ROOT_URL}/listings/${id}`)
+    axios.delete(`${ROOT_URL}/posts/${id}`)
       .then((response) => {
         history.push('/');
       })

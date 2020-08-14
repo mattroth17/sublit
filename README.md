@@ -20,12 +20,17 @@ TODO: how to deploy the project
 ## Authors
 
 TODO: list of authors
-Caroline Tornquist
-Chase Krivickas
-Jonah Kalsner Kershen
-Jack Vasu
-Matthew Roth
-Sada Nichols-Worley
+Caroline Tornquist,
+
+Chase Krivickas,
+
+Jonah Kalsner Kershen,
+
+Jack Vasu,
+
+Matthew Roth,
+
+Sada Nichols-Worley,
 
 // will be deleted later vvvv
 // do we want to explain who worked on what in this section?

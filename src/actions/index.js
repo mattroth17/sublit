@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = '';
+const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
 
 // keys for actiontypes
 // going to need chat actions
@@ -14,10 +14,11 @@ export const ActionTypes = {
   ERROR_CLEAR: 'ERROR_CLEAR',
 };
 
-// need to incorporate sorting based on season, number of people, etc. 
+// need to incorporate sorting based on season, number of people, etc.
+// right now api endpoints are 'posts'
 export function fetchListings() {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/listings`)
+    axios.get(`${ROOT_URL}/posts`)
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTINGS, payload: response.data });
       })
@@ -31,17 +32,18 @@ export function fetchListings() {
 export function createListing(listing, history) {
   return (dispatch) => {
     const fields = {
-      address: `${listing.address}`, 
-      rent: `${listing.rent}`, 
-      numberOfRooms: `${listing.numberOfRooms}`, 
-      isFullApartment: `${listing.isFullApartment}`, 
-      pictures: `${listing.pictures}`, 
-      numParkingSpaces: `${listing.numParkingSpaces}`, 
-      description: `${listting.description}`, 
-      renterName: `${listting.renterName}`, 
-      ammenities: `${listting.ammenities}`, 
+      date: `${listing.address}`,
+      address: `${listing.address}`,
+      rent: `${listing.rent}`,
+      numberOfRooms: `${listing.numberOfRooms}`,
+      isFullApartment: `${listing.isFullApartment}`,
+      pictures: `${listing.pictures}`,
+      numParkingSpaces: `${listing.numParkingSpaces}`,
+      description: `${listing.description}`,
+      renterName: `${listing.renterName}`,
+      ammenities: `${listing.ammenities}`,
     };
-    axios.post(`${ROOT_URL}/listings`, fields)
+    axios.post(`${ROOT_URL}/posts`, fields)
       .then((response) => {
         history.push('/');
       })
@@ -51,21 +53,20 @@ export function createListing(listing, history) {
   };
 }
 
-
 export function updateListing(listing) {
   return (dispatch) => {
     const fields = {
-      address: `${listing.address}`, 
-      rent: `${listing.rent}`, 
-      numberOfRooms: `${listing.numberOfRooms}`, 
-      isFullApartment: `${listing.isFullApartment}`, 
-      pictures: `${listing.pictures}`, 
-      numParkingSpaces: `${listing.numParkingSpaces}`, 
-      description: `${listting.description}`, 
-      renterName: `${listting.renterName}`, 
-      ammenities: `${listting.ammenities}`, 
+      address: `${listing.address}`,
+      rent: `${listing.rent}`,
+      numberOfRooms: `${listing.numberOfRooms}`,
+      isFullApartment: `${listing.isFullApartment}`,
+      pictures: `${listing.pictures}`,
+      numParkingSpaces: `${listing.numParkingSpaces}`,
+      description: `${listing.description}`,
+      renterName: `${listing.renterName}`,
+      ammenities: `${listing.ammenities}`,
     };
-    axios.put(`${ROOT_URL}/listings/${post.id}`, fields)
+    axios.put(`${ROOT_URL}/posts/${listing.id}`, fields)
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
@@ -77,7 +78,7 @@ export function updateListing(listing) {
 
 export function fetchListing(id) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/listings/${id}`)
+    axios.get(`${ROOT_URL}/posts/${id}`)
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
       })
@@ -89,7 +90,7 @@ export function fetchListing(id) {
 
 export function deleteListing(id, history) {
   return (dispatch) => {
-    axios.delete(`${ROOT_URL}/listings/${id}`)
+    axios.delete(`${ROOT_URL}/posts/${id}`)
       .then((response) => {
         history.push('/');
       })
@@ -99,24 +100,24 @@ export function deleteListing(id, history) {
   };
 }
 
-// needs to be filled in 
+// needs to be filled in
 export function getConversation(id1, id2) {
   return (dispatch) => {
-    
-  }
+
+  };
 }
 
 export function getConversations(id) {
   return (dispatch) => {
-    
-  }
+
+  };
 }
 
-// needs to be altered 
+// needs to be altered
 export function sendChatMessage(message, id1, id2) {
   return (dispatch) => {
     const fields = {
-      message: {message}, from: {id1}, to: {id2},
+      message: { message }, from: { id1 }, to: { id2 },
     };
     axios.post(`${ROOT_URL}/messages`, fields)
       .then((response) => {
@@ -125,7 +126,7 @@ export function sendChatMessage(message, id1, id2) {
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });
       });
-  }
+  };
 }
 
 // trigger to deauth if there is error
@@ -177,11 +178,8 @@ export function signoutUser(history) {
   };
 }
 
-
 export function clearError() {
   return (dispatch) => {
     dispatch({ type: ActionTypes.ERROR_CLEAR });
   };
 }
-
-

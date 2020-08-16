@@ -17,10 +17,10 @@ const App = (props) => {
   return (
     <Router>
       <div>
-        <div className="title">
+        <div className="top_bar">
           <h1> Sublit </h1>
+          <NavBar />
         </div>
-        <NavBar />
         <Switch>
           <Route exact path="/" component={Main} />
           <Route path="/listings/new" component={NewListing} />

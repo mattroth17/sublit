@@ -1,11 +1,11 @@
 import { ActionTypes } from '../actions';
 
-const initialState = {
+const init = {
   isError: false,
   errorMessage: '',
 };
 
-const ErrorReducer = (state = initialState, action) => {
+const ErrorReducer = (state = init, action) => {
   switch (action.type) {
     case ActionTypes.ERROR_SET:
       return { isError: true, errorMessage: action.error.message };

@@ -1,5 +1,6 @@
 import { React, Component } from 'react';
 import { connect } from 'react-redux';
+import { fetchListing } from '../actions';
 
 class Listing extends Component {
   constructor(props) {
@@ -11,6 +12,10 @@ class Listing extends Component {
       // description: '',
       // coverUrl: '',
     };
+  }
+
+  componentDidMount() {
+    this.props.fetchListing();
   }
 
   render() {
@@ -38,4 +43,4 @@ function mapStateToProps(reduxState) {
   };
 }
 
-export default connect(mapStateToProps, { })(Listing);
+export default connect(mapStateToProps, { fetchListing })(Listing);

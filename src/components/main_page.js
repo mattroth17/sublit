@@ -16,7 +16,7 @@ class Main extends Component {
     return (
       this.props.listings.map((listing) => {
         return (
-          <div className="listpreview">
+          <div className="list_preview">
             <NavLink to={`listings/${listing.id}`} className="lt"> {listing.title} </NavLink>
             {listing.description}
             <img src={listing.pictures} alt="" />

@@ -10,6 +10,8 @@ export const ActionTypes = {
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
+  FETCH_CONVERSATIONS: 'FETCH_CONVERSATIONS',
+  FETCH_CONVERSATION: 'FETCH_CONVERSATION',
   ERROR_SET: 'ERROR_SET',
   ERROR_CLEAR: 'ERROR_CLEAR',
 };
@@ -18,7 +20,7 @@ export const ActionTypes = {
 // right now api endpoints are 'posts'
 export function fetchListings() {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/posts`)
+    axios.get(`${ROOT_URL}/listings`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTINGS, payload: response.data });
       })
@@ -43,7 +45,7 @@ export function createListing(listing, history) {
       renterName: `${listing.renterName}`,
       ammenities: `${listing.ammenities}`,
     };
-    axios.post(`${ROOT_URL}/posts`, fields)
+    axios.post(`${ROOT_URL}/posts`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         history.push('/');
       })
@@ -66,7 +68,7 @@ export function updateListing(listing) {
       renterName: `${listing.renterName}`,
       ammenities: `${listing.ammenities}`,
     };
-    axios.put(`${ROOT_URL}/posts/${listing.id}`, fields)
+    axios.put(`${ROOT_URL}/posts/${listing.id}`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
@@ -78,7 +80,7 @@ export function updateListing(listing) {
 
 export function fetchListing(id) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/posts/${id}`)
+    axios.get(`${ROOT_URL}/posts/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
       })
@@ -90,7 +92,7 @@ export function fetchListing(id) {
 
 export function deleteListing(id, history) {
   return (dispatch) => {
-    axios.delete(`${ROOT_URL}/posts/${id}`)
+    axios.delete(`${ROOT_URL}/posts/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         history.push('/');
       })
@@ -142,12 +144,12 @@ export function signinUser({ email, password }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signin`, { email, password })
       .then((response) => {
-        dispatch({ type: ActionTypes.AUTH_USER });
+        dispatch({ type: ActionTypes.AUTH_USER, user: email });
         localStorage.setItem('token', response.data.token);
         history.push('/');
       })
       .catch((error) => {
-        dispatch(authError(`Sign In Failed: ${error.response.data.error}`));
+        dispatch(authError(`Sign In Failed: ${error.response.data}`));
         history.push('/');
       });
   };
@@ -157,7 +159,7 @@ export function signupUser({ email, password }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signup`, { email, password })
       .then((response) => {
-        dispatch({ type: ActionTypes.AUTH_USER });
+        dispatch({ type: ActionTypes.AUTH_USER, user: email });
         localStorage.setItem('token', response.data.token);
         history.push('/');
       })

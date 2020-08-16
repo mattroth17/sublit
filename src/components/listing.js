@@ -32,10 +32,8 @@ class Listing extends Component {
   }
 }
 
-function mapStateToProps(reduxState) {
-  return {
-    currentPost: reduxState.posts.current,
-  };
-}
+const mapStateToProps = (reduxState) => ({
+  currentPost: reduxState.posts.current,
+});
 
 export default connect(mapStateToProps, { })(Listing);

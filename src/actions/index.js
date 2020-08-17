@@ -155,16 +155,18 @@ export function signinUser({ email, password }, history) {
   };
 }
 
-export function signupUser({ email, password }, history) {
+export function signupUser({ email, password, firstName }, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { email, password })
+    axios.post(`${ROOT_URL}/signup`, { email, password, firstName })
       .then((response) => {
+        console.log('test1');
         dispatch({ type: ActionTypes.AUTH_USER, user: email });
         localStorage.setItem('token', response.data.token);
         history.push('/');
       })
       .catch((error) => {
-        dispatch(authError(`Sign Up Failed: ${error.response.data.error}`));
+        console.log(error);
+        dispatch(authError(`Sign Up Failed: ${error}`));
         history.push('/');
       });
   };

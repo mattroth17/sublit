@@ -9,7 +9,12 @@ class SignUp extends Component {
     this.state = {
       email: '',
       password: '',
+      name: '',
     };
+  }
+
+  onFirstNameChange = (event) => {
+    this.setState({ name: event.target.value });
   }
 
   onEmailChange = (event) => {
@@ -21,7 +26,7 @@ class SignUp extends Component {
   }
 
   onSubmit = (event) => {
-    this.props.signupUser({ email: this.state.email, password: this.state.password }, this.props.history);
+    this.props.signupUser({ email: this.state.email, password: this.state.password, firstName: this.state.name }, this.props.history);
   }
 
   onCancel = (event) => {
@@ -32,15 +37,17 @@ class SignUp extends Component {
     return (
       <div className="user-creator">
         <h1>Create an Account</h1>
+        <h2>First Name</h2>
+        <input className="name-input" placeholder="First Name" onChange={this.onFirstNameChange} value={this.state.name} />
         <h2>Email</h2>
         <input className="email-input" placeholder="Email Address" onChange={this.onEmailChange} value={this.state.email} />
         <h2>Password</h2>
         <input type="password" className="password-input" placeholder="Password" onChange={this.onPasswordChange} value={this.state.password} />
         <ul className="icon-list">
-          <li key="save" onClick={this.onCancel}>
+          <li key="cancel" onClick={this.onCancel}>
             <i className="fas fa-window-close" />
           </li>
-          <li key="return" onClick={this.onSubmit}>
+          <li key="signup" onClick={this.onSubmit}>
             <i className="fas fa-sign-in-alt" />
           </li>
         </ul>

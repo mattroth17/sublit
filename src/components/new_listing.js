@@ -83,19 +83,18 @@ class NewListing extends Component {
   render() {
     return (
       <div className="new_listing">
-        <input onChange={this.onNameChange} placeholder="Renter Name" />
-        <input onChange={this.onAddressChange} placeholder="Address of Renting Space" />
-        <input onChange={this.onDateChange} placeholder="Date" />
-        <input onChange={this.onRentChange} placeholder="Cost of Rent" />
-        <input onChange={this.onLenSubletChange} placeholder="Lenght of Sublet" />
-        <input onChange={this.onNumberOfRoomsChange} placeholder="Number of Rooms" />
-        <input onChange={this.onIsFullApartmentChange} placeholder="Is it a full apartment?" />
+        <input onChange={this.onNameChange} placeholder="Renter Name" value={this.state.renterName} />
+        <input onChange={this.onAddressChange} placeholder="Address of Renting Space" value={this.state.address} />
+        <input onChange={this.onDateChange} placeholder="Date" value={this.state.date} />
+        <input onChange={this.onRentChange} placeholder="Cost of Rent" value={this.state.rent} />
+        <input onChange={this.onLenSubletChange} placeholder="Lenght of Sublet" value={this.state.lenSublet} />
+        <input onChange={this.onNumberOfRoomsChange} placeholder="Number of Rooms" value={this.state.numberOfRooms} />
+        <input onChange={this.onIsFullApartmentChange} placeholder="Is it a full apartment?" value={this.state.isFullApartment} />
         <input onChange={this.onPicturesChangee} placeholder="Upload pictures" />
-        <input onChange={this.onNumParkingSpacesChange} placeholder="Number of Parking Spaces" />
-        <input onChange={this.onNumBathsChange} placeholder="Number of Baths" />
-        <input onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" />
-        <input onChange={this.onNameChange} placeholder="Enter your name as you would like it displayed" />
-        <input onChange={this.onAmmenitiesChange} placeholder="Ammenities" />
+        <input onChange={this.onNumParkingSpacesChange} placeholder="Number of Parking Spaces" value={this.state.numParkingSpaces} />
+        <input onChange={this.onNumBathsChange} placeholder="Number of Baths" value={this.state.numBaths} />
+        <input onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" value={this.state.description} />
+        <input onChange={this.onAmmenitiesChange} placeholder="Ammenities" value={this.state.ammenities} />
         <button type="button" onClick={() => this.makeListing()}> Post your listing. </button>
       </div>
     );

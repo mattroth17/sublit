@@ -17,7 +17,6 @@ export const ActionTypes = {
 };
 
 // need to incorporate sorting based on season, number of people, etc.
-// right now api endpoints are 'posts'
 export function fetchListings() {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/listings`, { headers: { authorization: localStorage.getItem('token') } })
@@ -45,7 +44,7 @@ export function createListing(listing, history) {
       renterName: `${listing.renterName}`,
       ammenities: `${listing.ammenities}`,
     };
-    axios.post(`${ROOT_URL}/posts`, fields, { headers: { authorization: localStorage.getItem('token') } })
+    axios.post(`${ROOT_URL}/listings`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         history.push('/');
       })
@@ -68,7 +67,7 @@ export function updateListing(listing) {
       renterName: `${listing.renterName}`,
       ammenities: `${listing.ammenities}`,
     };
-    axios.put(`${ROOT_URL}/posts/${listing.id}`, fields, { headers: { authorization: localStorage.getItem('token') } })
+    axios.put(`${ROOT_URL}/listings/${listing.id}`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
@@ -80,9 +79,9 @@ export function updateListing(listing) {
 
 export function fetchListing(id) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/posts/${id}`, { headers: { authorization: localStorage.getItem('token') } })
+    axios.get(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
+        dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });
@@ -92,7 +91,7 @@ export function fetchListing(id) {
 
 export function deleteListing(id, history) {
   return (dispatch) => {
-    axios.delete(`${ROOT_URL}/posts/${id}`, { headers: { authorization: localStorage.getItem('token') } })
+    axios.delete(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         history.push('/');
       })
@@ -101,11 +100,38 @@ export function deleteListing(id, history) {
       });
   };
 }
-
-// needs to be filled in
-export function getConversation(id1, id2) {
+// create conversation (needs to be changed after talking w/ caroline/chase)
+export function startConversation(person1, person2) {
   return (dispatch) => {
-
+    axios.post(`${ROOT_URL}/conversations`, { person1, person2 }, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        axios.put(`${ROOT_URL}/users/${person1}`, response.data.id, { headers: { authorization: localStorage.getItem('token') } })
+          .then((r) => {
+            dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+          })
+          .catch((e) => {
+            dispatch({ type: ActionTypes.ERROR_SET, e });
+          });
+        axios.put(`${ROOT_URL}/users/${person2}`, response.data.id, { headers: { authorization: localStorage.getItem('token') } })
+          .then((r) => {
+            dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+          })
+          .catch((e) => {
+            dispatch({ type: ActionTypes.ERROR_SET, e });
+          });
+      });
+  };
+}
+// needs to be filled in (not sure what parameters/body to send... do we need both id and convo id?)
+export function getConversation(person1, person2, convoID) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/conversations/${convoID}`, { person1, person2 }, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+      })
+      .catch((error) => {
+        dispatch({ type: ActionTypes.ERROR_SET, error });
+      });
   };
 }
 
@@ -123,7 +149,7 @@ export function sendChatMessage(message, id1, id2) {
     };
     axios.post(`${ROOT_URL}/messages`, fields)
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
+        dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });

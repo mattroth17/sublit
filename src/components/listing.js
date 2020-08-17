@@ -1,4 +1,4 @@
-import { React, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchListing } from '../actions';
 
@@ -6,7 +6,7 @@ class Listing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editing: 0,
+      // editing: 0,
       // title: '',
       // tags: '',
       // description: '',
@@ -15,22 +15,21 @@ class Listing extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchListing();
+    this.props.fetchListing(this.props.match.params.listingID);
   }
 
   render() {
     // need to add authorization for editing posts
-    if (this.state.editing === 1) {
-      return <div> editing </div>;
-    }
+    // if (this.state.editing === 1) {
+    //   return <div> editing </div>;
+    // }
 
     return (
-      <div className="listing">
+      <div>
         <div id="title">
-          {this.props.currentPost.address}
-          {this.props.currentPost.rent}
-          {this.props.currentPost.renterName}
-          <button type="button" id="editb" onClick={() => this.stEdits()}> Edit me. </button>
+          <p>{this.props.currentPost.address}</p>
+          <p>{this.props.currentPost.rent}</p>
+          <p>{this.props.currentPost.renterName}</p>
         </div>
       </div>
     );
@@ -38,7 +37,7 @@ class Listing extends Component {
 }
 
 const mapStateToProps = (reduxState) => ({
-  currentPost: reduxState.posts.current,
+  currentPost: reduxState.listings.current,
 });
 
 export default connect(mapStateToProps, { fetchListing })(Listing);

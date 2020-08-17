@@ -1,6 +1,8 @@
 import { React, Component } from 'react';
 import { connect } from 'react-redux';
 import { getConversations, getConversation, sendChatMessage } from '../actions';
+import Convos from './convos';
+import Convo from './convo';
 
 class Chat extends Component {
   constructor(props) {
@@ -29,7 +31,8 @@ class Chat extends Component {
   render() {
     return (
       <div className="chat">
-        {this.renderConversations()}
+        <Convos />
+        <Convo />
       </div>
     );
   }

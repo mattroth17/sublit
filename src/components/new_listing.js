@@ -78,6 +78,7 @@ class NewListing extends Component {
   makeListing = () => {
     const listing = { ...this.state };
     this.props.createListing(listing, this.props.history);
+    this.props.history.push('/');
   }
 
   render() {

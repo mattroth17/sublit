@@ -12,7 +12,7 @@ class NewListing extends Component {
       rent: 0,
       lenSublet: '',
       numberOfRooms: 0,
-      isFullApartment: false,
+      isFullApartment: null,
       pictures: [],
       numParkingSpaces: 0,
       numBaths: 0,

@@ -19,6 +19,7 @@ class NewListing extends Component {
       description: '',
       renterName: '',
       ammenities: [],
+      email: '',
     };
   }
 
@@ -75,10 +76,15 @@ class NewListing extends Component {
     this.setState({ ammenities: event.target.value });
   }
 
-  makeListing = () => {
-    const listing = { ...this.state };
-    this.props.createListing(listing, this.props.history);
-    this.props.history.push('/');
+  makeListing = (user) => {
+    this.setState({ email: user }, () => {
+      console.log(user);
+      console.log(this.state.email);
+      const listing = { ...this.state };
+      console.log(listing);
+      this.props.createListing(listing, this.props.history);
+      this.props.history.push('/');
+    });
   }
 
   render() {
@@ -88,7 +94,7 @@ class NewListing extends Component {
         <input onChange={this.onAddressChange} placeholder="Address of Renting Space" value={this.state.address} />
         <input onChange={this.onDateChange} placeholder="Date" value={this.state.date} />
         <input onChange={this.onRentChange} placeholder="Cost of Rent" value={this.state.rent} />
-        <input onChange={this.onLenSubletChange} placeholder="Lenght of Sublet" value={this.state.lenSublet} />
+        <input onChange={this.onLenSubletChange} placeholder="Length of Sublet" value={this.state.lenSublet} />
         <input onChange={this.onNumberOfRoomsChange} placeholder="Number of Rooms" value={this.state.numberOfRooms} />
         <input onChange={this.onIsFullApartmentChange} placeholder="Is it a full apartment?" value={this.state.isFullApartment} />
         <input onChange={this.onPicturesChangee} placeholder="Upload pictures" />
@@ -96,10 +102,14 @@ class NewListing extends Component {
         <input onChange={this.onNumBathsChange} placeholder="Number of Baths" value={this.state.numBaths} />
         <input onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" value={this.state.description} />
         <input onChange={this.onAmmenitiesChange} placeholder="Ammenities" value={this.state.ammenities} />
-        <button type="button" onClick={() => this.makeListing()}> Post your listing. </button>
+        <button type="button" onClick={() => this.makeListing(this.props.auth.user)}> Post your listing. </button>
       </div>
     );
   }
 }
 
-export default withRouter(connect(null, { createListing })(NewListing));
+const mapStateToProps = (reduxState) => ({
+  auth: reduxState.auth,
+});
+
+export default withRouter(connect(mapStateToProps, { createListing })(NewListing));

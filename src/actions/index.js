@@ -43,6 +43,7 @@ export function createListing(listing, history) {
       description: `${listing.description}`,
       renterName: `${listing.renterName}`,
       ammenities: `${listing.ammenities}`,
+      email: `${listing.email}`,
     };
     axios.post(`${ROOT_URL}/listings`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {

@@ -101,11 +101,38 @@ export function deleteListing(id, history) {
       });
   };
 }
-
-// needs to be filled in
-export function getConversation(id1, id2) {
+// create conversation (needs to be changed after talking w/ caroline/chase)
+export function startConversation(person1, person2) {
   return (dispatch) => {
-
+    axios.post(`${ROOT_URL}/conversations`, { person1, person2 }, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        axios.put(`${ROOT_URL}/users/${person1}`, response.data.id, { headers: { authorization: localStorage.getItem('token') } })
+          .then((r) => {
+            dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+          })
+          .catch((e) => {
+            dispatch({ type: ActionTypes.ERROR_SET, e });
+          });
+        axios.put(`${ROOT_URL}/users/${person2}`, response.data.id, { headers: { authorization: localStorage.getItem('token') } })
+          .then((r) => {
+            dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+          })
+          .catch((e) => {
+            dispatch({ type: ActionTypes.ERROR_SET, e });
+          });
+      });
+  };
+}
+// needs to be filled in (not sure what parameters/body to send... do we need both id and convo id?)
+export function getConversation(person1, person2, convoID) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/conversations/${convoID}`, { person1, person2 }, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+      })
+      .catch((error) => {
+        dispatch({ type: ActionTypes.ERROR_SET, error });
+      });
   };
 }
 

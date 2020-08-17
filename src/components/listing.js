@@ -30,7 +30,6 @@ class Listing extends Component {
           <p>{this.props.currentPost.address}</p>
           <p>{this.props.currentPost.rent}</p>
           <p>{this.props.currentPost.renterName}</p>
-          <button type="button" id="editb" onClick={() => this.stEdits()}> Edit me. </button>
         </div>
       </div>
     );

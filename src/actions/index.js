@@ -81,7 +81,7 @@ export function fetchListing(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
+        dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });
@@ -149,7 +149,7 @@ export function sendChatMessage(message, id1, id2) {
     };
     axios.post(`${ROOT_URL}/messages`, fields)
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
+        dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });

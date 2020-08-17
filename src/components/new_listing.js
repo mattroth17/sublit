@@ -26,6 +26,7 @@ class NewListing extends Component {
       description: '',
       renterName: '',
       ammenities: [],
+      email: '',
     };
   }
 
@@ -83,10 +84,15 @@ class NewListing extends Component {
     this.setState({ ammenities: event.target.value });
   }
 
-  makeListing = () => {
-    const listing = { ...this.state };
-    this.props.createListing(listing, this.props.history);
-    this.props.history.push('/');
+  makeListing = (user) => {
+    this.setState({ email: user }, () => {
+      console.log(user);
+      console.log(this.state.email);
+      const listing = { ...this.state };
+      console.log(listing);
+      this.props.createListing(listing, this.props.history);
+      this.props.history.push('/');
+    });
   }
 
   // adapted from this site: https://www.npmjs.com/package/react-places-autocomplete
@@ -152,4 +158,8 @@ class NewListing extends Component {
   }
 }
 
-export default withRouter(connect(null, { createListing })(NewListing));
+const mapStateToProps = (reduxState) => ({
+  auth: reduxState.auth,
+});
+
+export default withRouter(connect(mapStateToProps, { createListing })(NewListing));

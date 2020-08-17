@@ -8,6 +8,7 @@ const NavBar = (props) => {
     <div id="nav_bar">
       <NavLink exact to="/"> Main Page </NavLink>
       <NavLink to="/listings/new"> Add a listing. </NavLink>
+      <NavLink to="/signout"> Sign Out </NavLink>
     </div>
   );
 };

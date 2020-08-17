@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = '';
+const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
 
 // keys for actiontypes
 // going to need chat actions
@@ -10,14 +10,16 @@ export const ActionTypes = {
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
+  FETCH_CONVERSATIONS: 'FETCH_CONVERSATIONS',
+  FETCH_CONVERSATION: 'FETCH_CONVERSATION',
   ERROR_SET: 'ERROR_SET',
   ERROR_CLEAR: 'ERROR_CLEAR',
 };
 
-// need to incorporate sorting based on season, number of people, etc. 
+// need to incorporate sorting based on season, number of people, etc.
 export function fetchListings() {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/listings`)
+    axios.get(`${ROOT_URL}/listings`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTINGS, payload: response.data });
       })
@@ -31,17 +33,19 @@ export function fetchListings() {
 export function createListing(listing, history) {
   return (dispatch) => {
     const fields = {
-      address: `${listing.address}`, 
-      rent: `${listing.rent}`, 
-      numberOfRooms: `${listing.numberOfRooms}`, 
-      isFullApartment: `${listing.isFullApartment}`, 
-      pictures: `${listing.pictures}`, 
-      numParkingSpaces: `${listing.numParkingSpaces}`, 
-      description: `${listting.description}`, 
-      renterName: `${listting.renterName}`, 
-      ammenities: `${listting.ammenities}`, 
+      date: `${listing.address}`,
+      address: `${listing.address}`,
+      rent: `${listing.rent}`,
+      numberOfRooms: `${listing.numberOfRooms}`,
+      isFullApartment: `${listing.isFullApartment}`,
+      pictures: `${listing.pictures}`,
+      numParkingSpaces: `${listing.numParkingSpaces}`,
+      description: `${listing.description}`,
+      renterName: `${listing.renterName}`,
+      ammenities: `${listing.ammenities}`,
+      email: `${listing.email}`,
     };
-    axios.post(`${ROOT_URL}/listings`, fields)
+    axios.post(`${ROOT_URL}/listings`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         history.push('/');
       })
@@ -51,21 +55,20 @@ export function createListing(listing, history) {
   };
 }
 
-
 export function updateListing(listing) {
   return (dispatch) => {
     const fields = {
-      address: `${listing.address}`, 
-      rent: `${listing.rent}`, 
-      numberOfRooms: `${listing.numberOfRooms}`, 
-      isFullApartment: `${listing.isFullApartment}`, 
-      pictures: `${listing.pictures}`, 
-      numParkingSpaces: `${listing.numParkingSpaces}`, 
-      description: `${listting.description}`, 
-      renterName: `${listting.renterName}`, 
-      ammenities: `${listting.ammenities}`, 
+      address: `${listing.address}`,
+      rent: `${listing.rent}`,
+      numberOfRooms: `${listing.numberOfRooms}`,
+      isFullApartment: `${listing.isFullApartment}`,
+      pictures: `${listing.pictures}`,
+      numParkingSpaces: `${listing.numParkingSpaces}`,
+      description: `${listing.description}`,
+      renterName: `${listing.renterName}`,
+      ammenities: `${listing.ammenities}`,
     };
-    axios.put(`${ROOT_URL}/listings/${post.id}`, fields)
+    axios.put(`${ROOT_URL}/listings/${listing.id}`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
@@ -77,9 +80,9 @@ export function updateListing(listing) {
 
 export function fetchListing(id) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/listings/${id}`)
+    axios.get(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
+        dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });
@@ -89,7 +92,7 @@ export function fetchListing(id) {
 
 export function deleteListing(id, history) {
   return (dispatch) => {
-    axios.delete(`${ROOT_URL}/listings/${id}`)
+    axios.delete(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         history.push('/');
       })
@@ -98,34 +101,61 @@ export function deleteListing(id, history) {
       });
   };
 }
-
-// needs to be filled in 
-export function getConversation(id1, id2) {
+// create conversation (needs to be changed after talking w/ caroline/chase)
+export function startConversation(person1, person2) {
   return (dispatch) => {
-    
-  }
-}
-
-export function getConversations(id) {
-  return (dispatch) => {
-    
-  }
-}
-
-// needs to be altered 
-export function sendChatMessage(message, id1, id2) {
-  return (dispatch) => {
-    const fields = {
-      message: {message}, from: {id1}, to: {id2},
-    };
-    axios.post(`${ROOT_URL}/messages`, fields)
+    axios.post(`${ROOT_URL}/conversations`, { person1, person2 }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
+        axios.put(`${ROOT_URL}/users/${person1}`, response.data.id, { headers: { authorization: localStorage.getItem('token') } })
+          .then((r) => {
+            dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+          })
+          .catch((e) => {
+            dispatch({ type: ActionTypes.ERROR_SET, e });
+          });
+        axios.put(`${ROOT_URL}/users/${person2}`, response.data.id, { headers: { authorization: localStorage.getItem('token') } })
+          .then((r) => {
+            dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+          })
+          .catch((e) => {
+            dispatch({ type: ActionTypes.ERROR_SET, e });
+          });
+      });
+  };
+}
+// needs to be filled in (not sure what parameters/body to send... do we need both id and convo id?)
+export function getConversation(person1, person2, convoID) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/conversations/${convoID}`, { person1, person2 }, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });
       });
-  }
+  };
+}
+
+export function getConversations(id) {
+  return (dispatch) => {
+
+  };
+}
+
+// needs to be altered
+export function sendChatMessage(message, id1, id2) {
+  return (dispatch) => {
+    const fields = {
+      message: { message }, from: { id1 }, to: { id2 },
+    };
+    axios.post(`${ROOT_URL}/messages`, fields)
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+      })
+      .catch((error) => {
+        dispatch({ type: ActionTypes.ERROR_SET, error });
+      });
+  };
 }
 
 // trigger to deauth if there is error
@@ -141,27 +171,29 @@ export function signinUser({ email, password }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signin`, { email, password })
       .then((response) => {
-        dispatch({ type: ActionTypes.AUTH_USER });
+        dispatch({ type: ActionTypes.AUTH_USER, user: email });
         localStorage.setItem('token', response.data.token);
         history.push('/');
       })
       .catch((error) => {
-        dispatch(authError(`Sign In Failed: ${error.response.data.error}`));
+        dispatch(authError(`Sign In Failed: ${error.response.data}`));
         history.push('/');
       });
   };
 }
 
-export function signupUser({ email, password }, history) {
+export function signupUser({ email, password, firstName }, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { email, password })
+    axios.post(`${ROOT_URL}/signup`, { email, password, firstName })
       .then((response) => {
-        dispatch({ type: ActionTypes.AUTH_USER });
+        console.log('test1');
+        dispatch({ type: ActionTypes.AUTH_USER, user: email });
         localStorage.setItem('token', response.data.token);
         history.push('/');
       })
       .catch((error) => {
-        dispatch(authError(`Sign Up Failed: ${error.response.data.error}`));
+        console.log(error);
+        dispatch(authError(`Sign Up Failed: ${error}`));
         history.push('/');
       });
   };
@@ -177,11 +209,8 @@ export function signoutUser(history) {
   };
 }
 
-
 export function clearError() {
   return (dispatch) => {
     dispatch({ type: ActionTypes.ERROR_CLEAR });
   };
 }
-
-

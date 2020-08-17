@@ -1,23 +1,19 @@
 import { ActionTypes } from '../actions';
 
-// define initial state
 const init = {
-  all: [],
+  conversations: [],
   current: {},
 };
 
-/**
- * Manages the local posts on your app
- */
-const ListingReducer = (state = init, action) => {
+const ChatReducer = (state = init, action) => {
   switch (action.type) {
-    case ActionTypes.FETCH_LISTINGS:
+    case ActionTypes.FETCH_CONVERSATIONS:
       return { all: action.payload, current: {} };
-    case ActionTypes.FETCH_LISTING:
+    case ActionTypes.FETCH_CONVERSATION:
       return { ...state, current: action.payload };
     default:
       return state;
   }
 };
 
-export default ListingReducer;
+export default ChatReducer;

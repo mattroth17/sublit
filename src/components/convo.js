@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { getConversation, sendChatMessage } from '../actions';
 
 class Convo extends Component {
-  componentDidMount() {
-    this.props.getConversation();
+  renderMessages = () => {
+
   }
 
   render() {
@@ -13,7 +13,7 @@ class Convo extends Component {
 }
 const mapStateToProps = (reduxState) => ({
   user: reduxState.auth.user,
-  conversation: reduxState.chat.conversation,
+  conversation: reduxState.chat.current,
 });
 
 export default connect(mapStateToProps, { getConversation, sendChatMessage })(Convo);

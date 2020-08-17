@@ -17,7 +17,6 @@ export const ActionTypes = {
 };
 
 // need to incorporate sorting based on season, number of people, etc.
-// right now api endpoints are 'posts'
 export function fetchListings() {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/listings`, { headers: { authorization: localStorage.getItem('token') } })
@@ -45,7 +44,7 @@ export function createListing(listing, history) {
       renterName: `${listing.renterName}`,
       ammenities: `${listing.ammenities}`,
     };
-    axios.post(`${ROOT_URL}/posts`, fields, { headers: { authorization: localStorage.getItem('token') } })
+    axios.post(`${ROOT_URL}/listings`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         history.push('/');
       })
@@ -68,7 +67,7 @@ export function updateListing(listing) {
       renterName: `${listing.renterName}`,
       ammenities: `${listing.ammenities}`,
     };
-    axios.put(`${ROOT_URL}/posts/${listing.id}`, fields, { headers: { authorization: localStorage.getItem('token') } })
+    axios.put(`${ROOT_URL}/listings/${listing.id}`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
@@ -80,7 +79,7 @@ export function updateListing(listing) {
 
 export function fetchListing(id) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/posts/${id}`, { headers: { authorization: localStorage.getItem('token') } })
+    axios.get(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
       })
@@ -92,7 +91,7 @@ export function fetchListing(id) {
 
 export function deleteListing(id, history) {
   return (dispatch) => {
-    axios.delete(`${ROOT_URL}/posts/${id}`, { headers: { authorization: localStorage.getItem('token') } })
+    axios.delete(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         history.push('/');
       })

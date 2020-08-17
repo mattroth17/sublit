@@ -1,10 +1,44 @@
-import React from 'react';
+import { React, Component } from 'react';
 import { connect } from 'react-redux';
+import { getConversations, getConversation, sendChatMessage } from '../actions';
 
-const Chat = (props) => {
-  return (
-    <div />
-  );
-};
+class Chat extends Component {
+  constructor(props) {
+    super(props);
 
-export default connect(null, { })(Chat);
+    this.state = {
+      // newMessage: '',
+    };
+  }
+
+  componentDidMount() {
+    this.props.getConversations();
+  }
+
+  renderConversations = () => {
+    if (this.props.conversations) {
+      this.props.conversations.map((convo) => {
+        return (
+          <div className="convo_preview" />
+        );
+      });
+    }
+    return <div>You have no conversations</div>;
+  }
+
+  render() {
+    return (
+      <div className="chat">
+        {this.renderConversations()}
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (reduxState) => ({
+  user: reduxState.auth.user,
+  conversations: reduxState.chat.conversations,
+  currentConversation: reduxState.chat.currentConversation,
+});
+
+export default connect(mapStateToProps, { getConversations, getConversation, sendChatMessage })(Chat);

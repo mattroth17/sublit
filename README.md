@@ -5,6 +5,13 @@
 
 SubLit is a platform where students can post listings and students looking to sublet can find places. They can then chat in the web app to discuss a sublet agreement.
 
+## Dev Site
+### What worked
+Laying out all the components and modeling our listing management off of lab4/5 worked well. 
+
+### What Didn't 
+We tried to get chat working but the API calls and React components got pretty complicated so we're still working on that. 
+
 ## Architecture
 
 There are essentially five pages in this web app:  
@@ -21,7 +28,8 @@ We're using Boostrap to help design the app.
 
 ## Setup
 
-TODO: how to get the project dev environment up and running, npm install etc
+1. `yarn install`
+2. `yarn start`
 
 ## Deployment
 

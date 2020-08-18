@@ -86,10 +86,7 @@ class NewListing extends Component {
 
   makeListing = (user) => {
     this.setState({ email: user }, () => {
-      console.log(user);
-      console.log(this.state.email);
       const listing = { ...this.state };
-      console.log(listing);
       this.props.createListing(listing, this.props.history);
       this.props.history.push('/');
     });

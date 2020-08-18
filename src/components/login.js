@@ -6,6 +6,7 @@ const Login = (props) => {
   return (
     <div className="login-page">
       <NavLink to="/signin">Sign In</NavLink>
+      <p> </p>
       <NavLink to="/signup">Sign Up</NavLink>
     </div>
   );

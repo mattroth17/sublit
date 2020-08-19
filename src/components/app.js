@@ -32,7 +32,7 @@ class App extends Component {
             <Route path="/listings/:listingID" component={Listing} />
             <Route path="/chat" component={Chat} />
             <Route path="/signout" component={SignOut} />
-            <Route render={() => (<div>Listing Not Found </div>)} />
+            <Route render={() => (<div>Listing Not Found</div>)} />
           </Switch>
         </div>
       );

@@ -23,7 +23,7 @@ class App extends Component {
       return (
         <div className="page">
           <div className="top_bar">
-            <h1> Sublit </h1>
+            <h1> <div id="sublit-title">Sublit</div> </h1>
             <NavBar />
           </div>
           <Switch>
@@ -40,14 +40,16 @@ class App extends Component {
     return (
       <div className="page">
         <div className="top_bar">
-          <h1> Sublit </h1>
+          <h1> <div id="sublit-title">Sublit</div>
+            <Switch>
+              <Route exact path="/" component={Login} />
+              <Route path="/signin" component={SignIn} />
+              <Route path="/signup" component={SignUp} />
+            </Switch>
+          </h1>
         </div>
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
-        </Switch>
       </div>
+
     );
   };
 

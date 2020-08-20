@@ -27,8 +27,12 @@ class NewListing extends Component {
       renterName: '',
       ammenities: [],
       email: '',
+      images: [],
+      terms: [],
     };
   }
+
+  // componentDidMount
 
   // what's the point of date?
   onDateChange = (event) => {
@@ -85,6 +89,10 @@ class NewListing extends Component {
   }
 
   makeListing = (user) => {
+    if (this.state.address === '') {
+      console.log('need an address to make a posting');
+      return;
+    }
     this.setState({ email: user }, () => {
       const listing = { ...this.state };
       this.props.createListing(listing, this.props.history);
@@ -110,6 +118,14 @@ class NewListing extends Component {
     </div>
   );
 
+  addImage = (file) => {
+    this.state.images.push(file);
+  }
+
+  onTermsChange = (event) => {
+    this.setState({ terms: event.target.value });
+  }
+
   render() {
     return (
       <div className="new_listing">
@@ -124,6 +140,13 @@ class NewListing extends Component {
         </PlacesAutocomplete>
         <h2> Date? Not sure what this is for </h2>
         <input onChange={this.onDateChange} type="date" placeholder="Date" value={this.state.date} />
+        <h2> Which term(s) are you looking to sublet? (need backend support if we want to use this) </h2>
+        <div onChange={this.onTermsChange}>
+          <input type="checkbox" value="F" name="term" /> Fall
+          <input type="checkbox" value="W" name="term" /> Winter
+          <input type="checkbox" value="S" name="term" /> Spring
+          <input type="checkbox" value="X" name="term" /> Summer
+        </div>
         <h2> Cost of Rent (per month e.g. &quot;1000&quot;) </h2>
         <input onChange={this.onRentChange} type="number" placeholder="Cost of Rent" value={this.state.rent} />
         <h2> Description of the Space </h2>
@@ -147,9 +170,9 @@ class NewListing extends Component {
           <input type="radio" value="true" name="full" /> Yes
           <input type="radio" value="false" name="full" /> No
         </div>
-        <h2> Upload Images of the Sapce </h2>
-        <input type="file" />
-        <button type="button" onClick={() => this.makeListing()}> Post your listing. </button>
+        <h2> Upload Images of the Space - nonfunctional, currently </h2>
+        <input type="file" onClick={() => this.addImage()} />
+        <button type="button" onClick={() => this.makeListing(this.props.auth.user)}> Post your listing. </button>
       </div>
     );
   }

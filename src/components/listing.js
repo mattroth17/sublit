@@ -108,9 +108,8 @@ class Listing extends Component {
       return (<img key={pic} alt="" src={pic} />);
     });
   }
-                                                  
   // taken from new listing
-                                                  
+
   renderPlacesAutocomplete = ({
     getInputProps, getSuggestionItemProps, loading, suggestions,
   }) => (

@@ -27,6 +27,7 @@ class NewListing extends Component {
       numPics: 1,
       previews: [],
       files: [],
+      terms: [],
     };
   }
 
@@ -108,37 +109,6 @@ class NewListing extends Component {
     }
   }
 
-  // need better error handling in catch statement here
-  // makeListing = (user) => {
-  //   if (this.state.files.length > 0) {
-  //     const urls = [];
-  //     this.state.files.forEach((file) => {
-  //       s3.uploadImage(file).then((url) => {
-  //         urls.push(url);
-  //       }).catch((error) => {
-  //         console.log(error);
-  //       });
-  //     });
-  //     console.log(urls);
-  //     if (urls.length === this.state.files.length) {
-  //       console.log(urls);
-  //       this.setState({ email: user }, () => {
-  //         const listing = { ...this.state, pictures: urls };
-  //         this.props.createListing(listing, this.props.history);
-  //         this.props.history.push('/');
-  //       });
-  //     } else {
-  //       console.log('error uploading images');
-  //     }
-  //   } else {
-  //     this.setState({ email: user }, () => {
-  //       const listing = { ...this.state };
-  //       this.props.createListing(listing, this.props.history);
-  //       this.props.history.push('/');
-  //     });
-  //   }
-  // }
-
   makeListing = (user) => {
     if (this.state.files.length > 0) {
       const promises = [];
@@ -204,6 +174,14 @@ class NewListing extends Component {
     </div>
   );
 
+  addImage = (file) => {
+    this.state.images.push(file);
+  }
+
+  onTermsChange = (event) => {
+    this.setState({ terms: event.target.value });
+  }
+
   render() {
     return (
       <div className="new_listing">
@@ -218,6 +196,13 @@ class NewListing extends Component {
         </PlacesAutocomplete>
         <h2> Date? Not sure what this is for </h2>
         <input onChange={this.onDateChange} type="date" placeholder="Date" value={this.state.date} />
+        <h2> Which term(s) are you looking to sublet? (need backend support if we want to use this) </h2>
+        <div onChange={this.onTermsChange}>
+          <input type="checkbox" value="F" name="term" /> Fall
+          <input type="checkbox" value="W" name="term" /> Winter
+          <input type="checkbox" value="S" name="term" /> Spring
+          <input type="checkbox" value="X" name="term" /> Summer
+        </div>
         <h2> Cost of Rent (per month e.g. &quot;1000&quot;) </h2>
         <input onChange={this.onRentChange} type="number" placeholder="Cost of Rent" value={this.state.rent} />
         <h2> Description of the Space </h2>

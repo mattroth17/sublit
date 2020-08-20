@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { isEmpty } from 'underscore';
 import { fetchListing, updateListing, deleteListing } from '../actions';
 
 class Listing extends Component {
@@ -97,6 +98,16 @@ class Listing extends Component {
     });
   }
 
+  renderImages() {
+    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
+      return <div> Loading... </div>;
+    }
+    console.log(this.props.currentListing);
+    return this.props.currentListing.pictures.map((pic) => {
+      return (<img key={pic} alt="" src={pic} />);
+    });
+  }
+
   render() {
     if (!this.props.currentListing) {
       return <div> Loading... </div>;
@@ -139,6 +150,9 @@ class Listing extends Component {
           <li> Parking spaces: {this.props.currentListing.numParkingSpaces} </li>
           <li> Amenities: {this.props.currentListing.amenities} </li>
         </ul>
+        <div className="listing-images">
+          {this.renderImages()}
+        </div>
         <button type="button" onClick={() => this.startEdits()}> Your listing? Click here to edit. </button>
         <Link to="/chat"> Chat me </Link>
       </div>

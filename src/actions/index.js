@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
+export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
 
 // keys for actiontypes
 // going to need chat actions
@@ -47,6 +47,7 @@ export function createListing(listing, history) {
     };
     axios.post(`${ROOT_URL}/listings`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_LISTINGS });
         history.push('/');
       })
       .catch((error) => {

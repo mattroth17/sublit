@@ -2,13 +2,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-// import PlacesAutocomplete, {
-//   geocodeByAddress,
-//   geocodeByPlaceId,
-//   getLatLng,
-// } from 'react-places-autocomplete';
+import _ from 'underscore';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { createListing } from '../actions/index';
+import * as s3 from '../s3';
 
 class NewListing extends Component {
   constructor(props) {
@@ -27,6 +24,9 @@ class NewListing extends Component {
       renterName: '',
       ammenities: [],
       email: '',
+      numPics: 1,
+      previews: [],
+      files: [],
     };
   }
 
@@ -86,14 +86,104 @@ class NewListing extends Component {
     this.setState({ ammenities: event.target.value });
   }
 
+  // for image uploading
+
+  incrementPics = () => {
+    if (this.state.numPics === this.state.previews.length) {
+      this.setState((prevState) => {
+        return { numPics: prevState.numPics + 1 };
+      });
+    }
+  }
+
+  onImageUpload = (event) => {
+    const file = event.target.files[0];
+    // Handle null file
+    // Get url of the file and set it to the src of preview
+    if (file) {
+      this.setState((prevState) => ({
+        previews: [...prevState.previews, window.URL.createObjectURL(file)],
+        files: [...prevState.files, file],
+      }));
+    }
+  }
+
+  // need better error handling in catch statement here
+  // makeListing = (user) => {
+  //   if (this.state.files.length > 0) {
+  //     const urls = [];
+  //     this.state.files.forEach((file) => {
+  //       s3.uploadImage(file).then((url) => {
+  //         urls.push(url);
+  //       }).catch((error) => {
+  //         console.log(error);
+  //       });
+  //     });
+  //     console.log(urls);
+  //     if (urls.length === this.state.files.length) {
+  //       console.log(urls);
+  //       this.setState({ email: user }, () => {
+  //         const listing = { ...this.state, pictures: urls };
+  //         this.props.createListing(listing, this.props.history);
+  //         this.props.history.push('/');
+  //       });
+  //     } else {
+  //       console.log('error uploading images');
+  //     }
+  //   } else {
+  //     this.setState({ email: user }, () => {
+  //       const listing = { ...this.state };
+  //       this.props.createListing(listing, this.props.history);
+  //       this.props.history.push('/');
+  //     });
+  //   }
+  // }
+
   makeListing = (user) => {
-    this.setState({ email: user }, () => {
-      const listing = { ...this.state };
-      console.log(this.props.auth);
-      console.log(listing);
-      this.props.createListing(listing, this.props.history);
-      this.props.history.push('/');
-    });
+    if (this.state.files.length > 0) {
+      const promises = [];
+      this.state.files.forEach((file) => {
+        promises.push(s3.uploadImage(file));
+      });
+      Promise.all(promises).then((urls) => {
+        if (urls.length === this.state.files.length) {
+          console.log(urls);
+          this.setState({ email: user }, () => {
+            const listing = { ...this.state, pictures: urls };
+            this.props.createListing(listing, this.props.history);
+            this.props.history.push('/');
+          });
+        } else {
+          console.log('error uploading images');
+        }
+      });
+    } else {
+      this.setState({ email: user }, () => {
+        const listing = { ...this.state };
+        this.props.createListing(listing, this.props.history);
+        this.props.history.push('/');
+      });
+    }
+  }
+
+  renderPreviews() {
+    return (
+      <div className="image-previews">
+        {this.state.previews.map((pic) => {
+          return (<img key={pic} id="preview" alt="" src={pic} />);
+        })}
+      </div>
+    );
+  }
+
+  renderImageInputs() {
+    return (
+      <div className="image-uploads">
+        {_.range(this.state.numPics).map((pic) => {
+          return (<input key={pic} type="file" name="coverImage" onChange={this.onImageUpload} />);
+        })}
+      </div>
+    );
   }
 
   // adapted from this site: https://www.npmjs.com/package/react-places-autocomplete
@@ -152,7 +242,9 @@ class NewListing extends Component {
           <input type="radio" value="false" name="full" /> No
         </div>
         <h2> Upload Images of the Sapce </h2>
-        <input type="file" />
+        {this.renderPreviews()}
+        {this.renderImageInputs()}
+        <button type="submit" onClick={this.incrementPics}>Upload another picture</button>
         <button type="button" onClick={() => this.makeListing(this.props.auth.user)}> Post your listing. </button>
       </div>
     );

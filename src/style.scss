@@ -9,6 +9,7 @@ h1 {
   background-image: url('img/dartmouth-img.jpg');
   background-size: 100%;
   display: flex;
+  filter: brightness(90%);
   flex-direction: row;
   justify-content: space-evenly;
   width: 100%;

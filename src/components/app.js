@@ -23,7 +23,8 @@ class App extends Component {
       return (
         <div className="page">
           <div className="top_bar">
-            <h1> <div id="sublit-title">Sublit</div> </h1>
+            <h1> </h1>
+            <div id="sublit-title">Sublit</div>
             <NavBar />
           </div>
           <Switch>

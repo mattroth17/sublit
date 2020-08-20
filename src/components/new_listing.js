@@ -30,6 +30,8 @@ class NewListing extends Component {
     };
   }
 
+  // componentDidMount
+
   // what's the point of date?
   onDateChange = (event) => {
     this.setState({ date: event.target.value });
@@ -87,6 +89,8 @@ class NewListing extends Component {
   makeListing = (user) => {
     this.setState({ email: user }, () => {
       const listing = { ...this.state };
+      console.log(this.props.auth);
+      console.log(listing);
       this.props.createListing(listing, this.props.history);
       this.props.history.push('/');
     });
@@ -149,7 +153,7 @@ class NewListing extends Component {
         </div>
         <h2> Upload Images of the Sapce </h2>
         <input type="file" />
-        <button type="button" onClick={() => this.makeListing()}> Post your listing. </button>
+        <button type="button" onClick={() => this.makeListing(this.props.auth.user)}> Post your listing. </button>
       </div>
     );
   }

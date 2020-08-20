@@ -89,10 +89,10 @@ class Listing extends Component {
     console.log(this.props.currentListing);
     this.setState({ ...this.props.currentListing }, () => {
       console.log(this.state);
-      // NOTE: UNCOMMENT THESE LINES once backend supports email as part of listing
-      // if (this.props.auth.user !== this.state.email) {
-      // return;
-      // }
+      // NOTE: COMMENT THESE LINES if trouble w/ auth
+      if (this.props.auth.user !== this.state.email) {
+        return;
+      }
       this.setState({ editing: 1 });
     });
   }

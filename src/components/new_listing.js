@@ -136,16 +136,6 @@ class NewListing extends Component {
     }
   }
 
-  renderPreviews() {
-    return (
-      <div className="image-previews">
-        {this.state.previews.map((pic) => {
-          return (<img key={pic} id="preview" alt="" src={pic} />);
-        })}
-      </div>
-    );
-  }
-
   renderImageInputs() {
     return (
       <div className="image-uploads">
@@ -180,6 +170,16 @@ class NewListing extends Component {
 
   onTermsChange = (event) => {
     this.setState({ terms: event.target.value });
+  }
+  
+  renderPreviews() {
+    return (
+      <div className="image-previews">
+        {this.state.previews.map((pic) => {
+          return (<img key={pic} id="preview" alt="" src={pic} />);
+        })}
+      </div>
+    );
   }
 
   render() {

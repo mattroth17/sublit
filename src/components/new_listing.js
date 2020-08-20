@@ -88,7 +88,6 @@ class NewListing extends Component {
   }
 
   // for image uploading
-
   incrementPics = () => {
     if (this.state.numPics === this.state.previews.length) {
       this.setState((prevState) => {
@@ -136,16 +135,6 @@ class NewListing extends Component {
     }
   }
 
-  renderImageInputs() {
-    return (
-      <div className="image-uploads">
-        {_.range(this.state.numPics).map((pic) => {
-          return (<input key={pic} type="file" name="coverImage" onChange={this.onImageUpload} />);
-        })}
-      </div>
-    );
-  }
-
   // adapted from this site: https://www.npmjs.com/package/react-places-autocomplete
   // used to auto-suggest addresses
   renderPlacesAutocomplete = ({
@@ -164,14 +153,20 @@ class NewListing extends Component {
     </div>
   );
 
-  addImage = (file) => {
-    this.state.images.push(file);
-  }
-
   onTermsChange = (event) => {
     this.setState({ terms: event.target.value });
   }
-  
+
+  renderImageInputs() {
+    return (
+      <div className="image-uploads">
+        {_.range(this.state.numPics).map((pic) => {
+          return (<input key={pic} type="file" name="coverImage" onChange={this.onImageUpload} />);
+        })}
+      </div>
+    );
+  }
+
   renderPreviews() {
     return (
       <div className="image-previews">

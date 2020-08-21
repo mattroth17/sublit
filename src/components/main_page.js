@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchListings } from '../actions';
+import { fetchListings } from '../actions/index';
 import ListingSmallView from './listingSmallView';
 
 class Main extends Component {
@@ -15,6 +15,9 @@ class Main extends Component {
   }
 
   render() {
+    if (!this.props.listings) {
+      return <div> Loading... </div>;
+    }
     return (
       <div>
         <div id="listings_cont">

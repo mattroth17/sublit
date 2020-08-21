@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { isEmpty } from 'underscore';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { fetchListing, updateListing, deleteListing } from '../actions';
 
@@ -22,6 +23,7 @@ class Listing extends Component {
       renterName: '',
       ammenities: [],
       email: '',
+      term: [],
     };
   }
 
@@ -42,7 +44,7 @@ class Listing extends Component {
   }
 
   onLenSubletChange = (event) => {
-    this.setState({ lenSublet: event.target.value });
+    this.setState({ term: event.target.value });
   }
 
   onNumberOfRoomsChange = (event) => {
@@ -98,7 +100,6 @@ class Listing extends Component {
     });
   }
 
-  // taken from new listing
   renderPlacesAutocomplete = ({
     getInputProps, getSuggestionItemProps, loading, suggestions,
   }) => (
@@ -114,6 +115,26 @@ class Listing extends Component {
       </div>
     </div>
   );
+
+  retTerms() {
+    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
+      return <div> loading... </div>;
+    }
+
+    return this.props.currentListing.term.map((t) => {
+      return <div> {`${t}`} </div>;
+    });
+  }
+
+  renderImages() {
+    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
+      return <div> Loading... </div>;
+    }
+    console.log(this.props.currentListing);
+    return this.props.currentListing.pictures.map((pic) => {
+      return (<img key={pic} alt="" src={pic} />);
+    });
+  }
 
   render() {
     if (!this.props.currentListing) {
@@ -152,21 +173,28 @@ class Listing extends Component {
       );
     }
 
+    console.log(this.retTerms());
+
+    // add pictures
     return (
       <div className="indlisting">
         <div id="title">
           <h2>{this.props.currentListing.address}</h2>
           <h3>Rent: {this.props.currentListing.rent}</h3>
           <h3>Listed by: {this.props.currentListing.renterName}</h3>
+          <h3>Terms available: {this.retTerms()} </h3>
           {this.props.currentListing.description}
         </div>
         <ul>
-          <li> Sublet duration: {this.props.currentListing.lenSublet} </li>
           <li> Rooms: {this.props.currentListing.numberOfRooms} </li>
           <li> Bathrooms: {this.props.currentListing.numBaths} </li>
           <li> Parking spaces: {this.props.currentListing.numParkingSpaces} </li>
-          <li> Amenities: {this.props.currentListing.amenities} </li>
+          <li> Amenities: {this.props.currentListing.ammenities} </li>
+          <li> Full? {this.props.currentListing.isFullApartment} </li>
         </ul>
+        <div className="listing-images">
+          {this.renderImages()}
+        </div>
         <button type="button" onClick={() => this.startEdits()}> Your listing? Click here to edit. </button>
         <Link to="/chat"> Chat me </Link>
       </div>

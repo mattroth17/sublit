@@ -167,7 +167,14 @@ a {
       font-size: 40px;
     }
   }
+}
 
 
-
+.listing-images {
+  display: flex;
+  flex-direction: row;
+  img {
+    width: 25%;
+    height: auto;
+  }
 }

@@ -15,6 +15,9 @@ class Main extends Component {
   }
 
   render() {
+    if (!this.props.listings) {
+      return <div> Loading... </div>;
+    }
     return (
       <div>
         <div id="listings_cont">

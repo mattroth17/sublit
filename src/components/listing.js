@@ -100,17 +100,6 @@ class Listing extends Component {
     });
   }
 
-  renderImages() {
-    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
-      return <div> Loading... </div>;
-    }
-    console.log(this.props.currentListing);
-    return this.props.currentListing.pictures.map((pic) => {
-      return (<img key={pic} alt="" src={pic} />);
-    });
-  }
-  // taken from new listing
-
   renderPlacesAutocomplete = ({
     getInputProps, getSuggestionItemProps, loading, suggestions,
   }) => (
@@ -148,6 +137,16 @@ class Listing extends Component {
       a.array.forEach((am) => {
         return <div> {am} </div>;
       });
+    });
+  }
+
+  renderImages() {
+    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
+      return <div> Loading... </div>;
+    }
+    console.log(this.props.currentListing);
+    return this.props.currentListing.pictures.map((pic) => {
+      return (<img key={pic} alt="" src={pic} />);
     });
   }
 
@@ -189,7 +188,6 @@ class Listing extends Component {
     }
 
     const terms = this.retTerms();
-    
     // add pictures
     return (
       <div className="indlisting">
@@ -207,14 +205,10 @@ class Listing extends Component {
           <li> Amenities: {this.props.currentListing.ammenities} </li>
           <li> Full? {this.props.currentListing.isFullApartment} </li>
         </ul>
-<<<<<<< HEAD
-        <button type="button" onClick={() => this.startEdits()}> Your listing? Click here to edit or delete. </button>
-=======
         <div className="listing-images">
           {this.renderImages()}
         </div>
         <button type="button" onClick={() => this.startEdits()}> Your listing? Click here to edit. </button>
->>>>>>> a594b4d6119616f9458f8bedaef3d1f3be450493
         <Link to="/chat"> Chat me </Link>
       </div>
     );

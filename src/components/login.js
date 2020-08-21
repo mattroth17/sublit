@@ -2,11 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Card from '@material-ui/core/Card';
+// import CardActionArea from '@material-ui/core/CardActionArea';
+// import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const Login = (props) => {
   return (
     <div className="top-bar">
-      <h1> <div id="sublit-title">Sublit</div>
+      <div className="header"> <div id="sublit-title">Sublit</div>
         <div className="flex-btn">
           <div className="login-btn">
             <NavLink to="/signin" className="navlink">Sign In</NavLink>
@@ -16,12 +21,33 @@ const Login = (props) => {
           </div>
         </div>
 
-      </h1>
-      <div className="middle-section">
-        <img src="https://usm-feed-nneren.s3.amazonaws.com/7224fa62ad0d0643d7c4b91da556a736-1-.jpg?1547834631"
-          alt="house"
-          id="house-one"
-        />
+      </div>
+      <div className="middle-section-row">
+        <div className="img-flex">
+          <Card>
+            <CardMedia component="img" image="src/img/house-one.jpg" alt="house text" className="house" />
+            <CardContent className="img-text">
+              Beautiful home in Hanover, NH up for lease!
+            </CardContent>
+          </Card>
+        </div>
+        <div className="img-flex">
+          <Card>
+            <CardMedia component="img" image="src/img/house-two.jpeg" alt="house text" className="house" />
+            <CardContent className="img-text">
+              Beautiful home in Hanover, NH up for lease!
+            </CardContent>
+          </Card>
+        </div>
+        <div className="img-flex">
+          <Card>
+            <CardMedia component="img" image="src/img/house-three.jpg" alt="house text" className="house" />
+            <CardContent className="img-text">
+              Beautiful home in Hanover, NH up for lease!
+            </CardContent>
+          </Card>
+
+        </div>
       </div>
       <div className="middle-section">
         <div className="middle-oval" id="oval-one">

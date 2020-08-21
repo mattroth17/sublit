@@ -116,27 +116,13 @@ class Listing extends Component {
     </div>
   );
 
-  retTerms = () => {
-    if (!this.props.currentListing) {
-      return;
-    }
-    console.log(this.props.currentListing);
-    console.log(this.props.currentListing.term);
-    // return <div> testing </div>;
-    // this.state.terms.forEach((element) => {
-    //  return <div> {element} </div>;
-    // });
-  }
-
-  retList = () => {
-    if (!this.props.currentListing.ammenities) {
-      return;
+  retTerms() {
+    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
+      return <div> loading... </div>;
     }
 
-    this.props.currentListing.ammenities.forEach((a) => {
-      a.array.forEach((am) => {
-        return <div> {am} </div>;
-      });
+    return this.props.currentListing.term.map((t) => {
+      return <div> {`${t}`} </div>;
     });
   }
 
@@ -187,7 +173,8 @@ class Listing extends Component {
       );
     }
 
-    const terms = this.retTerms();
+    console.log(this.retTerms());
+
     // add pictures
     return (
       <div className="indlisting">
@@ -195,7 +182,7 @@ class Listing extends Component {
           <h2>{this.props.currentListing.address}</h2>
           <h3>Rent: {this.props.currentListing.rent}</h3>
           <h3>Listed by: {this.props.currentListing.renterName}</h3>
-          <h3>Terms available: still fixing this </h3>
+          <h3>Terms available: {this.retTerms()} </h3>
           {this.props.currentListing.description}
         </div>
         <ul>

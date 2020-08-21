@@ -31,6 +31,7 @@ export function fetchListings() {
 
 // fields on listing are tentative
 export function createListing(listing, history) {
+  console.log(listing);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/listings`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {

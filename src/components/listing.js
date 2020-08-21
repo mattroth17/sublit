@@ -23,6 +23,7 @@ class Listing extends Component {
       renterName: '',
       ammenities: [],
       email: '',
+      term: [],
     };
   }
 
@@ -43,7 +44,7 @@ class Listing extends Component {
   }
 
   onLenSubletChange = (event) => {
-    this.setState({ lenSublet: event.target.value });
+    this.setState({ term: event.target.value });
   }
 
   onNumberOfRoomsChange = (event) => {
@@ -126,6 +127,30 @@ class Listing extends Component {
     </div>
   );
 
+  retTerms = () => {
+    if (!this.props.currentListing) {
+      return;
+    }
+    console.log(this.props.currentListing);
+    console.log(this.props.currentListing.term);
+    // return <div> testing </div>;
+    // this.state.terms.forEach((element) => {
+    //  return <div> {element} </div>;
+    // });
+  }
+
+  retList = () => {
+    if (!this.props.currentListing.ammenities) {
+      return;
+    }
+
+    this.props.currentListing.ammenities.forEach((a) => {
+      a.array.forEach((am) => {
+        return <div> {am} </div>;
+      });
+    });
+  }
+
   render() {
     if (!this.props.currentListing) {
       return <div> Loading... </div>;
@@ -163,25 +188,33 @@ class Listing extends Component {
       );
     }
 
+    const terms = this.retTerms();
+    
+    // add pictures
     return (
       <div className="indlisting">
         <div id="title">
           <h2>{this.props.currentListing.address}</h2>
           <h3>Rent: {this.props.currentListing.rent}</h3>
           <h3>Listed by: {this.props.currentListing.renterName}</h3>
+          <h3>Terms available: still fixing this </h3>
           {this.props.currentListing.description}
         </div>
         <ul>
-          <li> Sublet duration: {this.props.currentListing.lenSublet} </li>
           <li> Rooms: {this.props.currentListing.numberOfRooms} </li>
           <li> Bathrooms: {this.props.currentListing.numBaths} </li>
           <li> Parking spaces: {this.props.currentListing.numParkingSpaces} </li>
-          <li> Amenities: {this.props.currentListing.amenities} </li>
+          <li> Amenities: {this.props.currentListing.ammenities} </li>
+          <li> Full? {this.props.currentListing.isFullApartment} </li>
         </ul>
+<<<<<<< HEAD
+        <button type="button" onClick={() => this.startEdits()}> Your listing? Click here to edit or delete. </button>
+=======
         <div className="listing-images">
           {this.renderImages()}
         </div>
         <button type="button" onClick={() => this.startEdits()}> Your listing? Click here to edit. </button>
+>>>>>>> a594b4d6119616f9458f8bedaef3d1f3be450493
         <Link to="/chat"> Chat me </Link>
       </div>
     );

@@ -24,10 +24,15 @@ class NewListing extends Component {
       renterName: '',
       ammenities: [],
       email: '',
+<<<<<<< HEAD
+      images: [],
+      term: [],
+=======
       numPics: 1,
       previews: [],
       files: [],
       terms: [],
+>>>>>>> a594b4d6119616f9458f8bedaef3d1f3be450493
     };
   }
 
@@ -87,6 +92,17 @@ class NewListing extends Component {
     this.setState({ ammenities: event.target.value });
   }
 
+  onTermsChange = (event) => {
+    const checks = document.getElementsByName('term');
+    const newterms = [];
+    checks.forEach((check) => {
+      if (check.checked) {
+        console.log(check.value);
+        newterms.push(check.value);
+      }
+    });
+    this.setState({ term: newterms });
+  }
   // for image uploading
   incrementPics = () => {
     if (this.state.numPics === this.state.previews.length) {
@@ -133,6 +149,15 @@ class NewListing extends Component {
         this.props.history.push('/');
       });
     }
+<<<<<<< HEAD
+    this.setState({ email: user }, () => {
+      const listing = { ...this.state };
+      console.log(listing);
+      this.props.createListing(listing, this.props.history);
+      this.props.history.push('/');
+    });
+=======
+>>>>>>> a594b4d6119616f9458f8bedaef3d1f3be450493
   }
 
   // adapted from this site: https://www.npmjs.com/package/react-places-autocomplete
@@ -153,6 +178,8 @@ class NewListing extends Component {
     </div>
   );
 
+<<<<<<< HEAD
+=======
   onTermsChange = (event) => {
     this.setState({ terms: event.target.value });
   }
@@ -177,6 +204,7 @@ class NewListing extends Component {
     );
   }
 
+>>>>>>> a594b4d6119616f9458f8bedaef3d1f3be450493
   render() {
     return (
       <div className="new_listing">

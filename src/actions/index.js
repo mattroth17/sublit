@@ -45,18 +45,7 @@ export function createListing(listing, history) {
 
 export function updateListing(listing) {
   return (dispatch) => {
-    const fields = {
-      address: `${listing.address}`,
-      rent: `${listing.rent}`,
-      numberOfRooms: `${listing.numberOfRooms}`,
-      isFullApartment: `${listing.isFullApartment}`,
-      pictures: `${listing.pictures}`,
-      numParkingSpaces: `${listing.numParkingSpaces}`,
-      description: `${listing.description}`,
-      renterName: `${listing.renterName}`,
-      ammenities: `${listing.ammenities}`,
-    };
-    axios.put(`${ROOT_URL}/listings/${listing.id}`, fields, { headers: { authorization: localStorage.getItem('token') } })
+    axios.put(`${ROOT_URL}/listings/${listing.id}`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })

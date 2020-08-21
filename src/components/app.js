@@ -13,6 +13,7 @@ import SignIn from './sign_in';
 import SignUp from './sign_up';
 import SignOut from './sign_out';
 import Chat from './chat';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // eventually include frontend for dropdown menu and chat
 // need to discuss w/ team where to include
@@ -23,7 +24,6 @@ class App extends Component {
       return (
         <div className="page">
           <div className="top_bar">
-            <h1> </h1>
             <div id="sublit-title">Sublit</div>
             <NavBar />
           </div>
@@ -48,6 +48,16 @@ class App extends Component {
               <Route path="/signup" component={SignUp} />
             </Switch>
           </h1>
+        </div>
+        <img id="house-one" src="house-one.jpg" alt="house" />
+        <div className="middle-section">
+          <div className="middle-oval">
+            testing
+          </div>
+          <div className="middle-oval">
+            more testing
+          </div>
+
         </div>
       </div>
 

@@ -5,9 +5,12 @@ import { NavLink } from 'react-router-dom';
 const Login = (props) => {
   return (
     <div className="login-page">
-      <NavLink to="/signin">Sign In</NavLink>
-      <p> </p>
-      <NavLink to="/signup">Sign Up</NavLink>
+      <div className="login-btn">
+        <NavLink to="/signin" className="navlink">Sign In</NavLink>
+      </div>
+      <div className="login-btn">
+        <NavLink to="/signup" className="navlink">Sign Up</NavLink>
+      </div>
     </div>
   );
 };

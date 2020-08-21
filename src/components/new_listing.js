@@ -94,7 +94,7 @@ class NewListing extends Component {
 
   onTermsChange = (event) => {
     const checks = document.getElementsByName('term');
-    const newterms = '';
+    const newterms = [];
     checks.forEach((check) => {
       if (check.checked) {
         console.log(check.value);

@@ -40,25 +40,11 @@ class App extends Component {
     }
     return (
       <div className="page">
-        <div className="top_bar">
-          <h1> <div id="sublit-title">Sublit</div>
-            <Switch>
-              <Route exact path="/" component={Login} />
-              <Route path="/signin" component={SignIn} />
-              <Route path="/signup" component={SignUp} />
-            </Switch>
-          </h1>
-        </div>
-        <img id="house-one" src="house-one.jpg" alt="house" />
-        <div className="middle-section">
-          <div className="middle-oval">
-            testing
-          </div>
-          <div className="middle-oval">
-            more testing
-          </div>
-
-        </div>
+        <Switch>
+          <Route exact path="/" component={Login} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
+        </Switch>
       </div>
 
     );

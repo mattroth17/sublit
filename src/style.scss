@@ -55,13 +55,47 @@ h1 {
 .middle-section{
   display: flex;
   flex-direction: column;
+  margin-top: -15px;
+  padding: 20px;
+  margin-bottom: 10px;
   background-color: #bbf1ff;;
+}
+
+.middle-oval{
+  width: 500px;
+  height: 200px;
+  border-radius: 50px;
+  background-color: lightcoral;
+  border: 3px solid black;
+  margin-bottom: 20px;
+}
+img{
+  width: auto;
+  height: auto;
+}
+#oval-one{
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#oval-two{
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;}
+#oval-three{
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 a {
   text-decoration: none !important;
   color: inherit !important; 
 }
+
 
 .login-btn{
   margin-left: 100px;
@@ -73,10 +107,27 @@ a {
   padding-right: 50px;
   padding-left: 50px;
   border-radius: 50px;
+  width: 220px;
+  align-content: center;
+
+  a{
+    font-size: 30px;
+  }
 }
 .navlink :hover{
   text-decoration: none;
   
+}
+
+.flex-btn{
+  display: flex;
+  flex-direction: row;
+}
+
+#house-one{
+  width: 400px;
+  height: auto;
+  border: 3px solid black;
 }
 
 .new_listing {

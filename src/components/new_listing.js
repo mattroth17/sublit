@@ -28,7 +28,7 @@ class NewListing extends Component {
       ammenities: [],
       email: '',
       images: [],
-      term: '',
+      term: [],
     };
   }
 

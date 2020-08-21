@@ -32,20 +32,7 @@ export function fetchListings() {
 // fields on listing are tentative
 export function createListing(listing, history) {
   return (dispatch) => {
-    const fields = {
-      date: `${listing.address}`,
-      address: `${listing.address}`,
-      rent: `${listing.rent}`,
-      numberOfRooms: `${listing.numberOfRooms}`,
-      isFullApartment: `${listing.isFullApartment}`,
-      pictures: `${listing.pictures}`,
-      numParkingSpaces: `${listing.numParkingSpaces}`,
-      description: `${listing.description}`,
-      renterName: `${listing.renterName}`,
-      ammenities: `${listing.ammenities}`,
-      email: `${listing.email}`,
-    };
-    axios.post(`${ROOT_URL}/listings`, fields, { headers: { authorization: localStorage.getItem('token') } })
+    axios.post(`${ROOT_URL}/listings`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTINGS });
         history.push('/');

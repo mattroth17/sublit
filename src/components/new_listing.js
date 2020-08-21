@@ -28,7 +28,7 @@ class NewListing extends Component {
       ammenities: [],
       email: '',
       images: [],
-      terms: [],
+      term: '',
     };
   }
 
@@ -88,6 +88,22 @@ class NewListing extends Component {
     this.setState({ ammenities: event.target.value });
   }
 
+  addImage = (file) => {
+    this.state.pictures.push(file);
+  }
+
+  onTermsChange = (event) => {
+    const checks = document.getElementsByName('term');
+    const newterms = '';
+    checks.forEach((check) => {
+      if (check.checked) {
+        console.log(check.value);
+        newterms.push(check.value);
+      }
+    });
+    this.setState({ term: newterms });
+  }
+
   makeListing = (user) => {
     if (this.state.address === '') {
       console.log('need an address to make a posting');
@@ -95,6 +111,7 @@ class NewListing extends Component {
     }
     this.setState({ email: user }, () => {
       const listing = { ...this.state };
+      console.log(listing);
       this.props.createListing(listing, this.props.history);
       this.props.history.push('/');
     });
@@ -117,14 +134,6 @@ class NewListing extends Component {
       </div>
     </div>
   );
-
-  addImage = (file) => {
-    this.state.images.push(file);
-  }
-
-  onTermsChange = (event) => {
-    this.setState({ terms: event.target.value });
-  }
 
   render() {
     return (

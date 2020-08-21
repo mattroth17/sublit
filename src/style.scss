@@ -43,3 +43,12 @@ h1 {
     align-self: center;
   }
 }
+
+.listing-images {
+  display: flex;
+  flex-direction: row;
+  img {
+    width: 25%;
+    height: auto;
+  }
+}

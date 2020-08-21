@@ -1,7 +1,11 @@
 import axios from 'axios';
 
+<<<<<<< HEAD
 // const ROOT_URL = 'https://local-host:9090';
 const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
+=======
+export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
+>>>>>>> a594b4d6119616f9458f8bedaef3d1f3be450493
 
 // keys for actiontypes
 // going to need chat actions
@@ -48,6 +52,7 @@ export function createListing(listing, history) {
     };
     axios.post(`${ROOT_URL}/listings`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_LISTINGS });
         history.push('/');
       })
       .catch((error) => {

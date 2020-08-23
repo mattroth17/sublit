@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchListings } from '../actions/index';
+import { fetchListings, fetchUser } from '../actions/index';
 import ListingSmallView from './listingSmallView';
 
 class Main extends Component {
   componentDidMount() {
     this.props.fetchListings();
+    this.props.fetchUser(this.props.email);
   }
 
   showListings() {
@@ -30,6 +31,7 @@ class Main extends Component {
 
 const mapStateToProps = (reduxState) => ({
   listings: reduxState.listings.all,
+  email: reduxState.auth.email,
 });
 
-export default connect(mapStateToProps, { fetchListings })(Main);
+export default connect(mapStateToProps, { fetchListings, fetchUser })(Main);

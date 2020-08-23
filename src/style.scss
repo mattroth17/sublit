@@ -52,3 +52,28 @@ h1 {
     height: auto;
   }
 }
+
+.chat {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  flex-direction: row;
+
+  .convos {
+    width: 50%;
+    border: blueviolet;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .conversation {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    button {
+      margin-bottom: auto;
+    }
+  }
+}

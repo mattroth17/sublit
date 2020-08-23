@@ -1,27 +1,21 @@
-import { React, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getConversations, getConversation, sendChatMessage } from '../actions';
-import Convos from './convos';
+import { getConversations, getConversation } from '../actions';
 import Convo from './convo';
 
 class Chat extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      // newMessage: '',
-    };
-  }
-
   componentDidMount() {
-    this.props.getConversations();
+    this.props.getConversations(this.props.user.email);
   }
 
   renderConversations = () => {
     if (this.props.conversations) {
       this.props.conversations.map((convo) => {
         return (
-          <div className="convo_preview" />
+          <div tabIndex={0} role="button" className="convo_preview" key={convo.id} onClick={() => this.props.getConversation(convo, this.props.user.email, convo.email)}>
+            <div>{convo.firstName}</div>
+            <div>{convo.email}</div>
+          </div>
         );
       });
     }
@@ -31,7 +25,9 @@ class Chat extends Component {
   render() {
     return (
       <div className="chat">
-        <Convos />
+        <div className="convos">
+          {this.renderConversations()}
+        </div>
         <Convo />
       </div>
     );
@@ -41,7 +37,6 @@ class Chat extends Component {
 const mapStateToProps = (reduxState) => ({
   user: reduxState.auth.user,
   conversations: reduxState.chat.conversations,
-  currentConversation: reduxState.chat.currentConversation,
 });
 
-export default connect(mapStateToProps, { getConversations, getConversation, sendChatMessage })(Chat);
+export default connect(mapStateToProps, { getConversations, getConversation })(Chat);

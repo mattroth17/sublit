@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { isEmpty } from 'underscore';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { fetchListing, updateListing, deleteListing } from '../actions';
+import {
+  fetchListing, updateListing, deleteListing, startConversation,
+} from '../actions';
 
 class Listing extends Component {
   constructor(props) {
@@ -98,6 +99,11 @@ class Listing extends Component {
       }
       this.setState({ editing: 1 });
     });
+  }
+
+  startConversation = () => {
+    this.props.startConversation(this.props.user.email, this.props.user.firstName, this.props.currentListing.email, this.props.currentListing.renterName);
+    this.props.history.push('/chat');
   }
 
   renderPlacesAutocomplete = ({
@@ -196,7 +202,7 @@ class Listing extends Component {
           {this.renderImages()}
         </div>
         <button type="button" onClick={() => this.startEdits()}> Your listing? Click here to edit. </button>
-        <Link to="/chat"> Chat me </Link>
+        <button type="submit" onClick={this.startConversation}> Chat me </button>
       </div>
     );
   }
@@ -204,7 +210,10 @@ class Listing extends Component {
 
 const mapStateToProps = (reduxState) => ({
   currentListing: reduxState.listings.current,
-  auth: reduxState.auth,
+  auth: reduxState.auth.authenticated,
+  user: reduxState.auth.user,
 });
 
-export default connect(mapStateToProps, { fetchListing, updateListing, deleteListing })(Listing);
+export default connect(mapStateToProps, {
+  fetchListing, updateListing, deleteListing, startConversation,
+})(Listing);

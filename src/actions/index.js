@@ -16,6 +16,18 @@ export const ActionTypes = {
   ERROR_CLEAR: 'ERROR_CLEAR',
 };
 
+export function fetchFiltered(filters) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/filter`, filters, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_FILTERED, payload: response.data });
+      })
+      .catch((error) => {
+        dispatch({ type: ActionTypes.ERROR_SET, error });
+      });
+  };
+}
+
 // need to incorporate sorting based on season, number of people, etc.
 export function fetchListings() {
   return (dispatch) => {

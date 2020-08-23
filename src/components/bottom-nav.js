@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class BottomNav extends Component {
-  render() {
-    return (
-      <div className="bottom-nav" />
-    );
-  }
-}
+const BottomNav = (props) => {
+  return (
+    <div className="bottom-nav">
+      <div className="right-side" />
+    </div>
+  );
+};
 
 export default BottomNav;

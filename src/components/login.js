@@ -8,14 +8,15 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
-const Login = (props) => {
+const Login = (props) => { // sort out the buttons
   return (
     <div className="top-bar">
       <div className="header"> <div id="sublit-title">Sublit</div>
         <div className="flex-btn">
-          <div className="login-btn">
-            <NavLink to="/signin" className="navlink">Sign In</NavLink>
-          </div>
+
+          <NavLink to="/signin" className="navlink">
+            <div className="login-btn">Sign In    </div>
+          </NavLink>
           <div className="login-btn">
             <NavLink to="/signup" className="navlink">Sign Up</NavLink>
           </div>

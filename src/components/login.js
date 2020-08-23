@@ -14,12 +14,14 @@ const Login = (props) => { // sort out the buttons
       <div className="header"> <div id="sublit-title">Sublit</div>
         <div className="flex-btn">
 
-          <NavLink to="/signin" className="navlink">
-            <div className="login-btn">Sign In    </div>
+          <NavLink to="/signin" className="login-btn">
+            <div className="navlink">Sign In    </div>
           </NavLink>
-          <div className="login-btn">
-            <NavLink to="/signup" className="navlink">Sign Up</NavLink>
-          </div>
+          <NavLink to="/signup" className="login-btn">
+            <div className="navlink">
+              Sign Up
+            </div>
+          </NavLink>
         </div>
 
       </div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchListings } from '../actions/index';
 import ListingSmallView from './listingSmallView';
+import MapContainer from './googlemap';
 
 class Main extends Component {
   componentDidMount() {
@@ -22,6 +23,9 @@ class Main extends Component {
       <div>
         <div id="listings_cont">
           {this.showListings()}
+        </div>
+        <div>
+          <MapContainer />
         </div>
       </div>
     );

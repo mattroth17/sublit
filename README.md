@@ -33,7 +33,9 @@ We're using Boostrap to help design the app.
 
 ## Deployment
 
-We're going to deploy the page on surge and have the listings stored in mongoDB's cloud services. 
+The page is deployed on surge and the listings are stored in mongoDB's cloud services. 
+[deployed site](http://sublit.surge.sh/)
+
 
 ## Authors
 Caroline Tornquist, Chase Krivickas, Jonah Kalsner Kershen, Jack Vasu, Matthew Roth, Sada Nichols-Worley,

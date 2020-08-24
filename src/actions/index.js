@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
+export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
 
 // keys for actiontypes
 // going to need chat actions
@@ -31,22 +31,11 @@ export function fetchListings() {
 
 // fields on listing are tentative
 export function createListing(listing, history) {
+  console.log(listing);
   return (dispatch) => {
-    const fields = {
-      date: `${listing.address}`,
-      address: `${listing.address}`,
-      rent: `${listing.rent}`,
-      numberOfRooms: `${listing.numberOfRooms}`,
-      isFullApartment: `${listing.isFullApartment}`,
-      pictures: `${listing.pictures}`,
-      numParkingSpaces: `${listing.numParkingSpaces}`,
-      description: `${listing.description}`,
-      renterName: `${listing.renterName}`,
-      ammenities: `${listing.ammenities}`,
-      email: `${listing.email}`,
-    };
-    axios.post(`${ROOT_URL}/listings`, fields, { headers: { authorization: localStorage.getItem('token') } })
+    axios.post(`${ROOT_URL}/listings`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_LISTINGS });
         history.push('/');
       })
       .catch((error) => {
@@ -57,18 +46,7 @@ export function createListing(listing, history) {
 
 export function updateListing(listing) {
   return (dispatch) => {
-    const fields = {
-      address: `${listing.address}`,
-      rent: `${listing.rent}`,
-      numberOfRooms: `${listing.numberOfRooms}`,
-      isFullApartment: `${listing.isFullApartment}`,
-      pictures: `${listing.pictures}`,
-      numParkingSpaces: `${listing.numParkingSpaces}`,
-      description: `${listing.description}`,
-      renterName: `${listing.renterName}`,
-      ammenities: `${listing.ammenities}`,
-    };
-    axios.put(`${ROOT_URL}/listings/${listing.id}`, fields, { headers: { authorization: localStorage.getItem('token') } })
+    axios.put(`${ROOT_URL}/listings/${listing.id}`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { isEmpty } from 'underscore';
 import { getConversation, sendChatMessage } from '../actions';
 
 class Convo extends Component {
@@ -17,10 +18,14 @@ class Convo extends Component {
 
   onSendMessage = () => {
     this.props.sendChatMessage(this.props.user.email, this.props.user.firstName, this.props.conversation.email, this.props.conversation.firstName, this.state.newMessage);
+    this.setState({ newMessage: '' });
   }
 
   renderMessages = () => {
-    this.props.messages.map((message) => {
+    if (!this.props.messages || isEmpty(this.props.messages)) {
+      return <div>Send a message to get the conversation going</div>;
+    }
+    return this.props.messages.map((message) => {
       return (
         <div className="message">{message.text}</div>
       );

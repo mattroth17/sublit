@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { isEmpty } from 'underscore';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import {
-  fetchListing, updateListing, deleteListing, startConversation,
+  fetchListing, updateListing, deleteListing, startConversation, getConversation,
 } from '../actions';
 
 class Listing extends Component {
@@ -108,6 +108,13 @@ class Listing extends Component {
     this.props.startConversation(this.props.user, this.props.currentListing.author, this.props.history);
   }
 
+  goToConversation = () => {
+    const email = this.props.currentListing.author;
+    const firstName = this.props.currentListing.author;
+    this.props.getConversation({ email, firstName }, this.props.user.email, email);
+    this.props.history.push('/chat');
+  }
+
   renderPlacesAutocomplete = ({
     getInputProps, getSuggestionItemProps, loading, suggestions,
   }) => (
@@ -144,6 +151,18 @@ class Listing extends Component {
     });
   }
 
+  renderChatButton() {
+    if (!isEmpty(this.props.currentListing)) {
+      const authorEmail = this.props.currentListing.author.email;
+      const hasConvo = this.props.user.conversations.some((convo) => convo.email === authorEmail);
+      if (hasConvo) {
+        return (<button type="submit" onClick={() => this.goToConversation()}> Go to Conversation </button>);
+      }
+      return (<button type="submit" onClick={() => this.startConversation()}> Chat me </button>);
+    }
+    return <div />;
+  }
+
   renderButtons() {
     if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
       return <div> loading... </div>;
@@ -170,14 +189,14 @@ class Listing extends Component {
           <i className="fas fa-chevron-left" />
         </li>
         <li key="chat">
-          <button type="submit" onClick={() => this.startConversation()}> Chat me </button>
+          {this.renderChatButton()}
         </li>
       </ul>
     );
   }
 
   render() {
-    if (!this.props.currentListing) {
+    if (isEmpty(this.props.currentListing)) {
       return <div> Loading... </div>;
     }
 
@@ -217,7 +236,7 @@ class Listing extends Component {
         <div id="title">
           <h2>{this.props.currentListing.address}</h2>
           <h3>Rent: {this.props.currentListing.rent}</h3>
-          <h3>Listed by: {this.props.currentListing.renterName}</h3>
+          <h3>Listed by: {this.props.currentListing.author.firstName}</h3>
           <h3>Terms available: {this.retTerms()} </h3>
           {this.props.currentListing.description}
         </div>
@@ -245,5 +264,5 @@ const mapStateToProps = (reduxState) => ({
 });
 
 export default connect(mapStateToProps, {
-  fetchListing, updateListing, deleteListing, startConversation,
+  fetchListing, updateListing, deleteListing, startConversation, getConversation,
 })(Listing);

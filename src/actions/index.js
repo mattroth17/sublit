@@ -13,6 +13,7 @@ export const ActionTypes = {
   AUTH_ERROR: 'AUTH_ERROR',
   FETCH_CONVERSATIONS: 'FETCH_CONVERSATIONS',
   FETCH_CONVERSATION: 'FETCH_CONVERSATION',
+  FETCH_MESSAGE: 'FETCH_MESSAGE',
   ERROR_SET: 'ERROR_SET',
   ERROR_CLEAR: 'ERROR_CLEAR',
 };
@@ -119,7 +120,7 @@ export function getConversation(conversation, person1Email, person2Email) {
     axios.post(`${ROOT_URL}/getallmessages`, { person1Email, person2Email }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         console.log(response);
-        dispatch({ type: ActionTypes.FETCH_CONVERSATION, conversation, messages: response.data.messages });
+        dispatch({ type: ActionTypes.FETCH_CONVERSATION, conversation, messages: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });
@@ -149,7 +150,7 @@ export function sendChatMessage(senderEmail, senderFirstName, recipientEmail, re
     };
     axios.post(`${ROOT_URL}/message`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+        dispatch({ type: ActionTypes.FETCH_MESSAGE, message: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });

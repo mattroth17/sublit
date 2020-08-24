@@ -21,7 +21,6 @@ class Listing extends Component {
       numParkingSpaces: 0,
       numBaths: 0,
       description: '',
-      renterName: '',
       ammenities: [],
       email: '',
       term: [],
@@ -77,10 +76,6 @@ class Listing extends Component {
     this.setState({ description: event.target.value });
   }
 
-  onNameChange = (event) => {
-    this.setState({ renterName: event.target.value });
-  }
-
   onAmmenitiesChange = (event) => {
     this.setState({ ammenities: event.target.value });
   }
@@ -101,9 +96,16 @@ class Listing extends Component {
     });
   }
 
+  deleteListing = (event) => {
+    this.props.deleteListing(this.props.match.params.listingID, this.props.history);
+  };
+
+  goBack = (event) => {
+    this.props.history.push('/');
+  }
+
   startConversation = () => {
-    this.props.startConversation(this.props.user.email, this.props.user.firstName, this.props.currentListing.email, this.props.currentListing.renterName);
-    this.props.history.push('/chat');
+    this.props.startConversation(this.props.user, this.props.currentListing.author, this.props.history);
   }
 
   renderPlacesAutocomplete = ({
@@ -142,6 +144,38 @@ class Listing extends Component {
     });
   }
 
+  renderButtons() {
+    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
+      return <div> loading... </div>;
+    }
+
+    if (this.props.currentListing.author.email === this.props.email) {
+      return (
+        <ul className="icon-list">
+          <li key="return" onClick={this.goBack}>
+            <i className="fas fa-chevron-left" />
+          </li>
+          <li key="edit" onClick={this.startEdits}>
+            <i className="fas fa-edit" />
+          </li>
+          <li key="delete" onClick={this.deleteListing}>
+            <i className="fas fa-trash-alt" />
+          </li>
+        </ul>
+      );
+    }
+    return (
+      <ul className="icon-list">
+        <li key="return" onClick={this.goBack}>
+          <i className="fas fa-chevron-left" />
+        </li>
+        <li key="chat">
+          <button type="submit" onClick={() => this.startConversation()}> Chat me </button>
+        </li>
+      </ul>
+    );
+  }
+
   render() {
     if (!this.props.currentListing) {
       return <div> Loading... </div>;
@@ -150,7 +184,6 @@ class Listing extends Component {
     if (this.state.editing === 1) {
       return (
         <div className="edit_listing">
-          <input onChange={this.onNameChange} placeholder={`Name: ${this.props.currentListing.renterName}`} /> <p> </p>
           <PlacesAutocomplete
             value={this.state.address}
             onChange={(value) => this.setState({ address: value })}
@@ -179,9 +212,6 @@ class Listing extends Component {
       );
     }
 
-    console.log(this.retTerms());
-
-    // add pictures
     return (
       <div className="indlisting">
         <div id="title">
@@ -201,8 +231,7 @@ class Listing extends Component {
         <div className="listing-images">
           {this.renderImages()}
         </div>
-        <button type="button" onClick={() => this.startEdits()}> Your listing? Click here to edit. </button>
-        <button type="submit" onClick={this.startConversation}> Chat me </button>
+        {this.renderButtons()}
       </div>
     );
   }
@@ -211,6 +240,7 @@ class Listing extends Component {
 const mapStateToProps = (reduxState) => ({
   currentListing: reduxState.listings.current,
   auth: reduxState.auth.authenticated,
+  email: reduxState.auth.email,
   user: reduxState.auth.user,
 });
 

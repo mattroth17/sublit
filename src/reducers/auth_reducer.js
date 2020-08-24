@@ -11,7 +11,7 @@ const AuthReducer = (state = init, action) => {
     case ActionTypes.AUTH_USER:
       return { authenticated: true, email: action.email };
     case ActionTypes.FETCH_USER:
-      return { ...state, user: action.user };
+      return { ...state, user: action.payload };
     case ActionTypes.DEAUTH_USER:
       return { authenticated: false, user: {}, email: '' };
     case ActionTypes.AUTH_ERROR:

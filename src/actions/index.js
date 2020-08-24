@@ -32,11 +32,10 @@ export function fetchListings() {
 
 // fields on listing are tentative
 export function createListing(listing, history) {
-  console.log(listing);
   return (dispatch) => {
+    console.log(listing);
     axios.post(`${ROOT_URL}/listings`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_LISTINGS });
         history.push('/');
       })
       .catch((error) => {
@@ -82,32 +81,28 @@ export function deleteListing(id, history) {
 }
 // create conversation (needs to be changed after talking w/ caroline/chase)
 // could be an issue with creating conversations here (not transactional, one could be created but the otehr might not be)
-export function startConversation(email1, firstName1, firstName2, email2) {
+// need to look into preventing duplicate conversations (could be done with button in listing )
+export function startConversation(user1, user2, history) {
   return (dispatch) => {
     const person1 = {
-      email: email1,
+      email: user1.email,
       update: {
-        conversations: [{
-          email: email2,
-          firstname: firstName2,
-        }],
+        conversations: [...user1.conversations, { email: user2.email, firstName: user2.firstName }],
       },
     };
     const person2 = {
-      email: email2,
+      email: user2.email,
       update: {
-        conversations: [{
-          email: email1,
-          firstname: firstName1,
-        }],
+        conversations: [...user2.conversations, { email: user1.email, firstName: user1.firstName }],
       },
     };
-    const conversation = { email: email2, firstName: firstName2 };
-    axios.put(`${ROOT_URL}/updateuserinfo`, { person1 }, { headers: { authorization: localStorage.getItem('token') } })
+    const conversation = { email: user2.email, firstName: user2.firstName };
+    axios.put(`${ROOT_URL}/updateuserinfo`, person1, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        axios.put(`${ROOT_URL}/updateuserinfo`, { person2 }, { headers: { authorization: localStorage.getItem('token') } })
+        axios.put(`${ROOT_URL}/updateuserinfo`, person2, { headers: { authorization: localStorage.getItem('token') } })
           .then((res) => {
             dispatch({ type: ActionTypes.FETCH_CONVERSATION, conversation, messages: [] });
+            history.push('/chat');
           })
           .catch((err) => {
             dispatch({ type: ActionTypes.ERROR_SET, err });
@@ -121,7 +116,7 @@ export function startConversation(email1, firstName1, firstName2, email2) {
 // needs to be filled in (not sure what parameters/body to send... do we need both id and convo id?)
 export function getConversation(conversation, person1Email, person2Email) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/getallmessages`, { person1Email, person2Email }, { headers: { authorization: localStorage.getItem('token') } })
+    axios.post(`${ROOT_URL}/getallmessages`, { person1Email, person2Email }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         console.log(response);
         dispatch({ type: ActionTypes.FETCH_CONVERSATION, conversation, messages: response.data.messages });
@@ -134,9 +129,11 @@ export function getConversation(conversation, person1Email, person2Email) {
 
 export function getConversations(email) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/getuser`, { email }, { headers: { authorization: localStorage.getItem('token') } })
+    console.log('test');
+    axios.post(`${ROOT_URL}/getuser`, { email }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_CONVERSATIONS, payload: response.data.conversations });
+        console.log(response);
+        dispatch({ type: ActionTypes.FETCH_CONVERSATIONS, payload: response.data[0].conversations });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });
@@ -145,12 +142,12 @@ export function getConversations(email) {
 }
 
 // needs to be altered
-export function sendChatMessage(message, id1, id2) {
+export function sendChatMessage(senderEmail, senderFirstName, recipientEmail, recipientFirstName, text) {
   return (dispatch) => {
     const fields = {
-      message: { message }, from: { id1 }, to: { id2 },
+      senderEmail, senderFirstName, recipientEmail, recipientFirstName, text,
     };
-    axios.post(`${ROOT_URL}/messages`, fields, { headers: { authorization: localStorage.getItem('token') } })
+    axios.post(`${ROOT_URL}/message`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
       })
@@ -171,11 +168,12 @@ export function authError(error) {
 
 export function fetchUser(email) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/getuser`, { email }, { headers: { authorization: localStorage.getItem('token') } })
+    axios.post(`${ROOT_URL}/getuser`, { email }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_USER, user: response.data });
+        dispatch({ type: ActionTypes.FETCH_USER, payload: response.data[0] });
       })
       .catch((error) => {
+        console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, error });
       });
   };
@@ -185,8 +183,8 @@ export function signinUser({ email, password }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signin`, { email, password })
       .then((response) => {
-        dispatch({ type: ActionTypes.AUTH_USER, email });
         localStorage.setItem('token', response.data.token);
+        dispatch({ type: ActionTypes.AUTH_USER, email });
         history.push('/');
       })
       .catch((error) => {
@@ -200,9 +198,8 @@ export function signupUser({ email, password, firstName }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signup`, { email, password, firstName })
       .then((response) => {
-        console.log('test1');
-        dispatch({ type: ActionTypes.AUTH_USER, email });
         localStorage.setItem('token', response.data.token);
+        dispatch({ type: ActionTypes.AUTH_USER, email });
         history.push('/');
       })
       .catch((error) => {

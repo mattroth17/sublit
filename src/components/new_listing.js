@@ -21,7 +21,6 @@ class NewListing extends Component {
       numParkingSpaces: 0,
       numBaths: 0,
       description: '',
-      renterName: '',
       ammenities: [],
       email: '',
       images: [],
@@ -29,6 +28,7 @@ class NewListing extends Component {
       numPics: 1,
       previews: [],
       files: [],
+      author: this.props.user,
     };
   }
 
@@ -78,10 +78,6 @@ class NewListing extends Component {
 
   onDescriptionChange = (event) => {
     this.setState({ description: event.target.value });
-  }
-
-  onNameChange = (event) => {
-    this.setState({ renterName: event.target.value });
   }
 
   onAmmenitiesChange = (event) => {
@@ -189,8 +185,6 @@ class NewListing extends Component {
   render() {
     return (
       <div className="new_listing">
-        <h2> Renter Name </h2>
-        <input onChange={this.onNameChange} placeholder="Renter Name" value={this.state.renterName} />
         <h2> Address of Available Space </h2>
         <PlacesAutocomplete
           value={this.state.address}
@@ -242,6 +236,7 @@ class NewListing extends Component {
 
 const mapStateToProps = (reduxState) => ({
   auth: reduxState.auth,
+  user: reduxState.auth.user,
 });
 
 export default withRouter(connect(mapStateToProps, { createListing })(NewListing));

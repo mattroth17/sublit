@@ -11,7 +11,7 @@ const ChatReducer = (state = init, action) => {
     case ActionTypes.FETCH_CONVERSATIONS:
       return { ...state, conversations: action.payload };
     case ActionTypes.FETCH_CONVERSATION:
-      return { ...state, conversataion: action.conversation, messages: action.messages };
+      return { ...state, conversation: action.conversation, messages: action.messages };
     default:
       return state;
   }

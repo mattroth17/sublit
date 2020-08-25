@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchListings, fetchFiltered } from '../actions/index';
+import { fetchListings, fetchUser, fetchFiltered } from '../actions/index';
 import ListingSmallView from './listingSmallView';
 import MapContainer from './googlemap';
 
@@ -19,6 +19,7 @@ class Main extends Component {
 
   componentDidMount() {
     this.props.fetchListings();
+    this.props.fetchUser(this.props.email);
   }
 
   termChange = (event) => {
@@ -117,6 +118,7 @@ class Main extends Component {
 
 const mapStateToProps = (reduxState) => ({
   listings: reduxState.listings.all,
+  email: reduxState.auth.email,
 });
 
-export default connect(mapStateToProps, { fetchListings, fetchFiltered })(Main);
+export default connect(mapStateToProps, { fetchListings, fetchUser, fetchFiltered })(Main);

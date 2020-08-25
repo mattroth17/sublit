@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { isEmpty } from 'underscore';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { fetchListing, updateListing, deleteListing } from '../actions';
+import {
+  fetchListing, updateListing, deleteListing, startConversation, getConversation,
+} from '../actions';
 import './css_files/listing.scss';
 
 class Listing extends Component {
@@ -21,7 +22,6 @@ class Listing extends Component {
       numParkingSpaces: 0,
       numBaths: 0,
       description: '',
-      renterName: '',
       ammenities: [],
       email: '',
       term: [],
@@ -77,10 +77,6 @@ class Listing extends Component {
     this.setState({ description: event.target.value });
   }
 
-  onNameChange = (event) => {
-    this.setState({ renterName: event.target.value });
-  }
-
   onAmmenitiesChange = (event) => {
     this.setState({ ammenities: event.target.value });
   }
@@ -100,6 +96,25 @@ class Listing extends Component {
       }
       this.setState({ editing: 1 });
     });
+  }
+
+  deleteListing = (event) => {
+    this.props.deleteListing(this.props.match.params.listingID, this.props.history);
+  };
+
+  goBack = (event) => {
+    this.props.history.push('/');
+  }
+
+  startConversation = () => {
+    this.props.startConversation(this.props.user, this.props.currentListing.author, this.props.history);
+  }
+
+  goToConversation = () => {
+    const email = this.props.currentListing.author;
+    const firstName = this.props.currentListing.author;
+    this.props.getConversation({ email, firstName }, this.props.user.email, email);
+    this.props.history.push('/chat');
   }
 
   renderPlacesAutocomplete = ({
@@ -138,9 +153,52 @@ class Listing extends Component {
     });
   }
 
+  renderChatButton() {
+    if (!isEmpty(this.props.currentListing)) {
+      const authorEmail = this.props.currentListing.author.email;
+      const hasConvo = this.props.user.conversations.some((convo) => convo.email === authorEmail);
+      if (hasConvo) {
+        return (<button type="submit" onClick={() => this.goToConversation()}> Go to Conversation </button>);
+      }
+      return (<button type="submit" onClick={() => this.startConversation()}> Chat me </button>);
+    }
+    return <div />;
+  }
+
+  renderButtons() {
+    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
+      return <div> loading... </div>;
+    }
+
+    if (this.props.currentListing.author.email === this.props.email) {
+      return (
+        <ul className="icon-list">
+          <li key="return" onClick={this.goBack}>
+            <i className="fas fa-chevron-left" />
+          </li>
+          <li key="edit" onClick={this.startEdits}>
+            <i className="fas fa-edit" />
+          </li>
+          <li key="delete" onClick={this.deleteListing}>
+            <i className="fas fa-trash-alt" />
+          </li>
+        </ul>
+      );
+    }
+    return (
+      <ul className="icon-list">
+        <li key="return" onClick={this.goBack}>
+          <i className="fas fa-chevron-left" />
+        </li>
+        <li key="chat">
+          {this.renderChatButton()}
+        </li>
+      </ul>
+    );
+  }
+
   render() {
-    console.log('loading');
-    if (!this.props.currentListing) {
+    if (isEmpty(this.props.currentListing)) {
       return <div> Loading... </div>;
     }
 
@@ -183,10 +241,6 @@ class Listing extends Component {
       );
     }
 
-    console.log(this.retTerms());
-
-    // add pictures
-    console.log('rendering right thing');
     return (
       <div className="indlisting">
         <div className="leftColumn">
@@ -211,8 +265,7 @@ class Listing extends Component {
             {this.renderImages()}
           </div>
           <div className="buttons">
-            <button type="submit" onClick={this.startEdits}> Your listing? Click here to edit. </button>
-            <Link to="/chat"> Chat Me </Link>
+            {this.renderButtons()}
           </div>
         </div>
       </div>
@@ -222,7 +275,11 @@ class Listing extends Component {
 
 const mapStateToProps = (reduxState) => ({
   currentListing: reduxState.listings.current,
-  auth: reduxState.auth,
+  auth: reduxState.auth.authenticated,
+  email: reduxState.auth.email,
+  user: reduxState.auth.user,
 });
 
-export default connect(mapStateToProps, { fetchListing, updateListing, deleteListing })(Listing);
+export default connect(mapStateToProps, {
+  fetchListing, updateListing, deleteListing, startConversation, getConversation,
+})(Listing);

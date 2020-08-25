@@ -22,7 +22,6 @@ class SignIn extends Component {
 
   onSubmit = (event) => {
     this.props.signinUser({ email: this.state.email, password: this.state.password }, this.props.history);
-    this.props.history.push('/');
   }
 
   onCancel = (event) => {

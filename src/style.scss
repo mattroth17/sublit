@@ -2,6 +2,7 @@ body, html {
   font-family: "Roboto", sans-serif;
   height: 100%;
 }
+
 #sublitLogo{
   background-image: url("logo3.png");
   width: 8.5rem;
@@ -10,11 +11,13 @@ body, html {
   margin-top:1rem;
   margin-left:1rem;
 }
+
 .top_bar {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 3%;
 
   h1 {
     margin-block-start: 5px;
@@ -22,6 +25,15 @@ body, html {
 
   a {
     text-decoration: none;
+  }
+
+  .screen {
+    background-image: url("logo3.png");
+    width: 8.5rem;
+    height:2.5rem;
+    background-size: cover;
+    margin-top:1rem;
+    margin-left:1rem;
   }
 }
 
@@ -45,6 +57,7 @@ body, html {
     align-self: center;
   }
 }
+
 .user-creator{
   height: 40rem;
   background-image: url("darthall.png");
@@ -56,6 +69,7 @@ body, html {
   margin-right:-1rem;
   margin-top:-6rem;
 }
+
 .signInHeader{
   text-align: center;
   background-color:white;
@@ -66,29 +80,35 @@ body, html {
   border-radius: 25px;
   margin-top:5rem;
 }
+
 .email-input, .password-input, .name-input{
   width:14rem;
   height:2rem;
   margin-top:1rem;
   margin-left:1rem;
 }
+
 .password-input{
   margin-right:2.86rem;
 }
+
 .email, .pass, .firstName, .signUpEmail{
   display:flex;
   flex-direction:row;
   justify-content: center;
   padding:.5rem;
 }
+
 .firstName{
   margin-right:3.75rem;
 }
+
 .iconsBox{
   display:flex;
   justify-content: center;
   align-content: center;
 }
+
 .icon-list {
   padding-left:0rem;
   border-width: 1px;
@@ -96,17 +116,20 @@ body, html {
  
 
 }
+
 ul {
   list-style-type: none;
   width: 10rem;
   
 }
+
 ul li{
   float:left;
   padding: 1rem;
   padding-left: 2rem;
   padding-right: 2rem;
 }
+
 ul li:hover{
   cursor: pointer;
 }

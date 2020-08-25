@@ -1,0 +1,23 @@
+html {
+    box-sizing: border-box;
+}
+
+#nav_bar {
+    font-family: Roboto;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    a {
+        background-color: #C2E6C8;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+        border: 2.5px solid #136A11;
+        text-decoration: none;
+        color: black;
+        display: flex;
+        align-items: center;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}

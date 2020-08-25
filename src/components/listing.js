@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { isEmpty } from 'underscore';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { fetchListing, updateListing, deleteListing } from '../actions';
+import './css_files/listing.scss';
 
 class Listing extends Component {
   constructor(props) {
@@ -91,6 +92,7 @@ class Listing extends Component {
   }
 
   startEdits = () => {
+    console.log('starting edits');
     this.setState({ ...this.props.currentListing }, () => {
       // NOTE: COMMENT THESE LINES if trouble w/ auth
       if (this.props.auth.user !== this.state.email) {
@@ -137,10 +139,12 @@ class Listing extends Component {
   }
 
   render() {
+    console.log('loading');
     if (!this.props.currentListing) {
       return <div> Loading... </div>;
     }
 
+    console.log('rendering editing');
     if (this.state.editing === 1) {
       return (
         <div className="edit_listing">
@@ -176,27 +180,35 @@ class Listing extends Component {
     console.log(this.retTerms());
 
     // add pictures
+    console.log('rendering right thing');
     return (
       <div className="indlisting">
-        <div id="title">
-          <h2>{this.props.currentListing.address}</h2>
-          <h3>Rent: {this.props.currentListing.rent}</h3>
-          <h3>Listed by: {this.props.currentListing.renterName}</h3>
-          <h3>Terms available: {this.retTerms()} </h3>
-          {this.props.currentListing.description}
+        <div className="leftColumn">
+          <div id="title">
+            <h2>{this.props.currentListing.address}</h2>
+            <hr />
+            <h3>Rent: {this.props.currentListing.rent}</h3>
+            <h3>Listed by: {this.props.currentListing.renterName}</h3>
+            <div id="terms"><h3>Terms available: </h3> {this.retTerms()} </div>
+            <h3>{this.props.currentListing.description}</h3>
+          </div>
+          <ul className="amenities">
+            <li> Rooms: {this.props.currentListing.numberOfRooms} </li>
+            <li> Bathrooms: {this.props.currentListing.numBaths} </li>
+            <li> Parking spaces: {this.props.currentListing.numParkingSpaces} </li>
+            <li> Amenities: {this.props.currentListing.ammenities} </li>
+            <li> Full? {this.props.currentListing.isFullApartment} </li>
+          </ul>
         </div>
-        <ul>
-          <li> Rooms: {this.props.currentListing.numberOfRooms} </li>
-          <li> Bathrooms: {this.props.currentListing.numBaths} </li>
-          <li> Parking spaces: {this.props.currentListing.numParkingSpaces} </li>
-          <li> Amenities: {this.props.currentListing.ammenities} </li>
-          <li> Full? {this.props.currentListing.isFullApartment} </li>
-        </ul>
-        <div className="listing-images">
-          {this.renderImages()}
+        <div className="rightColumn">
+          <div className="listing-images">
+            {this.renderImages()}
+          </div>
+          <div className="buttons">
+            <button type="button" onClick={this.startEdits}> Your listing? Click here to edit. </button>
+            <Link to="/chat"> Chat Me </Link>
+          </div>
         </div>
-        <button type="button" onClick={() => this.startEdits()}> Your listing? Click here to edit. </button>
-        <Link to="/chat"> Chat me </Link>
       </div>
     );
   }

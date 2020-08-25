@@ -81,6 +81,10 @@ class Main extends Component {
     }
   }
 
+  backToMain() {
+    this.setState({ filts: 0 });
+  }
+
   render() {
     if (!this.props.listings) {
       return <div> Loading... </div>;
@@ -91,6 +95,7 @@ class Main extends Component {
         <div id="filt_cont">
           Filtered results:
           {this.showFiltered()}
+          <button type="button" onClick={() => this.backToMain()}> Return to main page. </button>
         </div>
       );
     }

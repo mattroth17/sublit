@@ -46,12 +46,12 @@ export function fetchListings() {
 // fields on listing are tentative
 export function createListing(listing, history) {
   return (dispatch) => {
-    console.log(listing);
     axios.post(`${ROOT_URL}/listings`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         history.push('/');
       })
       .catch((error) => {
+        console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, error });
       });
   };
@@ -197,6 +197,7 @@ export function signinUser({ email, password }, history) {
     axios.post(`${ROOT_URL}/signin`, { email, password })
       .then((response) => {
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('email', email);
         dispatch({ type: ActionTypes.AUTH_USER, email });
         history.push('/');
       })
@@ -212,6 +213,7 @@ export function signupUser({ email, password, firstName }, history) {
     axios.post(`${ROOT_URL}/signup`, { email, password, firstName })
       .then((response) => {
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('email', email);
         dispatch({ type: ActionTypes.AUTH_USER, email });
         history.push('/');
       })

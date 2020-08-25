@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchListings } from '../actions/index';
 import ListingSmallView from './listingSmallView';
+import MapContainer from './googlemap';
 
 class Main extends Component {
   componentDidMount() {
@@ -10,21 +11,39 @@ class Main extends Component {
 
   showListings() {
     return this.props.listings.map((listing) => {
+      console.log(listing);
       return (<ListingSmallView key={listing.id} listing={listing} />);
     });
+  }
+
+  showMap() {
+    if (this.props.listings.length > 0) {
+      return (
+        <MapContainer listings={this.props.listings} />
+      );
+    } else {
+      return (
+        <div>
+          Loading...
+        </div>
+      );
+    }
   }
 
   render() {
     if (!this.props.listings) {
       return <div> Loading... </div>;
-    }
-    return (
-      <div>
-        <div id="listings_cont">
-          {this.showListings()}
+    } else {
+      console.log(`listings are ${this.props.listings}`);
+      return (
+        <div className="mainpage-flex">
+          <div id="listings_cont">
+            {this.showListings()}
+          </div>
+          {this.showMap()}
         </div>
-      </div>
-    );
+      );
+    }
   }
 }
 

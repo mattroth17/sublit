@@ -1,7 +1,41 @@
 body, html {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Rosarivo', serif;
   height: 100%;
+  margin: 0;    //jonah testing this
+  overflow-x: hidden;
+  max-width: 100%;
 }
+
+.header {
+  background-image: url('img/dartmouth-img-figma.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  // filter: brightness(90%);
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+  min-height: 550px;
+  height: 550px;
+  font-family: 'Rosarivo', serif;
+}
+#sublit-title{
+  font-size: 125px;
+  color: white;
+  letter-spacing: 15px;
+  top: 80px;
+  left: 175px;
+  position: relative;
+
+}
+
+.login-page{
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  width: 100%;
+}
+
 
 #sublitLogo{
   background-image: url("logo3.png");
@@ -15,16 +49,89 @@ body, html {
 .top_bar {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
+  overflow-x: hidden;
+  max-width: 100%;
   margin-bottom: 2%;
 
-  h1 {
-    margin-block-start: 5px;
-  }
 
   a {
     text-decoration: none;
+    color: black;
+  }
+
+ 
+}
+.middle-section{
+  display: flex;
+  flex-direction: column;
+  margin-top: -15px;
+  padding: 20px;
+  background-color: rgb(48, 48, 48);
+}
+
+.middle-section-row{
+  display: flex;
+  flex-direction: row;
+  margin-top: -15px;
+  padding: 20px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  background-color: rgb(243, 240, 240);
+}
+
+.middle-oval{
+  width: 500px;
+  height: 200px;
+  border-radius: 50px;
+  background-color: white;
+  border: 1px solid black;
+  margin-bottom: 20px;
+}
+img{
+  width: auto;
+  height: auto;
+}
+#oval-one{
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#oval-two{
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;}
+#oval-three{
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none !important;
+  color: inherit !important; 
+}
+
+
+.login-btn{
+  margin-left: 100px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 50px;
+  padding-left: 50px;
+  border-radius: 50px;
+  width: 220px;
+  align-content: center;
+
+  a{
+    font-size: 30px;
   }
 
   .screen {
@@ -36,6 +143,74 @@ body, html {
     margin-left:1rem;
   }
 }
+.navlink :hover{
+  text-decoration: none;
+  
+}
+
+.bottom-nav{
+  border-top: 1px solid white;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  background-color: rgb(48, 48, 48);
+}
+.right-side{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: white;
+  font-size: 24px;
+  width: 200px;
+  margin-right: 20px;
+}
+.left-side{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 600px;
+  color: white;
+  font-family: 'Rosarivo', serif;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.img-flex{
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+.mainpage-flex{
+  display: flex;
+  flex-direction: row;
+}
+.page{
+  font-family: 'Rosarivo', serif;
+
+}
+.flex-btn{
+  display: flex;
+  flex-direction: row;
+}
+.img-text{
+  text-align: center;
+  background-color: white;
+  border-radius: 30px;
+  margin-right: 40px;
+  margin-left: 40px;
+}
+
+.navlink{
+  height: fit-content;
+  width: fit-content;
+  font-size: 30px;
+  text-align: center;
+
+}
+
+
 
 .new_listing {
   display: flex;
@@ -55,6 +230,29 @@ body, html {
     border-width: 0px;
     border-radius: 5px;
     align-self: center;
+  }
+}
+@media screen and (max-width: 768px){
+  #sublit-title{
+    font-size: 75px;
+  }
+
+  .navlink{
+    font-size: 40px;
+
+  }
+
+
+
+  .login-btn{
+    width: 50px;
+    height: auto;
+    a{
+      font-size: 40px;
+    }
+  }
+  .img-flex{
+    width: 200px;
   }
 }
 

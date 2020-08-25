@@ -196,7 +196,7 @@ class Listing extends Component {
             <h3>Rent: {this.props.currentListing.rent}</h3>
             <h3>Listed by: {this.props.currentListing.renterName}</h3>
             <div id="terms"><h3>Terms available: </h3> {this.retTerms()} </div>
-            <h3>{this.props.currentListing.description}</h3>
+            {this.props.currentListing.description}
           </div>
           <ul className="amenities">
             <li> Rooms: {this.props.currentListing.numberOfRooms} </li>

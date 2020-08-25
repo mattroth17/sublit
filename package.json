@@ -41,11 +41,16 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "axios": "^0.19.2",
+    "bootstrap": "^4.5.2",
+    "google-map-react": "^2.0.8",
+    "google-maps-react": "^2.0.6",
     "jquery": "^3.5.1",
     "lodash.debounce": "^4.0.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-geocode": "^0.2.1",
     "react-places-autocomplete": "^7.3.0",
     "react-redux": "^7.2.1",
     "react-router": "^5.2.0",

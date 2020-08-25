@@ -1,13 +1,16 @@
 body, html {
   font-family: "Roboto", sans-serif;
   height: 100%;
+  box-sizing: border-box;
 }
-
-h1 {
-  color: red;
-  background-color: orange;
+#sublitLogo{
+  background-image: url("logo3.png");
+  width: 8.5rem;
+  height:2.5rem;
+  background-size: cover;
+  margin-top:1rem;
+  margin-left:1rem;
 }
-
 .top_bar {
   width: 100%;
   display: flex;
@@ -44,6 +47,53 @@ h1 {
   }
 }
 
+.user-creator{
+  height: 40rem;
+  background-image: url("darthall.png");
+  opacity: 1;
+  background-size: cover;
+  padding-top:1rem;
+  margin-left:-1rem;
+  margin-right:-1rem;
+}
+.signInHeader{
+  text-align: center;
+  background-color:white;
+  border: 2px solid;
+  padding:1rem;
+  margin-right:25rem;
+  margin-left:25rem;
+  border-radius: 25px;
+}
+.email-input, .password-input, .name-input{
+  width:14rem;
+  height:2rem;
+  margin-top:1rem;
+  margin-left:1rem;
+}
+.password-input{
+  margin-right:2.86rem;
+}
+.email, .pass, .firstName, .signUpEmail{
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
+  padding:.5rem;
+}
+.firstName{
+  margin-right:3.75rem;
+}
+.iconsBox{
+  display:flex;
+  justify-content: center;
+  align-content: center;
+}
+.icon-list {
+  padding-left:0rem;
+  border-width: 1px;
+  border-style: solid;
+}
+
 .listing-images {
   display: flex;
   flex-direction: row;
@@ -61,19 +111,67 @@ h1 {
 
   .convos {
     width: 50%;
+    height: 100%;
     border: blueviolet;
     display: flex;
     flex-direction: column;
+
+    .convo_preview {
+      width: 90%;
+      height: 10%;
+      border: 1px solid black;
+      border-radius: 3px;
+      padding: 3px;
+      transition: all 200ms;
+    }
+
+    .convo_preview:hover {
+      background-color: #5a85c7;
+      color: white;
+    }
+
+    .selected {
+      background-color: #5a85c7;
+      color: white;
+      border-color: white;
+    }
   }
 
   .conversation {
     width: 50%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
 
-    button {
-      margin-bottom: auto;
+    .message {
+      text-align: left;
+      border-radius: 5px;
+      background-color: cornflowerblue;
+      padding: 4px;
+      margin: 4px;
+      color: white;
+      max-width: 50%;
+    }
+    .sent {
+      align-self: flex-end;
+    }
+    .received {
+      align-self: flex-start;
     }
   }
+}
+ul {
+  list-style-type: none;
+  width: 10rem;
+  
+}
+ul li {
+  float:left;
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+ul li:hover {
+  cursor: pointer;
 }

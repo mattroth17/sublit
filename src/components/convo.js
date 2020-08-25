@@ -26,19 +26,20 @@ class Convo extends Component {
       return <div>Send a message to get the conversation going</div>;
     }
     return this.props.messages.map((message) => {
+      const messageType = (message.senderEmail === this.props.user.email) ? 'sent' : 'received';
       return (
-        <div className="message">{message.text}</div>
+        <div className={`message ${messageType}`}>{message.text}</div>
       );
     });
   }
 
   render() {
-    if (this.props.conversation) {
+    if (!isEmpty(this.props.conversation)) {
       return (
         <div className="conversation">
           {this.renderMessages()}
-          <input onChange={this.onMessageChange} placeholder="Message" value={this.state.newMessage} />
-          <button type="submit" onClick={this.onSendMessage}>Send</button>
+          <input className="send-message" onChange={this.onMessageChange} placeholder="Message" value={this.state.newMessage} />
+          <button className="send-message" type="submit" onClick={this.onSendMessage}>Send</button>
         </div>
       );
     }

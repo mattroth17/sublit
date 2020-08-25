@@ -20,7 +20,7 @@ class Main extends Component {
     return this.props.listings.map((listing) => {
       console.log(listing);
       return (
-        <div>
+        <div key={listing.id}>
           <Link className="smallViewLink" to={`/listings/${listing.id}`}>
             <ListItem button>
               <ListingSmallView key={listing.id} listing={listing} />
@@ -55,7 +55,7 @@ class Main extends Component {
       return (
         <div className="mainpage-flex">
           <div id="listings-div">
-            <List>
+            <List id="listings-list">
               {this.showListings()}
             </List>
           </div>

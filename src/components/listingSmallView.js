@@ -13,7 +13,6 @@ class ListingSmallView extends Component {
   render() {
     return (
       <div className="smallview-outer">
-        {/* <Link className="smallViewLink" to={`/listings/${this.props.listing.id}`}> {this.props.listing.address}. </Link> */}
         {this.props.listing.address}.
         <div className="smallView">
           <p className="name"> Posted by: { this.props.listing.author.firstName }</p>

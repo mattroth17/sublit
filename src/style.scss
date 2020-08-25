@@ -319,10 +319,21 @@ a {
   border-width: 1px;
   border-style: solid;
 }
+.smallView{
+  margin-top: 10px;
+}
 .smallview-outer{
   width: 100%;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  div{
+    font-weight: normal;
+    font-size: 14px;
+  }
 }
 #listings-div{
+  background-color: lightblue;
   width: 400px;
 }
 .listing-images {
@@ -391,6 +402,11 @@ a {
       align-self: flex-start;
     }
   }
+}
+
+#listings-list{
+  width: 100%;
+
 }
 
 ul {

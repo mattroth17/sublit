@@ -56,31 +56,35 @@ class MapContainer extends Component {
 
   // have to set API key for each Geocoding call?
   // otherwise i would put it in componentdidMount?
-  renderMarkers = () => {
-    // return (<Marker position={{ lat: 43.702813, lng: -72.288530 }} />
-    // );
+  //   renderMarkers = () => {
+  //     // return (<Marker position={{ lat: 43.702813, lng: -72.288530 }} />
+  //     // );
 
-    // eslint-disable-next-line array-callback-return
-    return this.props.listings.map((listing) => {
-      if (listing.address !== '') {
-        // Get latidude & longitude from address.
-        Geocode.fromAddress(listing.address).then(
-          (response) => {
-            const latitude = response.results[0].geometry.location.lat;
-            const longitude = response.results[0].geometry.location.lng;
-            console.log('lat and long below');
-            console.log(latitude, longitude);
-            console.log(response.results[0].geometry.location);
-            return (<Marker position={{ lat: latitude, lng: longitude }} />);
-          },
-          (error) => {
-            console.error(error);
-          },
-        );
-      } else {
-        console.log('address was null');
-      }
-    });
+  //     // eslint-disable-next-line array-callback-return
+  //     return this.props.listings.map((listing) => {
+  //       if (listing.address !== '') {
+  //         // Get latidude & longitude from address.
+  //         Geocode.fromAddress(listing.address).then(
+  //           (response) => {
+  //             const latitude = response.results[0].geometry.location.lat;
+  //             const longitude = response.results[0].geometry.location.lng;
+  //             console.log('lat and long below');
+  //             console.log(latitude, longitude);
+  //             console.log(response.results[0].geometry.location);
+  //             return (<Marker position={{ lat: latitude, lng: longitude }} />);
+  //           },
+  //           (error) => {
+  //             console.error(error);
+  //           },
+  //         );
+  //       } else {
+  //         console.log('address was null');
+  //       }
+  //     });
+  //   }
+
+  onMarkerClick = () => {
+
   }
 
   getMarkers = () => {
@@ -88,24 +92,10 @@ class MapContainer extends Component {
     console.log(this.state.stores);
     return this.state.stores.map((store, index) => {
       console.log('returning marker');
-      console.log(`${store.lat} ${store.lng}`);
+      console.log(`${store.lat} ${store.lng} ${index}`);
       // eslint-disable-next-line react/no-array-index-key
-      return (<Marker key={index} position={{ lat: store.lat, lng: store.lng }} />);
+      return (<Marker key={index} position={{ lat: store.lat, lng: store.lng }} onClick={this.onMarkerClick} />);
     });
-  }
-
-  renderTest = () => {
-    console.log('render test');
-    return (
-      <Marker position={{ lat: 43.702813, lng: -72.288530 }} />
-    );
-  }
-
-  renderTest2 = () => {
-    console.log('render test');
-    return (
-      <Marker position={{ lat: 44.702813, lng: -72.288530 }} />
-    );
   }
 
   renderMap = () => {
@@ -114,14 +104,11 @@ class MapContainer extends Component {
       return (
         <Map
           google={this.props.google}
-          zoom={5}
+          zoom={10}
           initialCenter={{ lat: 43.702813, lng: -72.288530 }}
           style={mapStyles}
         >
-          {/* {this.renderMarkers()} */}
           {this.getMarkers()}
-          {/* {this.renderTest()} */}
-          {/* {this.renderTest2()} */}
         </Map>
       );
     } else {
@@ -136,7 +123,7 @@ class MapContainer extends Component {
   render() {
     console.log('rendering map');
     return (
-      <div>
+      <div className="map-div">
         {this.renderMap()}
       </div>
     );

@@ -186,10 +186,14 @@ a {
 .mainpage-flex{
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 .page{
   font-family: 'Rosarivo', serif;
 
+}
+.map-div{
+  width: 800px;
 }
 .flex-btn{
   display: flex;
@@ -313,7 +317,12 @@ a {
   border-width: 1px;
   border-style: solid;
 }
-
+.smallview-outer{
+  width: 100%;
+}
+#listings-div{
+  width: 400px;
+}
 .listing-images {
   display: flex;
   flex-direction: row;

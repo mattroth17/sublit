@@ -8,7 +8,6 @@ import {
 } from '../actions';
 import './css_files/listing.scss';
 
-
 class Listing extends Component {
   constructor(props) {
     super(props);

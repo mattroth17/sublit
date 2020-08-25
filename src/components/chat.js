@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { isEmpty } from 'underscore';
-import { getConversations, getConversation } from '../actions';
+import { getConversations, getConversation, fetchUser } from '../actions';
 import Convo from './convo';
 
 class Chat extends Component {
   componentDidMount() {
     this.props.getConversations(this.props.email);
+    this.props.fetchUser(this.props.email);
   }
 
   // eslint-disable-next-line consistent-return
   renderConversations = () => {
-    if (this.props.user.conversations.length === 0) {
+    if (isEmpty(this.props.user)) {
+      return <div>Loading...</div>;
+    } else if (this.props.user.conversations.length === 0) {
       return <div>You have no conversations</div>;
     } else if (this.props.conversations.length === 0) {
       return <div>Loading...</div>;
@@ -50,4 +53,4 @@ const mapStateToProps = (reduxState) => ({
   conversation: reduxState.chat.conversation,
 });
 
-export default connect(mapStateToProps, { getConversations, getConversation })(Chat);
+export default connect(mapStateToProps, { getConversations, getConversation, fetchUser })(Chat);

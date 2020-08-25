@@ -8,7 +8,7 @@ const init = {
 const ErrorReducer = (state = init, action) => {
   switch (action.type) {
     case ActionTypes.ERROR_SET:
-      return { isError: true, errorMessage: action.error.message };
+      return { isError: true, errorMessage: action.error.response.data };
     case ActionTypes.ERROR_CLEAR:
       return { isError: false, errorMessage: '' };
     case ActionTypes.AUTH_ERROR:

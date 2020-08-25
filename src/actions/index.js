@@ -190,26 +190,37 @@ export function signinUser({ email, password }, history) {
         history.push('/');
       })
       .catch((error) => {
-        dispatch(authError(`Sign In Failed: ${error.response.data}`));
-        history.push('/');
+        if (error.response) {
+          dispatch(authError('Sign in failed: Incorrect username or password'));
+        } else {
+          dispatch(authError(`Sign Up Failed: ${error}`));
+        }
       });
   };
 }
 
 export function signupUser({ email, password, firstName }, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { email, password, firstName })
-      .then((response) => {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('email', email);
-        dispatch({ type: ActionTypes.AUTH_USER, email });
-        history.push('/');
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch(authError(`Sign Up Failed: ${error}`));
-        history.push('/');
-      });
+    const emailPattern = /^[A-Za-z0-9._%+-]+@dartmouth.edu$/;
+    const valid = emailPattern.test(email);
+    if (!valid) {
+      dispatch({ type: ActionTypes.AUTH_ERROR, message: 'Sign Up Failed: Email must be a valid Dartmouth address' });
+    } else {
+      axios.post(`${ROOT_URL}/signup`, { email, password, firstName })
+        .then((response) => {
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('email', email);
+          dispatch({ type: ActionTypes.AUTH_USER, email });
+          history.push('/');
+        })
+        .catch((error) => {
+          if (error.response) {
+            dispatch(authError(`Sign Up Failed: ${error.response.data}`));
+          } else {
+            dispatch(authError(`Sign Up Failed: ${error}`));
+          }
+        });
+    }
   };
 }
 

@@ -1,5 +1,11 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
 import { fetchListings, fetchUser } from '../actions/index';
 import ListingSmallView from './listingSmallView';
 import MapContainer from './googlemap';
@@ -13,7 +19,17 @@ class Main extends Component {
   showListings() {
     return this.props.listings.map((listing) => {
       console.log(listing);
-      return (<ListingSmallView key={listing.id} listing={listing} />);
+      return (
+        <div key={listing.id}>
+          <Link className="smallViewLink" to={`/listings/${listing.id}`}>
+            <ListItem button>
+              <ListingSmallView key={listing.id} listing={listing} />
+            </ListItem>
+            <Divider />
+          </Link>
+        </div>
+
+      );
     });
   }
 
@@ -38,8 +54,10 @@ class Main extends Component {
       console.log(`listings are ${this.props.listings}`);
       return (
         <div className="mainpage-flex">
-          <div id="listings_cont">
-            {this.showListings()}
+          <div id="listings-div">
+            <List id="listings-list">
+              {this.showListings()}
+            </List>
           </div>
           {this.showMap()}
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import './css_files/nav_bar.scss';
 
 // ideally will turn this into a drop-down type menu
 const NavBar = (props) => {

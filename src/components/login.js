@@ -5,9 +5,12 @@ import { NavLink } from 'react-router-dom';
 const Login = (props) => {
   return (
     <div className="login-page">
-      <NavLink to="/signin">Sign In</NavLink>
+      <div className="welcome">
+        <h2> Welcome to Sublit! Please sign in or sign up to view/add listings. </h2>
+      </div>
+      <NavLink to="/signin" className="sign">Sign In</NavLink>
       <p> </p>
-      <NavLink to="/signup">Sign Up</NavLink>
+      <NavLink to="/signup" className="sign">Sign Up</NavLink>
     </div>
   );
 };

@@ -25,6 +25,7 @@ class App extends Component {
         <div className="page">
           <div className="top_bar">
             <div id="sublit-title">Sublit</div>
+            <div className="screen">  </div>
             <NavBar />
           </div>
           <Switch>

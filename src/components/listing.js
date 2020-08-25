@@ -95,9 +95,9 @@ class Listing extends Component {
     console.log('starting edits');
     this.setState({ ...this.props.currentListing }, () => {
       // NOTE: COMMENT THESE LINES if trouble w/ auth
-      if (this.props.auth.user !== this.state.email) {
+      /* if (this.props.auth.user !== this.state.email) {
         return;
-      }
+      } */
       this.setState({ editing: 1 });
     });
   }
@@ -148,31 +148,37 @@ class Listing extends Component {
     if (this.state.editing === 1) {
       return (
         <div className="edit_listing">
-          <input onChange={this.onNameChange} placeholder={`Name: ${this.props.currentListing.renterName}`} /> <p> </p>
-          <PlacesAutocomplete
-            value={this.state.address}
-            onChange={(value) => this.setState({ address: value })}
-            placeholder={`Address: ${this.props.currentListing.address}`}
-          >
-            {this.renderPlacesAutocomplete}
-          </PlacesAutocomplete> <p> </p>
-          <input onChange={this.onDateChange} type="date" placeholder={`Date Posted: ${this.props.currentListing.date}`} /> <p> </p>
-          <input onChange={this.onRentChange} type="number" placeholder={`Rent: ${this.props.currentListing.rent}`} /> <p> </p>
-          <input onChange={this.onLenSubletChange} placeholder={`Length: ${this.props.currentListing.lenSublet}`} /> <p> </p>
-          <input onChange={this.onNumberOfRoomsChange} placeholder={`Rooms: ${this.props.currentListing.numberOfRooms}`} /> <p> </p>
-          <input onChange={this.onIsFullApartmentChange} placeholder={`Full? ${this.props.currentListing.isFullApartment}`} /> <p> </p>
-          <input onChange={this.onPicturesChangee} placeholder="Upload pictures - not currently functional" /> <p> </p>
-          <input onChange={this.onNumParkingSpacesChange} placeholder={`Parking: ${this.props.currentListing.numParkingSpaces}`} /> <p> </p>
-          <input onChange={this.onNumBathsChange} type="number" placeholder={`Baths: ${this.props.currentListing.numBaths}`} /> <p> </p>
-          <input onChange={this.onDescriptionChange} placeholder={`Desc.: ${this.props.currentListing.description}`} /> <p> </p>
-          <input onChange={this.onAmmenitiesChange} placeholder={`Amenities: ${this.props.currentListing.ammenities}`} /> <p> </p>
-          <h2> Is it an entire apartment/house? </h2>
-          <div onChange={this.onIsFullApartmentChange}>
-            <input type="radio" value="true" name="full" /> Yes
-            <input type="radio" value="false" name="full" /> No
+          <div className="form-boxes">
+            <input onChange={this.onNameChange} placeholder={`Name: ${this.props.currentListing.renterName}`} /> <p> </p>
+            <PlacesAutocomplete
+              value={this.state.address}
+              onChange={(value) => this.setState({ address: value })}
+              placeholder={`Address: ${this.props.currentListing.address}`}
+            >
+              {this.renderPlacesAutocomplete}
+            </PlacesAutocomplete> <p> </p>
+            <input onChange={this.onDateChange} type="date" placeholder={`Date Posted: ${this.props.currentListing.date}`} /> <p> </p>
+            <input onChange={this.onRentChange} type="number" placeholder={`Rent: ${this.props.currentListing.rent}`} /> <p> </p>
+            <input onChange={this.onLenSubletChange} placeholder={`Length: ${this.props.currentListing.lenSublet}`} /> <p> </p>
+            <input onChange={this.onNumberOfRoomsChange} placeholder={`Rooms: ${this.props.currentListing.numberOfRooms}`} /> <p> </p>
+            <input onChange={this.onIsFullApartmentChange} placeholder={`Full? ${this.props.currentListing.isFullApartment}`} /> <p> </p>
+            <input onChange={this.onPicturesChangee} placeholder="Upload pictures - not currently functional" /> <p> </p>
+            <input onChange={this.onNumParkingSpacesChange} placeholder={`Parking: ${this.props.currentListing.numParkingSpaces}`} /> <p> </p>
+            <input onChange={this.onNumBathsChange} type="number" placeholder={`Baths: ${this.props.currentListing.numBaths}`} /> <p> </p>
+            <input onChange={this.onDescriptionChange} placeholder={`Desc.: ${this.props.currentListing.description}`} /> <p> </p>
+            <input onChange={this.onAmmenitiesChange} placeholder={`Amenities: ${this.props.currentListing.ammenities}`} /> <p> </p>
           </div>
-          <button type="button" onClick={() => this.remakeListing()}> Update your listing. </button>
-          <button type="button" onClick={() => this.props.deleteListing(this.props.match.params.listingID, this.props.history)}> Delete your listing. </button>
+          <div className="radio">
+            <h2> Is it an entire apartment/house? </h2>
+            <div onChange={this.onIsFullApartmentChange}>
+              <input type="radio" value="true" name="full" /> Yes
+              <input type="radio" value="false" name="full" /> No
+            </div>
+          </div>
+          <div className="edit-buttons">
+            <button type="button" onClick={() => this.remakeListing()}> Update your listing. </button>
+            <button type="button" onClick={() => this.props.deleteListing(this.props.match.params.listingID, this.props.history)}> Delete your listing. </button>
+          </div>
         </div>
       );
     }
@@ -205,7 +211,7 @@ class Listing extends Component {
             {this.renderImages()}
           </div>
           <div className="buttons">
-            <button type="button" onClick={this.startEdits}> Your listing? Click here to edit. </button>
+            <button type="submit" onClick={this.startEdits}> Your listing? Click here to edit. </button>
             <Link to="/chat"> Chat Me </Link>
           </div>
         </div>

@@ -23,7 +23,7 @@ class App extends Component {
       return (
         <div className="page">
           <div className="top_bar">
-            <h1> Sublit </h1>
+            <div className="screen">  </div>
             <NavBar />
           </div>
           <Switch>

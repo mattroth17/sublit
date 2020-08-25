@@ -105,3 +105,61 @@ hr {
     background-color:black;
     height: 1px;
 }
+
+.edit_listing{
+    background-color: #EFFEF7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2%;
+
+    .autocomplete-root {
+        width: 100%;
+    }
+
+    .form-boxes {
+        width: 100%;
+        margin-left: 40%;
+    }
+
+    .form-boxes input {
+        background: #FFFDFB;
+        border: 1px solid #E2E2E2;
+        box-sizing: border-box;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        width: 60%;
+        height: 30px;
+        font-size: 21px;
+    }
+
+    .radio {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .edit-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        width: 60%;
+    }
+
+    button {
+        font-family: Rosarivo;
+        background: #FFFFFF;
+        border: 1px solid #000000;
+        border-radius: 50px;
+        text-decoration: none;
+        width: 50%;
+        height: 60px;
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        color: black;
+        align-items: center;
+        margin: 1%;
+    }
+
+}

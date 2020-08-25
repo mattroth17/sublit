@@ -17,7 +17,7 @@ class MapContainer extends Component {
     super(props);
     this.state = {
       // eslint-disable-next-line react/no-unused-state
-      stores: [{ lat: 43.702813, long: -72.288530 }],
+      stores: [],
     };
   }
 
@@ -32,7 +32,7 @@ class MapContainer extends Component {
 
     this.props.listings.map((listing) => {
       if (listing.address !== '') {
-        console.log(`listing address is ${listing.address}`);
+        console.log(`listing is ${listing}`);
 
         Geocode.fromAddress(listing.address).then(
           (response) => {
@@ -42,7 +42,7 @@ class MapContainer extends Component {
             console.log(latitude, longitude);
             console.log('component did mount');
             this.setState((previousState) => ({
-              stores: [...previousState.stores, { lat: latitude, lng: longitude }],
+              stores: [...previousState.stores, { lat: latitude, lng: longitude, id: listing.id }],
             }));
           }, (error) => {
             console.error(error);
@@ -88,8 +88,9 @@ class MapContainer extends Component {
     console.log(this.state.stores);
     return this.state.stores.map((store, index) => {
       console.log('returning marker');
+      console.log(`${store.lat} ${store.lng}`);
       // eslint-disable-next-line react/no-array-index-key
-      return (<Marker key={index} position={{ lat: store.latitude, lng: store.longitude }} />);
+      return (<Marker key={index} position={{ lat: store.lat, lng: store.lng }} />);
     });
   }
 
@@ -119,8 +120,8 @@ class MapContainer extends Component {
         >
           {/* {this.renderMarkers()} */}
           {this.getMarkers()}
-          {this.renderTest()}
-          {this.renderTest2()}
+          {/* {this.renderTest()} */}
+          {/* {this.renderTest2()} */}
         </Map>
       );
     } else {

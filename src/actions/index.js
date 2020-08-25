@@ -7,6 +7,7 @@ export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
 export const ActionTypes = {
   FETCH_LISTINGS: 'FETCH_LISTINGS',
   FETCH_LISTING: 'FETCH_LISTING',
+  FETCH_FILTERED: 'FETCH_FILTERED',
   AUTH_USER: 'AUTH_USER',
   FETCH_USER: 'FETCH_USER',
   DEAUTH_USER: 'DEAUTH_USER',

@@ -241,6 +241,7 @@ class Listing extends Component {
       );
     }
 
+    console.log(this.props.currentListing);
     return (
       <div className="indlisting">
         <div className="leftColumn">

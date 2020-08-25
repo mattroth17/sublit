@@ -59,7 +59,10 @@ class Main extends Component {
 
   showFiltered() {
     const filts = { ...this.state };
-    return this.props.fetchFiltered(filts).map((listing) => {
+    this.props.fetchFiltered(filts);
+    console.log(this.props.filtered);
+    return this.props.filtered.map((listing) => {
+      console.log(listing);
       return (<ListingSmallView key={listing.id} listing={listing} />);
     });
   }
@@ -86,6 +89,7 @@ class Main extends Component {
     if (this.state.filts === 1) {
       return (
         <div id="filt_cont">
+          Filtered results:
           {this.showFiltered()}
         </div>
       );
@@ -119,6 +123,7 @@ class Main extends Component {
 const mapStateToProps = (reduxState) => ({
   listings: reduxState.listings.all,
   email: reduxState.auth.email,
+  filtered: reduxState.listings.filtered,
 });
 
 export default connect(mapStateToProps, { fetchListings, fetchUser, fetchFiltered })(Main);

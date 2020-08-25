@@ -14,7 +14,6 @@ class NewListing extends Component {
       datePosted: '',
       address: '',
       rent: 0,
-      lenSublet: 1,
       numberOfRooms: 0,
       isFullApartment: false,
       pictures: [],
@@ -43,11 +42,6 @@ class NewListing extends Component {
 
   onRentChange = (event) => {
     this.setState({ rent: event.target.value });
-  }
-
-  onLenSubletChange = (event) => {
-    console.log(event.target.value);
-    this.setState({ lenSublet: event.target.value });
   }
 
   onNumberOfRoomsChange = (event) => {
@@ -196,9 +190,6 @@ class NewListing extends Component {
         <input onChange={this.onRentChange} type="number" placeholder="Cost of Rent" value={this.state.rent} />
         <h2> Description of the Space </h2>
         <input onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" value={this.state.description} />
-        <h2> Length of Sublet (in months) </h2>
-        <input onChange={this.onLenSubletChange} type="range" min="0" max="12" placeholder="Lenght of Sublet" value={this.state.lenSublet} />
-        <div>{this.state.lenSublet} months</div>
         <h2> Number of Rooms </h2>
         <input onChange={this.onNumberOfRoomsChange} type="range" min="0" max="10" placeholder="Number of Rooms" value={this.state.numberOfRooms} />
         <div>{this.state.numberOfRooms} rooms</div>

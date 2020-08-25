@@ -145,5 +145,5 @@ class MapContainer extends Component {
 // map state to props? redux shi?
 // eslint-disable-next-line new-cap
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyC4YOXX43hNkUFFtxLlALsnWk49LAlvz70',
+  apiKey: 'AIzaSyCs8zgkvXjenh0x2eZSuaBma0_9iZAnbV0',
 })(MapContainer);

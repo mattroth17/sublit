@@ -49,10 +49,12 @@ body, html {
   height: 40rem;
   background-image: url("darthall.png");
   opacity: 1;
-  background-size: cover;
+  background-size: 80rem 48rem;
   padding-top:1rem;
+  padding-bottom:6rem;
   margin-left:-1rem;
   margin-right:-1rem;
+  margin-top:-6rem;
 }
 .signInHeader{
   text-align: center;
@@ -62,6 +64,7 @@ body, html {
   margin-right:25rem;
   margin-left:25rem;
   border-radius: 25px;
+  margin-top:5rem;
 }
 .email-input, .password-input, .name-input{
   width:14rem;

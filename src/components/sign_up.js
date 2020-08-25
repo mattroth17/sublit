@@ -37,7 +37,7 @@ class SignUp extends Component {
   render() {
     return (
       <div className="user-creator">
-        <h1 className="signInHeader">Create an Account</h1>
+        <h1 className="signInHeader">Welcome to Sublit!</h1>
         <div className="firstName">
           <h2>First Name:</h2>
           <input className="name-input" placeholder="First Name" onChange={this.onFirstNameChange} value={this.state.name} />

@@ -1,5 +1,5 @@
 body, html {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Rosarivo', serif;
   height: 100%;
   margin: 0;    //jonah testing this
   overflow-x: hidden;
@@ -28,10 +28,7 @@ body, html {
   position: relative;
 
 }
-#googlemap{
-  width: 100%;
-  height: 100%;
-}
+
 .login-page{
   display: flex;
   flex-direction: row;
@@ -61,7 +58,6 @@ body, html {
   flex-direction: column;
   margin-top: -15px;
   padding: 20px;
-  margin-bottom: 10px;
   background-color: rgb(48, 48, 48);
 }
 
@@ -133,12 +129,48 @@ a {
   
 }
 
+.bottom-nav{
+  border-top: 1px solid white;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  background-color: rgb(48, 48, 48);
+}
+.right-side{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: white;
+  font-size: 24px;
+  width: 200px;
+  margin-right: 20px;
+}
+.left-side{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 600px;
+  color: white;
+  font-family: 'Rosarivo', serif;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
 .img-flex{
   display: flex;
   flex-direction: column;
   width: 400px;
 }
+.mainpage-flex{
+  display: flex;
+  flex-direction: row;
+}
+.page{
+  font-family: 'Rosarivo', serif;
 
+}
 .flex-btn{
   display: flex;
   flex-direction: row;
@@ -199,6 +231,9 @@ a {
     a{
       font-size: 40px;
     }
+  }
+  .img-flex{
+    width: 200px;
   }
 }
 

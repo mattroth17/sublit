@@ -11,24 +11,39 @@ class Main extends Component {
 
   showListings() {
     return this.props.listings.map((listing) => {
+      console.log(listing);
       return (<ListingSmallView key={listing.id} listing={listing} />);
     });
+  }
+
+  showMap() {
+    if (this.props.listings.length > 0) {
+      return (
+        <MapContainer listings={this.props.listings} />
+      );
+    } else {
+      return (
+        <div>
+          Loading...
+        </div>
+      );
+    }
   }
 
   render() {
     if (!this.props.listings) {
       return <div> Loading... </div>;
+    } else {
+      console.log(`listings are ${this.props.listings}`);
+      return (
+        <div className="mainpage-flex">
+          <div id="listings_cont">
+            {this.showListings()}
+          </div>
+          {this.showMap()}
+        </div>
+      );
     }
-    return (
-      <div>
-        <div id="listings_cont">
-          {this.showListings()}
-        </div>
-        <div>
-          <MapContainer />
-        </div>
-      </div>
-    );
   }
 }
 

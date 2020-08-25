@@ -7,6 +7,7 @@ import Card from '@material-ui/core/Card';
 // import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import BottomNav from './bottom-nav';
 
 const Login = (props) => { // sort out the buttons
   return (
@@ -30,7 +31,7 @@ const Login = (props) => { // sort out the buttons
           <Card>
             <CardMedia component="img" image="src/img/house-one.jpg" alt="house text" className="house" />
             <CardContent className="img-text">
-              Beautiful home in Hanover, NH up for lease!
+              Beautiful home in Hanover, NH up for lease! Change this later.
             </CardContent>
           </Card>
         </div>
@@ -70,6 +71,7 @@ const Login = (props) => { // sort out the buttons
         </div>
 
       </div>
+      <BottomNav />
     </div>
   );
 };

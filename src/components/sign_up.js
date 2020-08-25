@@ -37,21 +37,29 @@ class SignUp extends Component {
   render() {
     return (
       <div className="user-creator">
-        <h1>Create an Account</h1>
-        <h2>First Name</h2>
-        <input className="name-input" placeholder="First Name" onChange={this.onFirstNameChange} value={this.state.name} />
-        <h2>Email</h2>
-        <input className="email-input" placeholder="Email Address" onChange={this.onEmailChange} value={this.state.email} />
-        <h2>Password</h2>
-        <input type="password" className="password-input" placeholder="Password" onChange={this.onPasswordChange} value={this.state.password} />
-        <ul className="icon-list">
-          <li key="cancel" onClick={this.onCancel}>
-            <i className="fas fa-window-close" />
-          </li>
-          <li key="signup" onClick={this.onSubmit}>
-            <i className="fas fa-sign-in-alt" />
-          </li>
-        </ul>
+        <h1 className="signInHeader">Welcome to Sublit!</h1>
+        <div className="firstName">
+          <h2>First Name:</h2>
+          <input className="name-input" placeholder="First Name" onChange={this.onFirstNameChange} value={this.state.name} />
+        </div>
+        <div className="signUpEmail">
+          <h2>Email:</h2>
+          <input className="email-input" placeholder="Email Address" onChange={this.onEmailChange} value={this.state.email} />
+        </div>
+        <div className="pass">
+          <h2>Password:</h2>
+          <input type="password" className="password-input" placeholder="Password" onChange={this.onPasswordChange} value={this.state.password} />
+        </div>
+        <div className="iconsBox">
+          <ul className="icon-list">
+            <li key="cancel" onClick={this.onCancel}>
+              <i className="fas fa-window-close" />
+            </li>
+            <li key="signup" onClick={this.onSubmit}>
+              <i className="fas fa-sign-in-alt" />
+            </li>
+          </ul>
+        </div>
       </div>
     );
   }

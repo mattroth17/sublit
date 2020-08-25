@@ -11,7 +11,7 @@ class NewListing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: '',
+      datePosted: '',
       address: '',
       rent: 0,
       lenSublet: 1,
@@ -22,13 +22,11 @@ class NewListing extends Component {
       numBaths: 0,
       description: '',
       ammenities: [],
-      email: '',
       images: [],
       term: [],
       numPics: 1,
       previews: [],
       files: [],
-      author: this.props.user,
     };
   }
 
@@ -36,7 +34,7 @@ class NewListing extends Component {
 
   // what's the point of date?
   onDateChange = (event) => {
-    this.setState({ date: event.target.value });
+    this.setState({ datePosted: event.target.value });
   }
 
   onAddressChange = (event) => {
@@ -117,7 +115,7 @@ class NewListing extends Component {
     }
   }
 
-  makeListing = (user) => {
+  makeListing = () => {
     if (this.state.files.length > 0) {
       const promises = [];
       this.state.files.forEach((file) => {
@@ -125,22 +123,15 @@ class NewListing extends Component {
       });
       Promise.all(promises).then((urls) => {
         if (urls.length === this.state.files.length) {
-          console.log(urls);
-          this.setState({ email: user }, () => {
-            const listing = { ...this.state, pictures: urls };
-            this.props.createListing(listing, this.props.history);
-            this.props.history.push('/');
-          });
+          const listing = { ...this.state, pictures: urls };
+          this.props.createListing(listing, this.props.history);
         } else {
           console.log('error uploading images');
         }
       });
     } else {
-      this.setState({ email: user }, () => {
-        const listing = { ...this.state };
-        this.props.createListing(listing, this.props.history);
-        this.props.history.push('/');
-      });
+      const listing = { ...this.state };
+      this.props.createListing(listing, this.props.history);
     }
   }
 
@@ -193,7 +184,7 @@ class NewListing extends Component {
           {this.renderPlacesAutocomplete}
         </PlacesAutocomplete>
         <h2> Date? Not sure what this is for </h2>
-        <input onChange={this.onDateChange} type="date" placeholder="Date" value={this.state.date} />
+        <input onChange={this.onDateChange} type="date" placeholder="Date" value={this.state.datePosted} />
         <h2> Which term(s) are you looking to sublet? (need backend support if we want to use this) </h2>
         <div onChange={this.onTermsChange}>
           <input type="checkbox" value="F" name="term" /> Fall
@@ -228,7 +219,7 @@ class NewListing extends Component {
         {this.renderPreviews()}
         {this.renderImageInputs()}
         <button type="submit" onClick={this.incrementPics}>Upload another picture</button>
-        <button type="button" onClick={() => this.makeListing(this.props.auth.user)}> Post your listing. </button>
+        <button type="button" onClick={() => this.makeListing()}> Post your listing. </button>
       </div>
     );
   }
@@ -236,7 +227,6 @@ class NewListing extends Component {
 
 const mapStateToProps = (reduxState) => ({
   auth: reduxState.auth,
-  user: reduxState.auth.user,
 });
 
 export default withRouter(connect(mapStateToProps, { createListing })(NewListing));

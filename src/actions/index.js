@@ -8,10 +8,12 @@ export const ActionTypes = {
   FETCH_LISTINGS: 'FETCH_LISTINGS',
   FETCH_LISTING: 'FETCH_LISTING',
   AUTH_USER: 'AUTH_USER',
+  FETCH_USER: 'FETCH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
   FETCH_CONVERSATIONS: 'FETCH_CONVERSATIONS',
   FETCH_CONVERSATION: 'FETCH_CONVERSATION',
+  FETCH_MESSAGE: 'FETCH_MESSAGE',
   ERROR_SET: 'ERROR_SET',
   ERROR_CLEAR: 'ERROR_CLEAR',
 };
@@ -31,11 +33,10 @@ export function fetchListings() {
 
 // fields on listing are tentative
 export function createListing(listing, history) {
-  console.log(listing);
   return (dispatch) => {
+    console.log(listing);
     axios.post(`${ROOT_URL}/listings`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_LISTINGS });
         history.push('/');
       })
       .catch((error) => {
@@ -80,33 +81,46 @@ export function deleteListing(id, history) {
   };
 }
 // create conversation (needs to be changed after talking w/ caroline/chase)
-export function startConversation(person1, person2) {
+// could be an issue with creating conversations here (not transactional, one could be created but the otehr might not be)
+// need to look into preventing duplicate conversations (could be done with button in listing )
+export function startConversation(user1, user2, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/conversations`, { person1, person2 }, { headers: { authorization: localStorage.getItem('token') } })
+    const person1 = {
+      email: user1.email,
+      update: {
+        conversations: [...user1.conversations, { email: user2.email, firstName: user2.firstName }],
+      },
+    };
+    const person2 = {
+      email: user2.email,
+      update: {
+        conversations: [...user2.conversations, { email: user1.email, firstName: user1.firstName }],
+      },
+    };
+    const conversation = { email: user2.email, firstName: user2.firstName };
+    axios.put(`${ROOT_URL}/updateuserinfo`, person1, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        axios.put(`${ROOT_URL}/users/${person1}`, response.data.id, { headers: { authorization: localStorage.getItem('token') } })
-          .then((r) => {
-            dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+        axios.put(`${ROOT_URL}/updateuserinfo`, person2, { headers: { authorization: localStorage.getItem('token') } })
+          .then((res) => {
+            dispatch({ type: ActionTypes.FETCH_CONVERSATION, conversation, messages: [] });
+            history.push('/chat');
           })
-          .catch((e) => {
-            dispatch({ type: ActionTypes.ERROR_SET, e });
+          .catch((err) => {
+            dispatch({ type: ActionTypes.ERROR_SET, err });
           });
-        axios.put(`${ROOT_URL}/users/${person2}`, response.data.id, { headers: { authorization: localStorage.getItem('token') } })
-          .then((r) => {
-            dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
-          })
-          .catch((e) => {
-            dispatch({ type: ActionTypes.ERROR_SET, e });
-          });
+      })
+      .catch((error) => {
+        dispatch({ type: ActionTypes.ERROR_SET, error });
       });
   };
 }
 // needs to be filled in (not sure what parameters/body to send... do we need both id and convo id?)
-export function getConversation(person1, person2, convoID) {
+export function getConversation(conversation, person1Email, person2Email) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/conversations/${convoID}`, { person1, person2 }, { headers: { authorization: localStorage.getItem('token') } })
+    axios.post(`${ROOT_URL}/getallmessages`, { person1Email, person2Email }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+        console.log(response);
+        dispatch({ type: ActionTypes.FETCH_CONVERSATION, conversation, messages: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });
@@ -114,21 +128,29 @@ export function getConversation(person1, person2, convoID) {
   };
 }
 
-export function getConversations(id) {
+export function getConversations(email) {
   return (dispatch) => {
-
+    console.log('test');
+    axios.post(`${ROOT_URL}/getuser`, { email }, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        console.log(response);
+        dispatch({ type: ActionTypes.FETCH_CONVERSATIONS, payload: response.data[0].conversations });
+      })
+      .catch((error) => {
+        dispatch({ type: ActionTypes.ERROR_SET, error });
+      });
   };
 }
 
 // needs to be altered
-export function sendChatMessage(message, id1, id2) {
+export function sendChatMessage(senderEmail, senderFirstName, recipientEmail, recipientFirstName, text) {
   return (dispatch) => {
     const fields = {
-      message: { message }, from: { id1 }, to: { id2 },
+      senderEmail, senderFirstName, recipientEmail, recipientFirstName, text,
     };
-    axios.post(`${ROOT_URL}/messages`, fields)
+    axios.post(`${ROOT_URL}/message`, fields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_CONVERSATION, payload: response.data });
+        dispatch({ type: ActionTypes.FETCH_MESSAGE, message: response.data });
       })
       .catch((error) => {
         dispatch({ type: ActionTypes.ERROR_SET, error });
@@ -145,12 +167,25 @@ export function authError(error) {
   };
 }
 
+export function fetchUser(email) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/getuser`, { email }, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_USER, payload: response.data[0] });
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({ type: ActionTypes.ERROR_SET, error });
+      });
+  };
+}
+
 export function signinUser({ email, password }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signin`, { email, password })
       .then((response) => {
-        dispatch({ type: ActionTypes.AUTH_USER, user: email });
         localStorage.setItem('token', response.data.token);
+        dispatch({ type: ActionTypes.AUTH_USER, email });
         history.push('/');
       })
       .catch((error) => {
@@ -164,9 +199,8 @@ export function signupUser({ email, password, firstName }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signup`, { email, password, firstName })
       .then((response) => {
-        console.log('test1');
-        dispatch({ type: ActionTypes.AUTH_USER, user: email });
         localStorage.setItem('token', response.data.token);
+        dispatch({ type: ActionTypes.AUTH_USER, email });
         history.push('/');
       })
       .catch((error) => {

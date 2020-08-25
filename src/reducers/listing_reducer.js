@@ -12,7 +12,7 @@ const init = {
 const ListingReducer = (state = init, action) => {
   switch (action.type) {
     case ActionTypes.FETCH_LISTINGS:
-      return { all: action.payload, current: {} };
+      return { ...state, all: action.payload };
     case ActionTypes.FETCH_LISTING:
       return { ...state, current: action.payload };
     default:

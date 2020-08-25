@@ -95,9 +95,9 @@ class Listing extends Component {
     console.log('starting edits');
     this.setState({ ...this.props.currentListing }, () => {
       // NOTE: COMMENT THESE LINES if trouble w/ auth
-      /* if (this.props.auth.user !== this.state.email) {
+      if (this.props.auth.user !== this.state.email) {
         return;
-      } */
+      }
       this.setState({ editing: 1 });
     });
   }

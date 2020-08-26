@@ -206,7 +206,7 @@ class NewListing extends Component {
             </div>
             <div className="descriptionInfo">
               <h2> Description of the Space </h2>
-              <textarea onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" value={this.state.description} />
+              <input onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" value={this.state.description} />
             </div>
             <div className="lengthInfo">
               <h2> Length of Sublet (in months) </h2>
@@ -230,7 +230,7 @@ class NewListing extends Component {
             </div>
             <div className="amenityInfo">
               <h2> List the Ammenities </h2>
-              <textarea onChange={this.onAmmenitiesChange} placeholder="Ammenities" value={this.state.ammenities} />
+              <input onChange={this.onAmmenitiesChange} placeholder="Ammenities" value={this.state.ammenities} />
             </div>
             <div className="entireAPTInfo">
               <h2> Is it an entire apartment/house? </h2>

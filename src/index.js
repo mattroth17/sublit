@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
-import { ActionTypes } from './actions';
+// todo
+// import { ActionTypes } from './actions';
 
 import App from './components/app';
 
@@ -15,11 +16,12 @@ const store = createStore(reducers, {}, compose(
   window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f,
 ));
 
-const token = localStorage.getItem('token');
-const email = localStorage.getItem('email');
-if (token && email) {
-  store.dispatch({ type: ActionTypes.AUTH_USER, email });
-}
+// todo:
+// const token = localStorage.getItem('token');
+// const email = localStorage.getItem('email');
+// if (token && email) {
+//   store.dispatch({ type: ActionTypes.AUTH_USER, email });
+// }
 
 // we now wrap App in a Provider
 ReactDOM.render(

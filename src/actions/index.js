@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
+// export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
+export const ROOT_URL = 'http://localhost:9090/api';
 
 // keys for actiontypes
 // going to need chat actions
@@ -8,6 +9,7 @@ export const ActionTypes = {
   FETCH_LISTINGS: 'FETCH_LISTINGS',
   FETCH_LISTING: 'FETCH_LISTING',
   AUTH_USER: 'AUTH_USER',
+  INIT_USER: 'INIT_USER',
   FETCH_USER: 'FETCH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
@@ -182,27 +184,96 @@ export function fetchUser(email) {
 
 export function signinUser({ email, password }, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signin`, { email, password })
+    axios.post(`${ROOT_URL}/getuser`, { email })
       .then((response) => {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('email', email);
-        dispatch({ type: ActionTypes.AUTH_USER, email });
-        history.push('/');
+        // email is confirmed, sign in
+        if (response.data[0].emailConfirmed) {
+          axios.post(`${ROOT_URL}/signin`, { email, password })
+            .then((resp) => {
+              localStorage.setItem('token', resp.data.token);
+              localStorage.setItem('email', email);
+              dispatch({ type: ActionTypes.AUTH_USER, email });
+              history.push('/');
+            })
+            .catch((err) => {
+              if (err.response) {
+                dispatch(authError('Sign in failed: Incorrect username or password'));
+              } else {
+                dispatch(authError(`Sign Up Failed: ${err}`));
+              }
+            });
+
+        // email is not confirmed
+        } else {
+          history.push('/confirmemail');
+        }
+        return null;
       })
       .catch((error) => {
-        if (error.response) {
-          dispatch(authError('Sign in failed: Incorrect username or password'));
+        dispatch(authError(`Sign in failed: ${error}`));
+        console.log(error);
+      });
+  };
+}
+
+export function signInAndConfirmEmail({ email, password, confirmToken }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/getuser`, { email })
+      .then((response) => {
+        // token is confirmed, sign in and change emailConfirmed
+        if (response.data[0].confirmToken === confirmToken) {
+          // return (dispatch) => {
+          return axios.post(`${ROOT_URL}/signin`, { email, password })
+            .then((resp) => {
+              localStorage.setItem('token', resp.data.token);
+              localStorage.setItem('email', email);
+
+              // updateUser, make emailConfirmed: true
+              // return (dis) => {
+              const updates = {
+                email,
+                update: {
+                  emailConfirmed: true,
+                },
+              };
+              axios.put(`${ROOT_URL}/updateuserinfo`, updates, { headers: { authorization: resp.data.token } })
+                .then((re) => {
+                  dispatch({ type: ActionTypes.AUTH_USER, email });
+                  history.push('/');
+                })
+                .catch((er) => {
+                  console.log(er);
+                  dispatch(authError(`Could not update user info: ${er}`));
+                  history.push('/confirmemail');
+                });
+              // };
+            })
+            .catch((err) => {
+              if (err.response) {
+                dispatch(authError('Sign in failed: Incorrect username or password'));
+              } else {
+                dispatch(authError(`Sign Up Failed: ${err}`));
+              }
+            });
+          // };
+        // token is not confirmed
         } else {
-          dispatch(authError(`Sign Up Failed: ${error}`));
+          dispatch(authError('Invalid link'));
+          history.push('/confirmemail');
         }
+        return null;
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 }
 
 export function signupUser({ email, password, firstName }, history) {
   return (dispatch) => {
-    const emailPattern = /^[A-Za-z0-9._%+-]+@dartmouth.edu$/;
-    const valid = emailPattern.test(email);
+    // const emailPattern = /^[A-Za-z0-9._%+-]+@+[A-Za-z0-9._%+-]$/;
+    // const valid = emailPattern.test(email);
+    const valid = true;
     if (!valid) {
       dispatch({ type: ActionTypes.AUTH_ERROR, message: 'Sign Up Failed: Email must be a valid Dartmouth address' });
     } else {
@@ -210,8 +281,8 @@ export function signupUser({ email, password, firstName }, history) {
         .then((response) => {
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('email', email);
-          dispatch({ type: ActionTypes.AUTH_USER, email });
-          history.push('/');
+          dispatch({ type: ActionTypes.INIT_USER, email });
+          history.push('/confirmemail');
         })
         .catch((error) => {
           if (error.response) {

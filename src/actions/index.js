@@ -26,7 +26,11 @@ export function fetchListings() {
         dispatch({ type: ActionTypes.FETCH_LISTINGS, payload: response.data });
       })
       .catch((error) => {
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && error.response.data.includes('<')) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -39,7 +43,6 @@ export function createListing(listing, history) {
         history.push('/');
       })
       .catch((error) => {
-        console.log(error.response);
         if (error.response && error.response.data.includes('<')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
         } else {

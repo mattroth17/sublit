@@ -175,51 +175,79 @@ class NewListing extends Component {
 
   render() {
     return (
-      <div className="new_listing">
-        <h2> Address of Available Space </h2>
-        <PlacesAutocomplete
-          value={this.state.address}
-          onChange={(value) => this.setState({ address: value })}
-        >
-          {this.renderPlacesAutocomplete}
-        </PlacesAutocomplete>
-        <h2> Date? Not sure what this is for </h2>
-        <input onChange={this.onDateChange} type="date" placeholder="Date" value={this.state.datePosted} />
-        <h2> Which term(s) are you looking to sublet? (need backend support if we want to use this) </h2>
-        <div onChange={this.onTermsChange}>
-          <input type="checkbox" value="F" name="term" /> Fall
-          <input type="checkbox" value="W" name="term" /> Winter
-          <input type="checkbox" value="S" name="term" /> Spring
-          <input type="checkbox" value="X" name="term" /> Summer
+      <div className="allListing">
+        <div className="new_listing">
+          <div className="allListings">
+            <div className="addressInfo">
+              <h2> Address of Available Space </h2>
+              <PlacesAutocomplete
+                value={this.state.address}
+                onChange={(value) => this.setState({ address: value })}
+              >
+                {this.renderPlacesAutocomplete}
+              </PlacesAutocomplete>
+            </div>
+            <div className="dateInfo">
+              <h2> Date? Not sure what this is for </h2>
+              <input onChange={this.onDateChange} type="date" placeholder="Date" value={this.state.datePosted} />
+            </div>
+            <div className="termInfo">
+              <h2> Which term(s) are you looking to sublet? (need backend support if we want to use this) </h2>
+              <div className="houseAPTtext" onChange={this.onTermsChange}>
+                <input type="checkbox" value="F" name="term" /> Fall
+                <input type="checkbox" value="W" name="term" /> Winter
+                <input type="checkbox" value="S" name="term" /> Spring
+                <input type="checkbox" value="X" name="term" /> Summer
+              </div>
+            </div>
+            <div className="rentInfo">
+              <h2> Cost of Rent (per month e.g. &quot;1000&quot;) </h2>
+              <input onChange={this.onRentChange} type="number" placeholder="Cost of Rent" value={this.state.rent} />
+            </div>
+            <div className="descriptionInfo">
+              <h2> Description of the Space </h2>
+              <input onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" value={this.state.description} />
+            </div>
+            <div className="lengthInfo">
+              <h2> Length of Sublet (in months) </h2>
+              <input onChange={this.onLenSubletChange} type="range" min="0" max="12" placeholder="Lenght of Sublet" value={this.state.lenSublet} />
+              <div>{this.state.lenSublet} months</div>
+            </div>
+            <div className="roomInfo">
+              <h2> Number of Rooms </h2>
+              <input onChange={this.onNumberOfRoomsChange} type="range" min="0" max="10" placeholder="Number of Rooms" value={this.state.numberOfRooms} />
+              <div>{this.state.numberOfRooms} rooms</div>
+            </div>
+            <div className="parkingInfo">
+              <h2> Number of Parking Spaces </h2>
+              <input onChange={this.onNumParkingSpacesChange} type="range" min="0" max="5" placeholder="Number of Parking Spaces" value={this.state.numParkingSpaces} />
+              <div>{this.state.numParkingSpaces} parking spaces</div>
+            </div>
+            <div className="bathroomInfo">
+              <h2> Number of bathrooms </h2>
+              <input onChange={this.onNumBathsChange} type="range" min="0" max="5" placeholder="Number of Baths" value={this.state.numBaths} />
+              <div>{this.state.numBaths} baths</div>
+            </div>
+            <div className="amenityInfo">
+              <h2> List the Ammenities </h2>
+              <input onChange={this.onAmmenitiesChange} placeholder="Ammenities" value={this.state.ammenities} />
+            </div>
+            <div className="entireAPTInfo">
+              <h2> Is it an entire apartment/house? </h2>
+              <div className="houseAPTtext" onChange={this.onIsFullApartmentChange}>
+                <input type="radio" value="true" name="full" /> Yes
+                <input type="radio" value="false" name="full" /> No
+              </div>
+            </div>
+            <div className="imageUpload">
+              <h2> Upload Images of the Space </h2>
+              {this.renderPreviews()}
+              {this.renderImageInputs()}
+              <button type="submit" onClick={this.incrementPics}>Upload another picture</button>
+            </div>
+            <button id="largeSubmit" type="button" onClick={() => this.makeListing()}> Post your listing. </button>
+          </div>
         </div>
-        <h2> Cost of Rent (per month e.g. &quot;1000&quot;) </h2>
-        <input onChange={this.onRentChange} type="number" placeholder="Cost of Rent" value={this.state.rent} />
-        <h2> Description of the Space </h2>
-        <input onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" value={this.state.description} />
-        <h2> Length of Sublet (in months) </h2>
-        <input onChange={this.onLenSubletChange} type="range" min="0" max="12" placeholder="Lenght of Sublet" value={this.state.lenSublet} />
-        <div>{this.state.lenSublet} months</div>
-        <h2> Number of Rooms </h2>
-        <input onChange={this.onNumberOfRoomsChange} type="range" min="0" max="10" placeholder="Number of Rooms" value={this.state.numberOfRooms} />
-        <div>{this.state.numberOfRooms} rooms</div>
-        <h2> Number of Parking Spaces </h2>
-        <input onChange={this.onNumParkingSpacesChange} type="range" min="0" max="5" placeholder="Number of Parking Spaces" value={this.state.numParkingSpaces} />
-        <div>{this.state.numParkingSpaces} parking spaces</div>
-        <h2> Number of bathrooms </h2>
-        <input onChange={this.onNumBathsChange} type="range" min="0" max="5" placeholder="Number of Baths" value={this.state.numBaths} />
-        <div>{this.state.numBaths} baths</div>
-        <h2> List the Ammenities </h2>
-        <input onChange={this.onAmmenitiesChange} placeholder="Ammenities" value={this.state.ammenities} />
-        <h2> Is it an entire apartment/house? </h2>
-        <div onChange={this.onIsFullApartmentChange}>
-          <input type="radio" value="true" name="full" /> Yes
-          <input type="radio" value="false" name="full" /> No
-        </div>
-        <h2> Upload Images of the Sapce </h2>
-        {this.renderPreviews()}
-        {this.renderImageInputs()}
-        <button type="submit" onClick={this.incrementPics}>Upload another picture</button>
-        <button type="button" onClick={() => this.makeListing()}> Post your listing. </button>
       </div>
     );
   }

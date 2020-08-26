@@ -9,6 +9,10 @@ body, html {
   max-width: 100%;
 }
 
+h1{
+  background-color: rgb(243, 240, 240);
+}
+
 .header {
   background-image: url('img/dartmouth-img-figma.png');
   background-size: cover;
@@ -56,7 +60,26 @@ body, html {
   justify-content: space-between;
   overflow-x: hidden;
   max-width: 100%;
-  margin-bottom: 2%;
+  background-color: rgb(243, 240, 240);
+
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+ 
+}
+
+.top_bar2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: hidden;
+  max-width: 100%;
+  background-color: rgb(243, 240, 240);
+  padding-bottom: 2%;
 
 
   a {
@@ -189,6 +212,7 @@ a {
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: fit-content;
 }
 .page{
   font-family: 'Rosarivo', serif;
@@ -196,6 +220,8 @@ a {
 }
 .map-div{
   width: 800px;
+  height: fit-content;
+  height: 900px;
 }
 .flex-btn{
   display: flex;
@@ -335,6 +361,7 @@ a {
 #listings-div{
   background-color: lightblue;
   width: 400px;
+  height: fit-content;
 }
 .listing-images {
   display: flex;
@@ -406,6 +433,7 @@ a {
 
 #listings-list{
   width: 100%;
+  height: 100%;
 
 }
 

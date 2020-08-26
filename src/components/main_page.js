@@ -59,7 +59,9 @@ class Main extends Component {
               {this.showListings()}
             </List>
           </div>
-          {this.showMap()}
+          <div>
+            {this.showMap()}
+          </div>
         </div>
       );
     }

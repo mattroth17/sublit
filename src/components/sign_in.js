@@ -31,7 +31,7 @@ class SignIn extends Component {
   render() {
     return (
       <div className="user-creator">
-        <h1 className="signInHeader">Sign in to Your Account</h1>
+        <h1 className="signInHeader">Sign in</h1>
         <div className="email">
           <h2>Email:</h2>
           <input className="email-input" placeholder="Email Address" onChange={this.onEmailChange} value={this.state.email} />

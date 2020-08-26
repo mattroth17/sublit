@@ -24,7 +24,10 @@ class App extends Component {
     if (this.props.auth) {
       return (
         <div className="page">
-          <div className="top_bar">
+          <div className="top_bar2">
+            <h1 id="sublitLogo">  </h1>
+          </div>
+          <div className="top_bar2">
             <div className="screen">  </div>
             <NavBar />
           </div>

@@ -55,7 +55,7 @@ body, html {
   overflow-x: hidden;
   max-width: 100%;
   margin-bottom: 2%;
-
+  background-color:#EFFEF7;
 
   a {
     text-decoration: none;
@@ -210,8 +210,6 @@ a {
   text-align: center;
 
 }
-
-
 
 .new_listing {
   display: flex;
@@ -397,4 +395,46 @@ ul li{
 
 ul li:hover{
   cursor: pointer;
+}
+.new_listing{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0px;
+}
+.allListings{
+  display:flex;
+  flex-direction:column;
+}
+.allListing{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #EFFEF7;
+}
+
+.addressInfo, .dateInfo, .termInfo, .rentInfo, .descriptionInfo, .lengthInfo, .roomInfo, .parkingInfo, .bathroomInfo, .amenityInfo, .entireAPTInfo{
+  display:flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 35rem;
+}
+.houseAPTtext{
+  text-align:center;
+}
+.imageUpload{
+  margin-bottom: 2rem;
+}
+.new_listing button{
+  width:15rem;
+}
+.new_listing #largeSubmit{
+  height:3rem;
+  margin-bottom:5rem;
+}
+.new_listing input {
+  height: 2rem;
+}
+.descriptionInfo textarea, .amenityInfo textarea{
+  height:8rem;
 }

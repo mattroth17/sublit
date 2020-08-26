@@ -94,7 +94,7 @@ class Main extends Component {
       return (
         <div id="filt_cont">
           Filtered results:
-          {this.showFiltered()}
+          {this.showFiltered()} <p> </p>
           <button type="button" onClick={() => this.backToMain()}> Return to main page. </button>
         </div>
       );

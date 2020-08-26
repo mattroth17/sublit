@@ -421,3 +421,21 @@ ul li:hover{
   color: green;
   background-color: green;
 }
+
+.submit {
+  display: flex;
+  width: 100%;
+}
+
+.chatbutton {
+  width: 100%;
+}
+
+.iconlist {
+  li {
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+}

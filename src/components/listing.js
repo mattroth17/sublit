@@ -158,7 +158,7 @@ class Listing extends Component {
       const authorEmail = this.props.currentListing.author.email;
       const hasConvo = this.props.user.conversations.some((convo) => convo.email === authorEmail);
       if (hasConvo) {
-        return (<button type="submit" onClick={() => this.goToConversation()}> Go to Conversation </button>);
+        return (<button type="submit" className="submit" onClick={() => this.goToConversation()}> Go to Conversation </button>);
       }
       return (<button type="submit" onClick={() => this.startConversation()}> Chat me </button>);
     }
@@ -190,7 +190,7 @@ class Listing extends Component {
         <li key="return" onClick={this.goBack}>
           <i className="fas fa-chevron-left" />
         </li>
-        <li key="chat">
+        <li key="chat" className="chatbutton">
           {this.renderChatButton()}
         </li>
       </ul>

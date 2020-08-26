@@ -26,6 +26,7 @@ h1{
   height: 550px;
   font-family: 'Rosarivo', serif;
 }
+
 #sublit-title{
   font-size: 125px;
   color: white;
@@ -324,22 +325,16 @@ a {
   margin-left:2.75rem;
 }
 
+.smallView{
+  margin-top: 10px;
+}
+
 .iconsBox{
   display:flex;
   justify-content: center;
   align-content: center;
 }
 
-.icon-list {
-  display:flex;
-  margin-top:2rem;
-  padding-left:0rem;
-  border-width: 1px;
-  border-style: solid;
-}
-.smallView{
-  margin-top: 10px;
-}
 .smallview-outer{
   width: 100%;
   font-weight: bold;

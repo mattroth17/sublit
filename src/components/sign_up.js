@@ -27,7 +27,6 @@ class SignUp extends Component {
 
   onSubmit = (event) => {
     this.props.signupUser({ email: this.state.email, password: this.state.password, firstName: this.state.name }, this.props.history);
-    this.props.history.push('/');
   }
 
   onCancel = (event) => {

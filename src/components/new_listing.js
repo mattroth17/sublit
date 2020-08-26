@@ -145,8 +145,8 @@ class NewListing extends Component {
       <div className="autocomplete-dropdown-container">
         {loading && <div>Loading...</div>}
         {suggestions.map((suggestion) => (
-          <div key={suggestion.id} {...getSuggestionItemProps(suggestion)}>
-            <span key={suggestion.id}>{suggestion.description}</span>
+          <div {...getSuggestionItemProps(suggestion)} key={suggestion.placeId}>
+            <span>{suggestion.description}</span>
           </div>
         ))}
       </div>

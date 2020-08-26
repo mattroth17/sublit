@@ -28,7 +28,7 @@ class Convo extends Component {
     return this.props.messages.map((message) => {
       const messageType = (message.senderEmail === this.props.user.email) ? 'sent' : 'received';
       return (
-        <div className={`message ${messageType}`}>{message.text}</div>
+        <div key={message.id} className={`message ${messageType}`}>{message.text}</div>
       );
     });
   }

@@ -13,6 +13,7 @@ import SignIn from './sign_in';
 import SignUp from './sign_up';
 import SignOut from './sign_out';
 import Chat from './chat';
+import Error from './error';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // eventually include frontend for dropdown menu and chat
@@ -23,8 +24,10 @@ class App extends Component {
     if (this.props.auth) {
       return (
         <div className="page">
-          <div className="top_bar">
-            <div id="sublit-title">Sublit</div>
+          <div className="top_bar2">
+            <h1 id="sublitLogo">  </h1>
+          </div>
+          <div className="top_bar2">
             <div className="screen">  </div>
             <NavBar />
           </div>
@@ -36,6 +39,7 @@ class App extends Component {
             <Route path="/signout" component={SignOut} />
             <Route render={() => (<div>Listing Not Found</div>)} />
           </Switch>
+          <Error />
         </div>
       );
     }
@@ -49,6 +53,7 @@ class App extends Component {
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
         </Switch>
+        <Error />
       </div>
 
     );

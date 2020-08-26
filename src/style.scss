@@ -1,3 +1,5 @@
+@import "~bootstrap/scss/bootstrap";
+
 body, html {
   font-family: 'Rosarivo', serif;
   height: 100%;
@@ -5,6 +7,10 @@ body, html {
   margin: 0;    //jonah testing this
   overflow-x: hidden;
   max-width: 100%;
+}
+
+h1{
+  background-color: rgb(243, 240, 240);
 }
 
 .header {
@@ -54,7 +60,26 @@ body, html {
   justify-content: space-between;
   overflow-x: hidden;
   max-width: 100%;
-  margin-bottom: 2%;
+  background-color: rgb(243, 240, 240);
+
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+ 
+}
+
+.top_bar2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: hidden;
+  max-width: 100%;
+  background-color: rgb(243, 240, 240);
+  padding-bottom: 2%;
 
 
   a {
@@ -185,15 +210,18 @@ a {
 }
 .mainpage-flex{
   display: flex;
-  flex-direction: column;
-  .maincontent {
-    display: flex;
-    flex-direction: row;
-  }
+  flex-direction: row;
+  width: 100%;
+  height: fit-content;
 }
 .page{
   font-family: 'Rosarivo', serif;
 
+}
+.map-div{
+  width: 800px;
+  height: fit-content;
+  height: 900px;
 }
 .flex-btn{
   display: flex;
@@ -330,7 +358,24 @@ a {
   border-width: 1px;
   border-style: solid;
 }
-
+.smallView{
+  margin-top: 10px;
+}
+.smallview-outer{
+  width: 100%;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+  div{
+    font-weight: normal;
+    font-size: 14px;
+  }
+}
+#listings-div{
+  background-color: lightblue;
+  width: 400px;
+  height: fit-content;
+}
 .listing-images {
   display: flex;
   flex-direction: row;
@@ -397,6 +442,12 @@ a {
       align-self: flex-start;
     }
   }
+}
+
+#listings-list{
+  width: 100%;
+  height: 100%;
+
 }
 
 ul {

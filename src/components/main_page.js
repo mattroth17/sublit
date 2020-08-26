@@ -16,11 +16,29 @@ class Main extends Component {
     this.props.fetchUser(this.props.email);
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  testCallback(target, listings) {
+    console.log('mainpage testCallback');
+    console.log(target.title);
+    // eslint-disable-next-line array-callback-return
+    listings.map((listing) => {
+      if (listing.id === target.title) {
+        console.log('they match');
+        const selected = document.getElementById(target.title);
+        selected.style.backgroundColor = 'lightcoral';
+      } else {
+        const notSelected = document.getElementById(listing.id);
+        notSelected.style.backgroundColor = 'lightblue';
+        console.log('no match');
+      }
+    });
+  }
+
   showListings() {
     return this.props.listings.map((listing) => {
       console.log(listing);
       return (
-        <div key={listing.id}>
+        <div key={listing.id} id={listing.id}>
           <Link className="smallViewLink" to={`/listings/${listing.id}`}>
             <ListItem button>
               <ListingSmallView key={listing.id} listing={listing} />
@@ -36,7 +54,7 @@ class Main extends Component {
   showMap() {
     if (this.props.listings.length > 0) {
       return (
-        <MapContainer listings={this.props.listings} />
+        <MapContainer listings={this.props.listings} testCallback={this.testCallback} />
       );
     } else {
       return (

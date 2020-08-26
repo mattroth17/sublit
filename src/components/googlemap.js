@@ -60,6 +60,8 @@ class MapContainer extends Component {
   onMarkerClick = (target) => {
     console.log('onMarkerClick');
     console.log(target.title);
+    console.log(`props is ${this.props.listings}`);
+    this.props.testCallback(target, this.props.listings);
   }
 
   getMarkers = () => {

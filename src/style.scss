@@ -425,3 +425,38 @@ ul li{
 ul li:hover{
   cursor: pointer;
 }
+
+// email confirmation
+.confirm {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+
+  p {
+    margin: 10px;
+  }
+
+  input {
+    width: 80%;
+    max-width: 500px;
+    align-self: center;
+    margin: 10px;
+  }
+  button {
+    width: 80%;
+    max-width: 200px;
+    align-self: center;
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  #message {
+    align-self: center;
+    text-align: center;
+    color: red;
+  }
+
+}

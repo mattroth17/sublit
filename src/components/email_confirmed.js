@@ -10,7 +10,6 @@ class EmailConfirmed extends Component {
       email: '',
       password: '',
     };
-    // this.props.match.params.token
   }
 
   onEmailChange = (event) => {
@@ -49,5 +48,4 @@ class EmailConfirmed extends Component {
   }
 }
 
-// enables this.props.signupUser
 export default connect(null, { signInAndConfirmEmail })(EmailConfirmed);

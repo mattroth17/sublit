@@ -222,14 +222,12 @@ export function signInAndConfirmEmail({ email, password, confirmToken }, history
       .then((response) => {
         // token is confirmed, sign in and change emailConfirmed
         if (response.data[0].confirmToken === confirmToken) {
-          // return (dispatch) => {
           return axios.post(`${ROOT_URL}/signin`, { email, password })
             .then((resp) => {
               localStorage.setItem('token', resp.data.token);
               localStorage.setItem('email', email);
 
               // updateUser, make emailConfirmed: true
-              // return (dis) => {
               const updates = {
                 email,
                 update: {
@@ -246,7 +244,6 @@ export function signInAndConfirmEmail({ email, password, confirmToken }, history
                   dispatch(authError(`Could not update user info: ${er}`));
                   history.push('/confirmemail');
                 });
-              // };
             })
             .catch((err) => {
               if (err.response) {
@@ -255,10 +252,9 @@ export function signInAndConfirmEmail({ email, password, confirmToken }, history
                 dispatch(authError(`Sign Up Failed: ${err}`));
               }
             });
-          // };
         // token is not confirmed
         } else {
-          dispatch(authError('Invalid link'));
+          dispatch(authError('Link not associated with account.'));
           history.push('/confirmemail');
         }
         return null;
@@ -269,9 +265,29 @@ export function signInAndConfirmEmail({ email, password, confirmToken }, history
   };
 }
 
+export function resendConfirmation({ email }) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/getuser`, { email })
+      .then((response) => {
+        const token = response.data[0].confirmToken;
+        axios.post(`${ROOT_URL}/resend`, { email, token })
+          .then((resp) => {
+            console.log(resp);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        dispatch(authError('Not a registered email'));
+        console.log(error);
+      });
+  };
+}
+
 export function signupUser({ email, password, firstName }, history) {
   return (dispatch) => {
-    // const emailPattern = /^[A-Za-z0-9._%+-]+@+[A-Za-z0-9._%+-]$/;
+    // const emailPattern = /^[A-Za-z0-9._%+-]+@dartmouth.edu$/;
     // const valid = emailPattern.test(email);
     const valid = true;
     if (!valid) {

@@ -61,7 +61,7 @@ h1{
   overflow-x: hidden;
   max-width: 100%;
   margin-bottom: 2%;
-  background-color:#EFFEF7;
+  // background-color:#EFFEF7;
 
   a {
     text-decoration: none;
@@ -269,7 +269,7 @@ a {
 }
 
 .user-creator{
-  height: 40rem;
+  height: 47rem;
   background-image: url("darthall.png");
   opacity: 1;
   background-size: 80rem 48rem;
@@ -294,7 +294,7 @@ a {
 .email-input, .password-input, .name-input{
   width:14rem;
   height:2rem;
-  margin-top:1rem;
+  margin-bottom:.5rem;
   margin-left:1rem;
 }
 
@@ -306,11 +306,22 @@ a {
   display:flex;
   flex-direction:row;
   justify-content: center;
+  align-items: center;
   padding:.5rem;
 }
-
+.email{
+  margin-top:3rem;
+  margin-left:3.25rem;
+}
 .firstName{
-  margin-right:3.75rem;
+  margin-right:2rem;
+  margin-top:3rem;
+}
+.signUpEmail{
+  margin-left:3.25rem;
+}
+.pass{
+  margin-left:2.75rem;
 }
 
 .iconsBox{
@@ -320,6 +331,8 @@ a {
 }
 
 .icon-list {
+  display:flex;
+  margin-top:2rem;
   padding-left:0rem;
   border-width: 1px;
   border-style: solid;

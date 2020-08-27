@@ -26,6 +26,7 @@ h1{
   height: 550px;
   font-family: 'Rosarivo', serif;
 }
+
 #sublit-title{
   font-size: 125px;
   color: white;
@@ -60,35 +61,32 @@ h1{
   justify-content: space-between;
   overflow-x: hidden;
   max-width: 100%;
-  background-color: rgb(243, 240, 240);
-
+  margin-bottom: 2%;
+  // background-color:#EFFEF7;
 
   a {
     text-decoration: none;
     color: black;
   }
-
- 
 }
 
 .top_bar2 {
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   overflow-x: hidden;
   max-width: 100%;
-  background-color: rgb(243, 240, 240);
-  padding-bottom: 2%;
-
+  // background-color:#EFFEF7;
 
   a {
     text-decoration: none;
     color: black;
   }
-
- 
 }
+
+
 .middle-section{
   display: flex;
   flex-direction: column;
@@ -243,8 +241,6 @@ a {
 
 }
 
-
-
 .new_listing {
   display: flex;
   flex-direction: column;
@@ -303,7 +299,7 @@ a {
 }
 
 .user-creator{
-  height: 40rem;
+  height: 47rem;
   background-image: url("darthall.png");
   opacity: 1;
   background-size: 80rem 48rem;
@@ -328,7 +324,7 @@ a {
 .email-input, .password-input, .name-input{
   width:14rem;
   height:2rem;
-  margin-top:1rem;
+  margin-bottom:.5rem;
   margin-left:1rem;
 }
 
@@ -340,11 +336,26 @@ a {
   display:flex;
   flex-direction:row;
   justify-content: center;
+  align-items: center;
   padding:.5rem;
 }
-
+.email{
+  margin-top:3rem;
+  margin-left:3.25rem;
+}
 .firstName{
-  margin-right:3.75rem;
+  margin-right:2rem;
+  margin-top:3rem;
+}
+.signUpEmail{
+  margin-left:3.25rem;
+}
+.pass{
+  margin-left:2.75rem;
+}
+
+.smallView{
+  margin-top: 10px;
 }
 
 .iconsBox{
@@ -353,14 +364,6 @@ a {
   align-content: center;
 }
 
-.icon-list {
-  padding-left:0rem;
-  border-width: 1px;
-  border-style: solid;
-}
-.smallView{
-  margin-top: 10px;
-}
 .smallview-outer{
   width: 100%;
   font-weight: bold;
@@ -489,4 +492,46 @@ ul li:hover{
       width: 100%;
     }
   }
+}
+.new_listing{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0px;
+}
+.allListings{
+  display:flex;
+  flex-direction:column;
+}
+.allListing{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #EFFEF7;
+}
+
+.addressInfo, .dateInfo, .termInfo, .rentInfo, .descriptionInfo, .lengthInfo, .roomInfo, .parkingInfo, .bathroomInfo, .amenityInfo, .entireAPTInfo{
+  display:flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 35rem;
+}
+.houseAPTtext{
+  text-align:center;
+}
+.imageUpload{
+  margin-bottom: 2rem;
+}
+.new_listing button{
+  width:15rem;
+}
+.new_listing #largeSubmit{
+  height:3rem;
+  margin-bottom:5rem;
+}
+.new_listing input {
+  height: 2rem;
+}
+.descriptionInfo textarea, .amenityInfo textarea{
+  height:8rem;
 }

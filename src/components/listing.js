@@ -241,7 +241,11 @@ class Listing extends Component {
       );
     }
 
-    console.log(this.props.currentListing);
+    let fullHouse = 'No';
+    if (this.props.currentListing.isFullApartment) {
+      fullHouse = 'Yes';
+    }
+
     return (
       <div className="indlisting">
         <div className="leftColumn">
@@ -258,7 +262,7 @@ class Listing extends Component {
             <li> Bathrooms: {this.props.currentListing.numBaths} </li>
             <li> Parking spaces: {this.props.currentListing.numParkingSpaces} </li>
             <li> Amenities: {this.props.currentListing.ammenities} </li>
-            <li> Full? {this.props.currentListing.isFullApartment} </li>
+            <li> Is this a full apartment/house?  {fullHouse} </li>
           </ul>
         </div>
         <div className="rightColumn">

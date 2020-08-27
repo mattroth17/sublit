@@ -17,7 +17,8 @@ class Main extends Component {
       filts: 0,
       numberOfRooms: '',
       isFullApartment: false,
-      term: '',
+      startDate: '',
+      endDate: '',
       lowerRent: '',
       upperRent: '',
     };
@@ -28,8 +29,12 @@ class Main extends Component {
     this.props.fetchUser(this.props.email);
   }
 
-  termChange = (event) => {
-    this.setState({ term: event.target.value });
+  startDate = (event) => {
+    this.setState({ startDate: event.target.value });
+  }
+
+  endDate = (event) => {
+    this.setState({ endDate: event.target.value });
   }
 
   roomsChange = (event) => {
@@ -56,11 +61,29 @@ class Main extends Component {
     document.getElementById('dd').style.display = 'block';
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  testCallback(target, listings) {
+    console.log('mainpage testCallback');
+    console.log(target.title);
+    // eslint-disable-next-line array-callback-return
+    listings.map((listing) => {
+      if (listing.id === target.title) {
+        console.log('they match');
+        const selected = document.getElementById(target.title);
+        selected.style.backgroundColor = 'lightcoral';
+      } else {
+        const notSelected = document.getElementById(listing.id);
+        notSelected.style.backgroundColor = 'lightblue';
+        console.log('no match');
+      }
+    });
+  }
+
   showListings() {
     return this.props.listings.map((listing) => {
       console.log(listing);
       return (
-        <div key={listing.id}>
+        <div key={listing.id} id={listing.id}>
           <Link className="smallViewLink" to={`/listings/${listing.id}`}>
             <ListItem button>
               <ListingSmallView key={listing.id} listing={listing} />
@@ -86,7 +109,7 @@ class Main extends Component {
   showMap() {
     if (this.props.listings.length > 0) {
       return (
-        <MapContainer listings={this.props.listings} />
+        <MapContainer listings={this.props.listings} testCallback={this.testCallback} />
       );
     } else {
       return (
@@ -122,7 +145,8 @@ class Main extends Component {
         <div id="filt">
           <button type="button" onClick={() => this.dropClick()}> Filter by... </button>
           <div id="dd">
-            Terms wanted (F/W/S/X), separated by comma: <input onChange={this.termChange} placeholder="term" /> <p> </p>
+            Earliest start date: <input onChange={this.startDate} type="date" /> <p> </p>
+            Latest end date: <input onChange={this.endDate} type="date" /> <p> </p>
             # Rooms wanted: <input onChange={this.roomsChange} /> <p> </p>
             Full apartment/house wanted, enter false or true: <input onChange={this.fullChange} /> <p> </p>
             Min rent per month: <input onChange={this.lrentChange} />

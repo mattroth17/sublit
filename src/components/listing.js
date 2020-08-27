@@ -319,7 +319,7 @@ class Listing extends Component {
             <h2>{this.props.currentListing.address}</h2>
             <hr />
             <h3>Rent: {this.props.currentListing.rent}</h3>
-            <h3>Listed by: {this.props.currentListing.renterName}</h3>
+            <h3>Listed by: {this.props.currentListing.author.firstName}</h3>
             <h3> Available from: {this.props.currentListing.startDate} to {this.props.currentListing.endDate} </h3>
             {this.props.currentListing.description}
           </div>

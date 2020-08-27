@@ -182,6 +182,40 @@ export function fetchUser(email) {
   };
 }
 
+export function sendResetEmail({ email }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/reset`, { email })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        dispatch(authError(`Reset email failed to send: ${error}`));
+      });
+  };
+}
+
+export function resetPassword({ email, password, token }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/getuser`, { email })
+      .then((response) => {
+        if (response.data[0].forgotPasswordToken === token) {
+          axios.post(`${ROOT_URL}/resetpassword`, { email, password })
+            .then((resp) => {
+              history.push('/signin');
+            })
+            .catch((err) => {
+              console.log(err);
+              dispatch({ type: ActionTypes.ERROR_SET, err });
+            });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({ type: ActionTypes.ERROR_SET, error });
+      });
+  };
+}
+
 export function signinUser({ email, password }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/getuser`, { email })
@@ -197,6 +231,7 @@ export function signinUser({ email, password }, history) {
             })
             .catch((err) => {
               if (err.response) {
+                console.log(err.response);
                 dispatch(authError('Sign in failed: Incorrect username or password'));
               } else {
                 dispatch(authError(`Sign Up Failed: ${err}`));

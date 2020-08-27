@@ -458,5 +458,22 @@ ul li:hover{
     text-align: center;
     color: red;
   }
+}
 
+// forgot password
+.forgotPassword {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  margin-top: 200px;
+
+  p, input, button {
+    margin: 10px;
+  }
+
+  .sent {
+    color: red;
+  }
 }

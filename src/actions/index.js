@@ -196,18 +196,9 @@ export function sendResetEmail({ email }, history) {
 
 export function resetPassword({ email, password, token }, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/getuser`, { email })
+    axios.post(`${ROOT_URL}/resetpassword`, { email, password, token })
       .then((response) => {
-        if (response.data[0].forgotPasswordToken === token) {
-          axios.post(`${ROOT_URL}/resetpassword`, { email, password })
-            .then((resp) => {
-              history.push('/signin');
-            })
-            .catch((err) => {
-              console.log(err);
-              dispatch({ type: ActionTypes.ERROR_SET, err });
-            });
-        }
+        history.push('/signin');
       })
       .catch((error) => {
         console.log(error);
@@ -253,10 +244,10 @@ export function signinUser({ email, password }, history) {
 
 export function signInAndConfirmEmail({ email, password, confirmToken }, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/getuser`, { email })
+    axios.post(`${ROOT_URL}/confirmemail`, { email, confirmToken })
       .then((response) => {
-        // token is confirmed, sign in and change emailConfirmed
-        if (response.data[0].confirmToken === confirmToken) {
+        if (response.data.length === 1) {
+          // token is confirmed, sign in and change emailConfirmed
           return axios.post(`${ROOT_URL}/signin`, { email, password })
             .then((resp) => {
               localStorage.setItem('token', resp.data.token);
@@ -289,32 +280,25 @@ export function signInAndConfirmEmail({ email, password, confirmToken }, history
             });
         // token is not confirmed
         } else {
-          dispatch(authError('Link not associated with account.'));
-          history.push('/confirmemail');
+          dispatch(authError('Could not confirm email. Confirmation link may be old.'));
         }
         return null;
       })
       .catch((error) => {
         console.log(error);
+        dispatch(authError(error));
       });
   };
 }
 
 export function resendConfirmation({ email }) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/getuser`, { email })
+    axios.post(`${ROOT_URL}/resendconfirmation`, { email })
       .then((response) => {
-        const token = response.data[0].confirmToken;
-        axios.post(`${ROOT_URL}/resend`, { email, token })
-          .then((resp) => {
-            console.log(resp);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        console.log(response);
       })
       .catch((error) => {
-        dispatch(authError('Not a registered email'));
+        dispatch(authError(error));
         console.log(error);
       });
   };

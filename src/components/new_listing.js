@@ -78,14 +78,15 @@ class NewListing extends Component {
 
   onAmmenitiesChange = (event) => {
     const checks = document.getElementsByName('term');
-    const newterms = [];
+    const newamms = [];
     checks.forEach((check) => {
       if (check.checked) {
         console.log(check.value);
-        newterms.push(check.value);
+        newamms.push(check.value);
       }
     });
-    this.setState({ ammenities: newterms });
+    console.log(newamms);
+    this.setState({ ammenities: newamms });
   }
 
   // for image uploading
@@ -125,6 +126,7 @@ class NewListing extends Component {
       });
     } else {
       const listing = { ...this.state };
+      console.log(listing);
       this.props.createListing(listing, this.props.history);
     }
   }
@@ -217,7 +219,7 @@ class NewListing extends Component {
             </div>
             <div className="amenityInfo">
               <h2> List the Ammenities </h2>
-              <div className="houseAPTtext" onChange={this.onAmmenitiesChange}>
+              <div className="amms" onChange={this.onAmmenitiesChange}>
                 <input type="checkbox" value="wifi" name="term" /> wifi
                 <input type="checkbox" value="laundry service or washer/dryer" name="term" /> laundry service or washer/dryer
                 <input type="checkbox" value="tv" name="term" /> tv

@@ -24,7 +24,8 @@ class Listing extends Component {
       description: '',
       ammenities: [],
       email: '',
-      term: [],
+      startDate: '',
+      endDate: '',
     };
   }
 
@@ -81,6 +82,14 @@ class Listing extends Component {
     this.setState({ ammenities: event.target.value });
   }
 
+  onSDateChange = (event) => {
+    this.setState({ startDate: event.target.value });
+  }
+
+  onEDateChange = (event) => {
+    this.setState({ endDate: event.target.value });
+  }
+
   remakeListing = () => {
     const listing = { ...this.state };
     this.props.updateListing(listing);
@@ -133,12 +142,12 @@ class Listing extends Component {
     </div>
   );
 
-  retTerms() {
-    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
+  retAmms() {
+    if (!this.props.currentListing || isEmpty(this.props.currentListing.ammenities)) {
       return <div> loading... </div>;
     }
 
-    return this.props.currentListing.term.map((t) => {
+    return this.props.currentListing.ammenities.map((t) => {
       return <div> {`${t}`} </div>;
     });
   }
@@ -215,9 +224,9 @@ class Listing extends Component {
             >
               {this.renderPlacesAutocomplete}
             </PlacesAutocomplete> <p> </p>
-            <input onChange={this.onDateChange} type="date" placeholder={`Date Posted: ${this.props.currentListing.date}`} /> <p> </p>
+            <input onChange={this.onSDateChange} type="date" placeholder={`Date Posted: ${this.props.currentListing.startDate}`} /> <p> </p>
+            <input onChange={this.onEDateChange} type="date" placeholder={`Date Posted: ${this.props.currentListing.endDate}`} /> <p> </p>
             <input onChange={this.onRentChange} type="number" placeholder={`Rent: ${this.props.currentListing.rent}`} /> <p> </p>
-            <input onChange={this.onLenSubletChange} placeholder={`Length: ${this.props.currentListing.lenSublet}`} /> <p> </p>
             <input onChange={this.onNumberOfRoomsChange} placeholder={`Rooms: ${this.props.currentListing.numberOfRooms}`} /> <p> </p>
             <input onChange={this.onIsFullApartmentChange} placeholder={`Full? ${this.props.currentListing.isFullApartment}`} /> <p> </p>
             <input onChange={this.onPicturesChangee} placeholder="Upload pictures - not currently functional" /> <p> </p>
@@ -254,14 +263,14 @@ class Listing extends Component {
             <hr />
             <h3>Rent: {this.props.currentListing.rent}</h3>
             <h3>Listed by: {this.props.currentListing.renterName}</h3>
-            <div id="terms"><h3>Terms available: </h3> {this.retTerms()} </div>
+            <h3> Available from: {this.props.currentListing.startDate} to {this.props.currentListing.endDate} </h3>
             {this.props.currentListing.description}
           </div>
           <ul className="amenities">
             <li> Rooms: {this.props.currentListing.numberOfRooms} </li>
             <li> Bathrooms: {this.props.currentListing.numBaths} </li>
             <li> Parking spaces: {this.props.currentListing.numParkingSpaces} </li>
-            <li> Amenities: {this.props.currentListing.ammenities} </li>
+            <li> Amenities: {this.retAmms()} </li>
             <li> Is this a full apartment/house?  {fullHouse} </li>
           </ul>
         </div>

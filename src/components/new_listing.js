@@ -21,7 +21,7 @@ class NewListing extends Component {
       numParkingSpaces: 0,
       numBaths: 0,
       description: '',
-      ammenities: [],
+      amenities: [],
       images: [],
       numPics: 1,
       previews: [],
@@ -86,7 +86,7 @@ class NewListing extends Component {
       }
     });
     console.log(newamms);
-    this.setState({ ammenities: newamms });
+    this.setState({ amenities: newamms });
   }
 
   // for image uploading

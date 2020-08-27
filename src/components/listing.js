@@ -22,7 +22,7 @@ class Listing extends Component {
       numParkingSpaces: 0,
       numBaths: 0,
       description: '',
-      ammenities: [],
+      amenities: [],
       email: '',
       startDate: '',
       endDate: '',
@@ -79,7 +79,7 @@ class Listing extends Component {
   }
 
   onAmmenitiesChange = (event) => {
-    this.setState({ ammenities: event.target.value });
+    this.setState({ amenities: event.target.value });
   }
 
   onSDateChange = (event) => {
@@ -143,11 +143,11 @@ class Listing extends Component {
   );
 
   retAmms() {
-    if (!this.props.currentListing || isEmpty(this.props.currentListing.ammenities)) {
-      return <div> loading... </div>;
+    if (!this.props.currentListing || isEmpty(this.props.currentListing.amenities)) {
+      return <div> none listed </div>;
     }
 
-    return this.props.currentListing.ammenities.map((t) => {
+    return this.props.currentListing.amenities.map((t) => {
       return <div> {`${t}`} </div>;
     });
   }
@@ -233,7 +233,7 @@ class Listing extends Component {
             <input onChange={this.onNumParkingSpacesChange} placeholder={`Parking: ${this.props.currentListing.numParkingSpaces}`} /> <p> </p>
             <input onChange={this.onNumBathsChange} type="number" placeholder={`Baths: ${this.props.currentListing.numBaths}`} /> <p> </p>
             <input onChange={this.onDescriptionChange} placeholder={`Desc.: ${this.props.currentListing.description}`} /> <p> </p>
-            <input onChange={this.onAmmenitiesChange} placeholder={`Amenities: ${this.props.currentListing.ammenities}`} /> <p> </p>
+            <input onChange={this.onAmmenitiesChange} placeholder={`Amenities: ${this.props.currentListing.amenities}`} /> <p> </p>
           </div>
           <div className="radio">
             <h2> Is it an entire apartment/house? </h2>

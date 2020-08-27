@@ -11,7 +11,6 @@ import Login from './login';
 import Listing from './listing';
 import SignIn from './sign_in';
 import SignUp from './sign_up';
-import SignOut from './sign_out';
 import Chat from './chat';
 import Error from './error';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -33,7 +32,6 @@ class App extends Component {
             <Route path="/listings/new" component={NewListing} />
             <Route path="/listings/:listingID" component={Listing} />
             <Route path="/chat" component={Chat} />
-            <Route path="/signout" component={SignOut} />
             <Route render={() => (<div>Listing Not Found</div>)} />
           </Switch>
           <Error />

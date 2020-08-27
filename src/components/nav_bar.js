@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { signoutUser } from '../actions/index';
 import './css_files/nav_bar.scss';
 
@@ -23,4 +23,4 @@ class NavBar extends Component {
   }
 }
 
-export default connect(null, { signoutUser })(NavBar);
+export default withRouter(connect(null, { signoutUser })(NavBar));

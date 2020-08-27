@@ -20,8 +20,9 @@ export const ActionTypes = {
 };
 
 export function fetchFiltered(filters) {
+  console.log(filters);
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/filter`, filters, { headers: { authorization: localStorage.getItem('token') } })
+    axios.post(`${ROOT_URL}/filter`, filters, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_FILTERED, payload: response.data });
       })

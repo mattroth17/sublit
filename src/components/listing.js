@@ -158,7 +158,7 @@ class Listing extends Component {
       const authorEmail = this.props.currentListing.author.email;
       const hasConvo = this.props.user.conversations.some((convo) => convo.email === authorEmail);
       if (hasConvo) {
-        return (<button type="submit" onClick={() => this.goToConversation()}> Go to Conversation </button>);
+        return (<button type="submit" className="submit" onClick={() => this.goToConversation()}> Go to Conversation </button>);
       }
       return (<button type="submit" onClick={() => this.startConversation()}> Chat me </button>);
     }
@@ -190,7 +190,7 @@ class Listing extends Component {
         <li key="return" onClick={this.goBack}>
           <i className="fas fa-chevron-left" />
         </li>
-        <li key="chat">
+        <li key="chat" className="chatbutton">
           {this.renderChatButton()}
         </li>
       </ul>
@@ -241,6 +241,11 @@ class Listing extends Component {
       );
     }
 
+    let fullHouse = 'No';
+    if (this.props.currentListing.isFullApartment) {
+      fullHouse = 'Yes';
+    }
+
     return (
       <div className="indlisting">
         <div className="leftColumn">
@@ -250,14 +255,14 @@ class Listing extends Component {
             <h3>Rent: {this.props.currentListing.rent}</h3>
             <h3>Listed by: {this.props.currentListing.renterName}</h3>
             <div id="terms"><h3>Terms available: </h3> {this.retTerms()} </div>
-            <h3>{this.props.currentListing.description}</h3>
+            {this.props.currentListing.description}
           </div>
           <ul className="amenities">
             <li> Rooms: {this.props.currentListing.numberOfRooms} </li>
             <li> Bathrooms: {this.props.currentListing.numBaths} </li>
             <li> Parking spaces: {this.props.currentListing.numParkingSpaces} </li>
             <li> Amenities: {this.props.currentListing.ammenities} </li>
-            <li> Full? {this.props.currentListing.isFullApartment} </li>
+            <li> Is this a full apartment/house?  {fullHouse} </li>
           </ul>
         </div>
         <div className="rightColumn">

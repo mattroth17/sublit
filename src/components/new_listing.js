@@ -11,10 +11,10 @@ class NewListing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      datePosted: '',
+      startDate: '',
+      endDate: '',
       address: '',
       rent: 0,
-      lenSublet: 1,
       numberOfRooms: 0,
       isFullApartment: false,
       pictures: [],
@@ -23,7 +23,6 @@ class NewListing extends Component {
       description: '',
       ammenities: [],
       images: [],
-      term: [],
       numPics: 1,
       previews: [],
       files: [],
@@ -33,8 +32,12 @@ class NewListing extends Component {
   // componentDidMount
 
   // what's the point of date?
-  onDateChange = (event) => {
-    this.setState({ datePosted: event.target.value });
+  onSDateChange = (event) => {
+    this.setState({ startDate: event.target.value });
+  }
+
+  onEDateChange = (event) => {
+    this.setState({ endDate: event.target.value });
   }
 
   onAddressChange = (event) => {
@@ -43,11 +46,6 @@ class NewListing extends Component {
 
   onRentChange = (event) => {
     this.setState({ rent: event.target.value });
-  }
-
-  onLenSubletChange = (event) => {
-    console.log(event.target.value);
-    this.setState({ lenSublet: event.target.value });
   }
 
   onNumberOfRoomsChange = (event) => {
@@ -79,10 +77,6 @@ class NewListing extends Component {
   }
 
   onAmmenitiesChange = (event) => {
-    this.setState({ ammenities: event.target.value });
-  }
-
-  onTermsChange = (event) => {
     const checks = document.getElementsByName('term');
     const newterms = [];
     checks.forEach((check) => {
@@ -91,7 +85,7 @@ class NewListing extends Component {
         newterms.push(check.value);
       }
     });
-    this.setState({ term: newterms });
+    this.setState({ ammenities: newterms });
   }
 
   // for image uploading
@@ -188,17 +182,10 @@ class NewListing extends Component {
               </PlacesAutocomplete>
             </div>
             <div className="dateInfo">
-              <h2> Date? Not sure what this is for </h2>
-              <input onChange={this.onDateChange} type="date" placeholder="Date" value={this.state.datePosted} />
-            </div>
-            <div className="termInfo">
-              <h2> Which term(s) are you looking to sublet? (need backend support if we want to use this) </h2>
-              <div className="houseAPTtext" onChange={this.onTermsChange}>
-                <input type="checkbox" value="F" name="term" /> Fall
-                <input type="checkbox" value="W" name="term" /> Winter
-                <input type="checkbox" value="S" name="term" /> Spring
-                <input type="checkbox" value="X" name="term" /> Summer
-              </div>
+              <h2> Start date of sublet </h2>
+              <input onChange={this.onSDateChange} type="date" placeholder="Date" value={this.state.datePosted} />
+              <h2> End date of sublet </h2>
+              <input onChange={this.onEDateChange} type="date" placeholder="Date" value={this.state.datePosted} />
             </div>
             <div className="rentInfo">
               <h2> Cost of Rent (per month e.g. &quot;1000&quot;) </h2>
@@ -230,7 +217,12 @@ class NewListing extends Component {
             </div>
             <div className="amenityInfo">
               <h2> List the Ammenities </h2>
-              <input onChange={this.onAmmenitiesChange} placeholder="Ammenities" value={this.state.ammenities} />
+              <div className="houseAPTtext" onChange={this.onAmmenitiesChange}>
+                <input type="checkbox" value="wifi" name="term" /> wifi
+                <input type="checkbox" value="laundry service or washer/dryer" name="term" /> laundry service or washer/dryer
+                <input type="checkbox" value="tv" name="term" /> tv
+                <input type="checkbox" value="coffe or tea maker" name="term" /> coffee or tea maker
+              </div>
             </div>
             <div className="entireAPTInfo">
               <h2> Is it an entire apartment/house? </h2>

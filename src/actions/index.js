@@ -7,6 +7,7 @@ export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
 export const ActionTypes = {
   FETCH_LISTINGS: 'FETCH_LISTINGS',
   FETCH_LISTING: 'FETCH_LISTING',
+  FETCH_FILTERED: 'FETCH_FILTERED',
   AUTH_USER: 'AUTH_USER',
   FETCH_USER: 'FETCH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
@@ -17,6 +18,19 @@ export const ActionTypes = {
   ERROR_SET: 'ERROR_SET',
   ERROR_CLEAR: 'ERROR_CLEAR',
 };
+
+export function fetchFiltered(filters) {
+  console.log(filters);
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/filter`, filters, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_FILTERED, payload: response.data });
+      })
+      .catch((error) => {
+        dispatch({ type: ActionTypes.ERROR_SET, error });
+      });
+  };
+}
 
 // need to incorporate sorting based on season, number of people, etc.
 export function fetchListings() {

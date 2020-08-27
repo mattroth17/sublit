@@ -4,18 +4,19 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import _ from 'underscore';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { createListing } from '../actions/index';
+import { createListing, sendError } from '../actions/index';
 import * as s3 from '../s3';
 
 class NewListing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      datePosted: '',
+      startDate: '',
+      endDate: '',
       address: '',
       rent: 0,
-      lenSublet: 1,
       numberOfRooms: 0,
+      numberOfPeople: 0,
       isFullApartment: false,
       pictures: [],
       numParkingSpaces: 0,
@@ -30,10 +31,11 @@ class NewListing extends Component {
     };
   }
 
-  // componentDidMount
+  onStartDateChange = (event) => {
+    this.setState({ datePosted: event.target.value });
+  }
 
-  // what's the point of date?
-  onDateChange = (event) => {
+  onEndDateChange = (event) => {
     this.setState({ datePosted: event.target.value });
   }
 
@@ -45,9 +47,8 @@ class NewListing extends Component {
     this.setState({ rent: event.target.value });
   }
 
-  onLenSubletChange = (event) => {
-    console.log(event.target.value);
-    this.setState({ lenSublet: event.target.value });
+  onNumPeopleChange = (event) => {
+    this.setState({ numberOfPeople: event.target.value });
   }
 
   onNumberOfRoomsChange = (event) => {
@@ -94,15 +95,6 @@ class NewListing extends Component {
     this.setState({ term: newterms });
   }
 
-  // for image uploading
-  incrementPics = () => {
-    if (this.state.numPics === this.state.previews.length) {
-      this.setState((prevState) => {
-        return { numPics: prevState.numPics + 1 };
-      });
-    }
-  }
-
   onImageUpload = (event) => {
     const file = event.target.files[0];
     // Handle null file
@@ -111,6 +103,7 @@ class NewListing extends Component {
       this.setState((prevState) => ({
         previews: [...prevState.previews, window.URL.createObjectURL(file)],
         files: [...prevState.files, file],
+        numPics: prevState.numPics + 1,
       }));
     }
   }
@@ -157,7 +150,18 @@ class NewListing extends Component {
     return (
       <div className="image-uploads">
         {_.range(this.state.numPics).map((pic) => {
-          return (<input key={pic} type="file" name="coverImage" onChange={this.onImageUpload} />);
+          console.log(pic);
+          const imageCount = (pic > 0 ? 'Another Image' : 'Image');
+          console.log(imageCount);
+          const buttonText = `Upload ${imageCount}`;
+          return (
+            <div key={pic} className="custom-image-upload">
+              <label htmlFor={pic} className="custom-image-upload-button">
+                {buttonText}
+                <input id={pic} type="file" name="coverImage" onChange={this.onImageUpload} />
+              </label>
+            </div>
+          );
         })}
       </div>
     );
@@ -188,8 +192,10 @@ class NewListing extends Component {
               </PlacesAutocomplete>
             </div>
             <div className="dateInfo">
-              <h2> Date? Not sure what this is for </h2>
-              <input onChange={this.onDateChange} type="date" placeholder="Date" value={this.state.datePosted} />
+              <h2> Start Date </h2>
+              <input onChange={this.onStartDateChange} type="date" placeholder="Date" value={this.state.startDate} />
+              <h2> End Date </h2>
+              <input onChange={this.onEndDateChange} type="date" placeholder="Date" value={this.state.endDate} />
             </div>
             <div className="termInfo">
               <h2> Which term(s) are you looking to sublet? (need backend support if we want to use this) </h2>
@@ -201,22 +207,22 @@ class NewListing extends Component {
               </div>
             </div>
             <div className="rentInfo">
-              <h2> Cost of Rent (per month e.g. &quot;1000&quot;) </h2>
+              <h2> Cost of Rent (per month in U.S. dollars e.g. &quot;1000&quot;) </h2>
               <input onChange={this.onRentChange} type="number" placeholder="Cost of Rent" value={this.state.rent} />
             </div>
             <div className="descriptionInfo">
               <h2> Description of the Space </h2>
               <input onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" value={this.state.description} />
             </div>
-            <div className="lengthInfo">
-              <h2> Length of Sublet (in months) </h2>
-              <input onChange={this.onLenSubletChange} type="range" min="0" max="12" placeholder="Lenght of Sublet" value={this.state.lenSublet} />
-              <div>{this.state.lenSublet} months</div>
-            </div>
             <div className="roomInfo">
               <h2> Number of Rooms </h2>
               <input onChange={this.onNumberOfRoomsChange} type="range" min="0" max="10" placeholder="Number of Rooms" value={this.state.numberOfRooms} />
               <div>{this.state.numberOfRooms} rooms</div>
+            </div>
+            <div className="peopleInfo">
+              <h2> Number of People that Can Stay in the Space </h2>
+              <input onChange={this.onNumPeopleChange} type="range" min="0" max="10" placeholder="Number of Rooms" value={this.state.numberOfPeople} />
+              <div>{this.state.numberOfPeople} people</div>
             </div>
             <div className="parkingInfo">
               <h2> Number of Parking Spaces </h2>
@@ -224,12 +230,12 @@ class NewListing extends Component {
               <div>{this.state.numParkingSpaces} parking spaces</div>
             </div>
             <div className="bathroomInfo">
-              <h2> Number of bathrooms </h2>
+              <h2> Number of Bathrooms </h2>
               <input onChange={this.onNumBathsChange} type="range" min="0" max="5" placeholder="Number of Baths" value={this.state.numBaths} />
               <div>{this.state.numBaths} baths</div>
             </div>
             <div className="amenityInfo">
-              <h2> List the Ammenities </h2>
+              <h2> List the Amenities </h2>
               <input onChange={this.onAmmenitiesChange} placeholder="Ammenities" value={this.state.ammenities} />
             </div>
             <div className="entireAPTInfo">
@@ -243,7 +249,6 @@ class NewListing extends Component {
               <h2> Upload Images of the Space </h2>
               {this.renderPreviews()}
               {this.renderImageInputs()}
-              <button type="submit" onClick={this.incrementPics}>Upload another picture</button>
             </div>
             <button id="largeSubmit" type="button" onClick={() => this.makeListing()}> Post your listing. </button>
           </div>
@@ -257,4 +262,4 @@ const mapStateToProps = (reduxState) => ({
   auth: reduxState.auth,
 });
 
-export default withRouter(connect(mapStateToProps, { createListing })(NewListing));
+export default withRouter(connect(mapStateToProps, { createListing, sendError })(NewListing));

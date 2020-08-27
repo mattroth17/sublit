@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import _, { isEmpty } from 'underscore';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import {
-  fetchListing, updateListing, deleteListing, startConversation, getConversation, sendError,
+  fetchListing, updateListing, deleteListing, startConversation, getConversation, sendError, fetchUser,
 } from '../actions';
 import './css_files/listing.scss';
 import * as s3 from '../s3';
@@ -33,6 +33,9 @@ class Listing extends Component {
 
   componentDidMount() {
     this.props.fetchListing(this.props.match.params.listingID);
+    if (isEmpty(this.props.user)) {
+      this.props.fetchUser(this.props.email);
+    }
   }
 
   onStartDateChange = (event) => {
@@ -91,7 +94,7 @@ class Listing extends Component {
 
   startEdits = () => {
     this.setState({ ...this.props.currentListing }, () => {
-      if (this.props.auth.user !== this.state.email) {
+      if (this.props.email !== this.props.currentListing.author.email) {
         return;
       }
       this.setState({ editing: 1, numPics: this.props.currentListing.pictures.length });
@@ -179,6 +182,16 @@ class Listing extends Component {
     });
   }
 
+  renderImages() {
+    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
+      return <div> Loading... </div>;
+    }
+    console.log(this.props.currentListing);
+    return this.props.currentListing.pictures.map((pic) => {
+      return (<img key={pic} alt="" src={pic} />);
+    });
+  }
+
   renderImageInputs() {
     return (
       <div className="image-uploads">
@@ -258,12 +271,10 @@ class Listing extends Component {
       return <div> Loading... </div>;
     }
 
-    console.log('rendering editing');
     if (this.state.editing === 1) {
       return (
         <div className="edit_listing">
           <div className="form-boxes">
-            <input onChange={this.onNameChange} placeholder={`Name: ${this.props.currentListing.renterName}`} /> <p> </p>
             <PlacesAutocomplete
               value={this.state.address}
               onChange={(value) => this.setState({ address: value })}
@@ -271,8 +282,8 @@ class Listing extends Component {
             >
               {this.renderPlacesAutocomplete}
             </PlacesAutocomplete> <p> </p>
-            <input onChange={this.onStartDateChange} type="date" placeholder={`Start Date: ${this.props.currentListing.date}`} /> <p> </p>
-            <input onChange={this.onEndDateChange} type="date" placeholder={`End Date: ${this.props.currentListing.date}`} /> <p> </p>
+            <input onChange={this.onStartDateChange} type="date" placeholder={`Start Date: ${this.props.currentListing.startDate}`} /> <p> </p>
+            <input onChange={this.onEndDateChange} type="date" placeholder={`End Date: ${this.props.currentListing.endDate}`} /> <p> </p>
             <input onChange={this.onRentChange} type="number" placeholder={`Rent: ${this.props.currentListing.rent}`} /> <p> </p>
             <input onChange={this.onNumberOfRoomsChange} placeholder={`Rooms: ${this.props.currentListing.numberOfRooms}`} /> <p> </p>
             <input onChange={this.onNumPeopleChange} placeholder={`Number of People: ${this.props.currentListing.numberOfPeople}`} /> <p> </p>
@@ -342,5 +353,5 @@ const mapStateToProps = (reduxState) => ({
 });
 
 export default connect(mapStateToProps, {
-  fetchListing, updateListing, deleteListing, startConversation, getConversation, sendError,
+  fetchListing, updateListing, deleteListing, startConversation, getConversation, sendError, fetchUser,
 })(Listing);

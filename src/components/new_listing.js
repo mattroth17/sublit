@@ -31,11 +31,11 @@ class NewListing extends Component {
   }
 
   onStartDateChange = (event) => {
-    this.setState({ datePosted: event.target.value });
+    this.setState({ startDate: event.target.value });
   }
 
   onEndDateChange = (event) => {
-    this.setState({ datePosted: event.target.value });
+    this.setState({ endDate: event.target.value });
   }
 
   onAddressChange = (event) => {

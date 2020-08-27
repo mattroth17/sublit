@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
-export const ROOT_URL = 'http://localhost:9090/api';
+export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
+// export const ROOT_URL = 'http://localhost:9090/api';
 
 // keys for actiontypes
 // going to need chat actions
@@ -101,9 +101,9 @@ export function startConversation(user1, user2, history) {
     };
     const conversation = { email: user2.email, firstName: user2.firstName };
     axios.put(`${ROOT_URL}/updateuserinfo`, person1, { headers: { authorization: localStorage.getItem('token') } })
-      .then((response) => {
+      .then(() => {
         axios.put(`${ROOT_URL}/updateuserinfo`, person2, { headers: { authorization: localStorage.getItem('token') } })
-          .then((res) => {
+          .then(() => {
             dispatch({ type: ActionTypes.FETCH_CONVERSATION, conversation, messages: [] });
             history.push('/chat');
           })
@@ -185,8 +185,8 @@ export function fetchUser(email) {
 export function sendResetEmail({ email }, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/reset`, { email })
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        console.log('sent');
       })
       .catch((error) => {
         dispatch(authError(`Reset email failed to send: ${error}`));
@@ -202,7 +202,7 @@ export function resetPassword({ email, password, token }, history) {
       })
       .catch((error) => {
         console.log(error);
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        dispatch(authError(`Reset password failed: ${error}`));
       });
   };
 }
@@ -217,6 +217,7 @@ export function signinUser({ email, password }, history) {
             .then((resp) => {
               localStorage.setItem('token', resp.data.token);
               localStorage.setItem('email', email);
+              localStorage.setItem('confirmed', true);
               dispatch({ type: ActionTypes.AUTH_USER, email });
               history.push('/');
             })
@@ -261,7 +262,7 @@ export function signInAndConfirmEmail({ email, password, confirmToken }, history
                 },
               };
               axios.put(`${ROOT_URL}/updateuserinfo`, updates, { headers: { authorization: resp.data.token } })
-                .then((re) => {
+                .then(() => {
                   dispatch({ type: ActionTypes.AUTH_USER, email });
                   history.push('/');
                 })
@@ -294,8 +295,8 @@ export function signInAndConfirmEmail({ email, password, confirmToken }, history
 export function resendConfirmation({ email }) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/resendconfirmation`, { email })
-      .then((response) => {
-        console.log(response);
+      .then(() => {
+        console.log('sent');
       })
       .catch((error) => {
         dispatch(authError(error));
@@ -335,6 +336,7 @@ export function signupUser({ email, password, firstName }, history) {
 export function signoutUser(history) {
   return (dispatch) => {
     localStorage.removeItem('token');
+    localStorage.removeItem('confirmed');
     dispatch({ type: ActionTypes.DEAUTH_USER });
     history.push('/');
   };

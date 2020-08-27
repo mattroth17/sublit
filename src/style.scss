@@ -68,9 +68,25 @@ h1{
     text-decoration: none;
     color: black;
   }
-
- 
 }
+
+.top_bar2 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: hidden;
+  max-width: 100%;
+  // background-color:#EFFEF7;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+
 .middle-section{
   display: flex;
   flex-direction: column;
@@ -270,6 +286,19 @@ a {
   }
 }
 
+.listing-images {
+  display: flex;
+  flex-direction: row;
+  img {
+    width: 25%;
+    height: auto;
+  }
+}
+
+#dd {
+  display: none;
+}
+
 .user-creator{
   height: 47rem;
   background-image: url("darthall.png");
@@ -440,6 +469,30 @@ ul li{
 
 ul li:hover{
   cursor: pointer;
+}
+
+.smallViewLink {
+  font: bold;
+  color: green;
+  background-color: green;
+}
+
+.submit {
+  display: flex;
+  width: 100%;
+}
+
+.chatbutton {
+  width: 100%;
+}
+
+.iconlist {
+  li {
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
 }
 .new_listing{
   display: flex;

@@ -62,11 +62,6 @@ class Listing extends Component {
     this.setState({ isFullApartment: event.target.value });
   }
 
-  // append pictures w/ file adds?
-  onPicturesChangee = (event) => {
-    // this.setState({ pictures: event.target.value });
-  }
-
   onNumParkingSpacesChange = (event) => {
     this.setState({ numParkingSpaces: event.target.value });
   }
@@ -84,7 +79,7 @@ class Listing extends Component {
   }
 
   onAmmenitiesChange = (event) => {
-    this.setState({ ammenities: event.target.value });
+    this.setState({ amenities: event.target.value });
   }
 
   remakeListing = () => {
@@ -123,7 +118,6 @@ class Listing extends Component {
   onImageUpload = (event) => {
     const file = event.target.files[0];
     // Handle null file
-    // Get url of the file and set it to the src of preview
     if (file) {
       s3.uploadImage(file).then((url) => {
         this.setState((prevState) => ({
@@ -172,12 +166,12 @@ class Listing extends Component {
     </div>
   );
 
-  retTerms() {
-    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
-      return <div> loading... </div>;
+  retAmms() {
+    if (!this.props.currentListing || isEmpty(this.props.currentListing.amenities)) {
+      return <div> none listed </div>;
     }
 
-    return this.props.currentListing.term.map((t) => {
+    return this.props.currentListing.amenities.map((t) => {
       return <div> {`${t}`} </div>;
     });
   }
@@ -227,7 +221,7 @@ class Listing extends Component {
       const authorEmail = this.props.currentListing.author.email;
       const hasConvo = this.props.user.conversations.some((convo) => convo.email === authorEmail);
       if (hasConvo) {
-        return (<button type="submit" onClick={() => this.goToConversation()}> Go to Conversation </button>);
+        return (<button type="submit" className="submit" onClick={() => this.goToConversation()}> Go to Conversation </button>);
       }
       return (<button type="submit" onClick={() => this.startConversation()}> Chat me </button>);
     }
@@ -259,7 +253,7 @@ class Listing extends Component {
         <li key="return" onClick={this.goBack}>
           <i className="fas fa-chevron-left" />
         </li>
-        <li key="chat">
+        <li key="chat" className="chatbutton">
           {this.renderChatButton()}
         </li>
       </ul>
@@ -291,7 +285,7 @@ class Listing extends Component {
             <input onChange={this.onNumParkingSpacesChange} placeholder={`Parking: ${this.props.currentListing.numParkingSpaces}`} /> <p> </p>
             <input onChange={this.onNumBathsChange} type="number" placeholder={`Baths: ${this.props.currentListing.numBaths}`} /> <p> </p>
             <input onChange={this.onDescriptionChange} placeholder={`Desc.: ${this.props.currentListing.description}`} /> <p> </p>
-            <input onChange={this.onAmmenitiesChange} placeholder={`Amenities: ${this.props.currentListing.ammenities}`} /> <p> </p>
+            <input onChange={this.onAmmenitiesChange} placeholder={`Amenities: ${this.props.currentListing.amenities}`} /> <p> </p>
           </div>
           <div className="radio">
             <h2> Is it an entire apartment/house? </h2>
@@ -313,6 +307,11 @@ class Listing extends Component {
       );
     }
 
+    let fullHouse = 'No';
+    if (this.props.currentListing.isFullApartment) {
+      fullHouse = 'Yes';
+    }
+
     return (
       <div className="indlisting">
         <div className="leftColumn">
@@ -321,15 +320,15 @@ class Listing extends Component {
             <hr />
             <h3>Rent: {this.props.currentListing.rent}</h3>
             <h3>Listed by: {this.props.currentListing.renterName}</h3>
-            <div id="terms"><h3>Terms available: </h3> {this.retTerms()} </div>
-            <h3>{this.props.currentListing.description}</h3>
+            <h3> Available from: {this.props.currentListing.startDate} to {this.props.currentListing.endDate} </h3>
+            {this.props.currentListing.description}
           </div>
           <ul className="amenities">
             <li> Rooms: {this.props.currentListing.numberOfRooms} </li>
             <li> Bathrooms: {this.props.currentListing.numBaths} </li>
             <li> Parking spaces: {this.props.currentListing.numParkingSpaces} </li>
-            <li> Amenities: {this.props.currentListing.ammenities} </li>
-            <li> Full? {this.props.currentListing.isFullApartment} </li>
+            <li> Amenities: {this.retAmms()} </li>
+            <li> Is this a full apartment/house?  {fullHouse} </li>
           </ul>
         </div>
         <div className="rightColumn">

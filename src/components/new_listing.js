@@ -22,9 +22,8 @@ class NewListing extends Component {
       numParkingSpaces: 0,
       numBaths: 0,
       description: '',
-      ammenities: [],
+      amenities: [],
       images: [],
-      term: [],
       numPics: 1,
       previews: [],
       files: [],
@@ -80,19 +79,16 @@ class NewListing extends Component {
   }
 
   onAmmenitiesChange = (event) => {
-    this.setState({ ammenities: event.target.value });
-  }
-
-  onTermsChange = (event) => {
     const checks = document.getElementsByName('term');
-    const newterms = [];
+    const newamms = [];
     checks.forEach((check) => {
       if (check.checked) {
         console.log(check.value);
-        newterms.push(check.value);
+        newamms.push(check.value);
       }
     });
-    this.setState({ term: newterms });
+    console.log(newamms);
+    this.setState({ amenities: newamms });
   }
 
   onImageUpload = (event) => {
@@ -124,6 +120,7 @@ class NewListing extends Component {
       });
     } else {
       const listing = { ...this.state };
+      console.log(listing);
       this.props.createListing(listing, this.props.history);
     }
   }
@@ -235,8 +232,13 @@ class NewListing extends Component {
               <div>{this.state.numBaths} baths</div>
             </div>
             <div className="amenityInfo">
-              <h2> List the Amenities </h2>
-              <input onChange={this.onAmmenitiesChange} placeholder="Ammenities" value={this.state.ammenities} />
+              <h2> List the Ammenities </h2>
+              <div className="amms" onChange={this.onAmmenitiesChange}>
+                <input type="checkbox" value="wifi" name="term" /> wifi
+                <input type="checkbox" value="laundry service or washer/dryer" name="term" /> laundry service or washer/dryer
+                <input type="checkbox" value="tv" name="term" /> tv
+                <input type="checkbox" value="coffe or tea maker" name="term" /> coffee or tea maker
+              </div>
             </div>
             <div className="entireAPTInfo">
               <h2> Is it an entire apartment/house? </h2>

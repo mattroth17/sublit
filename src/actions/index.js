@@ -27,7 +27,11 @@ export function fetchFiltered(filters) {
         dispatch({ type: ActionTypes.FETCH_FILTERED, payload: response.data });
       })
       .catch((error) => {
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -57,7 +61,7 @@ export function createListing(listing, history) {
         history.push('/');
       })
       .catch((error) => {
-        if (error.response && error.response.data.includes('<')) {
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
         } else {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
@@ -73,7 +77,7 @@ export function updateListing(listing) {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
-        if (error.response && error.response.data.includes('<')) {
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
         } else {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
@@ -89,7 +93,7 @@ export function fetchListing(id) {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
-        if (error.response && error.response.data.includes('<')) {
+        if (error.response && ((!typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
         } else {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
@@ -105,7 +109,7 @@ export function deleteListing(id, history) {
         history.push('/');
       })
       .catch((error) => {
-        if (error.response && error.response.data.includes('<')) {
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
         } else {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
@@ -139,7 +143,7 @@ export function startConversation(user1, user2, history) {
             history.push('/chat');
           })
           .catch((err) => {
-            if (err.response && err.response.data.includes('<')) {
+            if (err.response && (!(typeof err.response.data === 'string') || err.response.data.includes('<'))) {
               dispatch({ type: ActionTypes.ERROR_SET, errorMessage: err.response.statusText });
             } else {
               dispatch({ type: ActionTypes.ERROR_SET, errorMessage: err.response.data });
@@ -147,7 +151,7 @@ export function startConversation(user1, user2, history) {
           });
       })
       .catch((error) => {
-        if (error.response && error.response.data.includes('<')) {
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
         } else {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
@@ -163,7 +167,7 @@ export function getConversation(conversation, person1Email, person2Email) {
         dispatch({ type: ActionTypes.FETCH_CONVERSATION, conversation, messages: response.data });
       })
       .catch((error) => {
-        if (error.response && error.response.data.includes('<')) {
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
         } else {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
@@ -181,7 +185,7 @@ export function getConversations(email) {
         dispatch({ type: ActionTypes.FETCH_CONVERSATIONS, payload: response.data[0].conversations });
       })
       .catch((error) => {
-        if (error.response && error.response.data.includes('<')) {
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
         } else {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
@@ -201,7 +205,7 @@ export function sendChatMessage(senderEmail, senderFirstName, recipientEmail, re
         dispatch({ type: ActionTypes.FETCH_MESSAGE, message: response.data });
       })
       .catch((error) => {
-        if (error.response && error.response.data.includes('<')) {
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
         } else {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
@@ -226,7 +230,7 @@ export function fetchUser(email) {
         dispatch({ type: ActionTypes.FETCH_USER, payload: response.data[0] });
       })
       .catch((error) => {
-        if (error.response && error.response.data.includes('<')) {
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
         } else {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });

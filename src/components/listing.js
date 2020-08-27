@@ -1,39 +1,48 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { isEmpty } from 'underscore';
+import _, { isEmpty } from 'underscore';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import {
-  fetchListing, updateListing, deleteListing, startConversation, getConversation,
+  fetchListing, updateListing, deleteListing, startConversation, getConversation, sendError, fetchUser,
 } from '../actions';
 import './css_files/listing.scss';
+import * as s3 from '../s3';
 
 class Listing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editing: 0,
+      startDate: '',
+      endDate: '',
       address: '',
       rent: 0,
-      lenSublet: '',
       numberOfRooms: 0,
+      numberOfPeople: 0,
       isFullApartment: false,
       pictures: [],
       numParkingSpaces: 0,
       numBaths: 0,
       description: '',
-      amenities: [],
-      email: '',
-      startDate: '',
-      endDate: '',
+      ammenities: [],
+      term: [],
+      numPics: 1,
+      editing: 0,
     };
   }
 
   componentDidMount() {
     this.props.fetchListing(this.props.match.params.listingID);
+    if (isEmpty(this.props.user)) {
+      this.props.fetchUser(this.props.email);
+    }
   }
 
-  onDateChange = (event) => {
+  onStartDateChange = (event) => {
+    this.setState({ date: event.target.value });
+  }
+
+  onEndDateChange = (event) => {
     this.setState({ date: event.target.value });
   }
 
@@ -45,10 +54,6 @@ class Listing extends Component {
     this.setState({ rent: event.target.value });
   }
 
-  onLenSubletChange = (event) => {
-    this.setState({ term: event.target.value });
-  }
-
   onNumberOfRoomsChange = (event) => {
     this.setState({ numberOfRooms: event.target.value });
   }
@@ -57,17 +62,12 @@ class Listing extends Component {
     this.setState({ isFullApartment: event.target.value });
   }
 
-  // append pictures w/ file adds?
-  onPicturesChangee = (event) => {
-    // this.setState({ pictures: event.target.value });
-  }
-
-  onAddressChange = (event) => {
-    this.setState({ address: event.target.value });
-  }
-
   onNumParkingSpacesChange = (event) => {
     this.setState({ numParkingSpaces: event.target.value });
+  }
+
+  onNumPeopleChange = (event) => {
+    this.setState({ numberOfPeople: event.target.value });
   }
 
   onNumBathsChange = (event) => {
@@ -82,30 +82,17 @@ class Listing extends Component {
     this.setState({ amenities: event.target.value });
   }
 
-  onSDateChange = (event) => {
-    this.setState({ startDate: event.target.value });
-  }
-
-  onEDateChange = (event) => {
-    this.setState({ endDate: event.target.value });
-  }
-
   remakeListing = () => {
     const listing = { ...this.state };
     this.props.updateListing(listing);
-    this.props.history.push('/');
   }
 
   startEdits = () => {
-    console.log('starting edits');
-    console.log(this.props.auth.email);
-    console.log(this.props.currentListing.email);
     this.setState({ ...this.props.currentListing }, () => {
-      // NOTE: COMMENT THESE LINES if trouble w/ auth
-      if (this.props.email !== this.props.currentListing.email) {
+      if (this.props.email !== this.props.currentListing.author.email) {
         return;
       }
-      this.setState({ editing: 1 });
+      this.setState({ editing: 1, numPics: this.props.currentListing.pictures.length });
     });
   }
 
@@ -126,6 +113,41 @@ class Listing extends Component {
     const firstName = this.props.currentListing.author;
     this.props.getConversation({ email, firstName }, this.props.user.email, email);
     this.props.history.push('/chat');
+  }
+
+  onImageUpload = (event) => {
+    const file = event.target.files[0];
+    // Handle null file
+    if (file) {
+      s3.uploadImage(file).then((url) => {
+        this.setState((prevState) => ({
+          pictures: [...prevState.pictures, url],
+          numPics: prevState.numPics + 1,
+        }));
+      }).catch((error) => {
+        this.props.sendError('Error uploading image. Try Again.');
+      });
+    }
+  }
+
+  makeListing = () => {
+    if (this.state.files.length > 0) {
+      const promises = [];
+      this.state.files.forEach((file) => {
+        promises.push(s3.uploadImage(file));
+      });
+      Promise.all(promises).then((urls) => {
+        if (urls.length === this.state.files.length) {
+          const listing = { ...this.state, pictures: urls };
+          this.props.createListing(listing, this.props.history);
+        } else {
+          console.log('error uploading images');
+        }
+      });
+    } else {
+      const listing = { ...this.state };
+      this.props.createListing(listing, this.props.history);
+    }
   }
 
   renderPlacesAutocomplete = ({
@@ -162,6 +184,36 @@ class Listing extends Component {
     return this.props.currentListing.pictures.map((pic) => {
       return (<img key={pic} alt="" src={pic} />);
     });
+  }
+
+  renderImageInputs() {
+    return (
+      <div className="image-uploads">
+        {_.range(this.state.numPics).map((pic) => {
+          const imageCount = (pic > 0 ? 'Another Image' : 'Image');
+          console.log(imageCount);
+          const buttonText = `Upload ${imageCount}`;
+          return (
+            <div key={pic} className="custom-image-upload">
+              <label htmlFor={pic} className="custom-image-upload-button">
+                {buttonText}
+                <input id={pic} type="file" name="coverImage" onChange={this.onImageUpload} />
+              </label>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  renderPreviews() {
+    return (
+      <div className="image-previews">
+        {this.state.pictures.map((pic) => {
+          return (<img key={pic} id="preview" alt="" src={pic} />);
+        })}
+      </div>
+    );
   }
 
   renderChatButton() {
@@ -213,12 +265,10 @@ class Listing extends Component {
       return <div> Loading... </div>;
     }
 
-    console.log('rendering editing');
     if (this.state.editing === 1) {
       return (
         <div className="edit_listing">
           <div className="form-boxes">
-            <input onChange={this.onNameChange} placeholder={`Name: ${this.props.currentListing.renterName}`} /> <p> </p>
             <PlacesAutocomplete
               value={this.state.address}
               onChange={(value) => this.setState({ address: value })}
@@ -226,12 +276,12 @@ class Listing extends Component {
             >
               {this.renderPlacesAutocomplete}
             </PlacesAutocomplete> <p> </p>
-            <input onChange={this.onSDateChange} type="date" placeholder={`Date Posted: ${this.props.currentListing.startDate}`} /> <p> </p>
-            <input onChange={this.onEDateChange} type="date" placeholder={`Date Posted: ${this.props.currentListing.endDate}`} /> <p> </p>
+            <input onChange={this.onStartDateChange} type="date" placeholder={`Start Date: ${this.props.currentListing.startDate}`} /> <p> </p>
+            <input onChange={this.onEndDateChange} type="date" placeholder={`End Date: ${this.props.currentListing.endDate}`} /> <p> </p>
             <input onChange={this.onRentChange} type="number" placeholder={`Rent: ${this.props.currentListing.rent}`} /> <p> </p>
             <input onChange={this.onNumberOfRoomsChange} placeholder={`Rooms: ${this.props.currentListing.numberOfRooms}`} /> <p> </p>
+            <input onChange={this.onNumPeopleChange} placeholder={`Number of People: ${this.props.currentListing.numberOfPeople}`} /> <p> </p>
             <input onChange={this.onIsFullApartmentChange} placeholder={`Full? ${this.props.currentListing.isFullApartment}`} /> <p> </p>
-            <input onChange={this.onPicturesChangee} placeholder="Upload pictures - not currently functional" /> <p> </p>
             <input onChange={this.onNumParkingSpacesChange} placeholder={`Parking: ${this.props.currentListing.numParkingSpaces}`} /> <p> </p>
             <input onChange={this.onNumBathsChange} type="number" placeholder={`Baths: ${this.props.currentListing.numBaths}`} /> <p> </p>
             <input onChange={this.onDescriptionChange} placeholder={`Desc.: ${this.props.currentListing.description}`} /> <p> </p>
@@ -243,6 +293,11 @@ class Listing extends Component {
               <input type="radio" value="true" name="full" /> Yes
               <input type="radio" value="false" name="full" /> No
             </div>
+          </div>
+          <div className="imageUpload">
+            <h2> Upload More Images of the Space </h2>
+            {this.renderPreviews()}
+            {this.renderImageInputs()}
           </div>
           <div className="edit-buttons">
             <button type="button" onClick={() => this.remakeListing()}> Update your listing. </button>
@@ -297,5 +352,5 @@ const mapStateToProps = (reduxState) => ({
 });
 
 export default connect(mapStateToProps, {
-  fetchListing, updateListing, deleteListing, startConversation, getConversation,
+  fetchListing, updateListing, deleteListing, startConversation, getConversation, sendError, fetchUser,
 })(Listing);

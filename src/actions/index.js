@@ -294,3 +294,9 @@ export function clearError() {
     dispatch({ type: ActionTypes.ERROR_CLEAR });
   };
 }
+
+export function sendError(message) {
+  return (dispatch) => {
+    dispatch({ type: ActionTypes.ERROR_SET, errorMessage: message });
+  };
+}

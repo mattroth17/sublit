@@ -261,6 +261,7 @@ a {
     align-self: center;
   }
 }
+
 @media screen and (max-width: 768px){
   #sublit-title{
     font-size: 75px;
@@ -510,14 +511,20 @@ ul li:hover{
   background-color: #EFFEF7;
 }
 
-.addressInfo, .dateInfo, .termInfo, .rentInfo, .descriptionInfo, .lengthInfo, .roomInfo, .parkingInfo, .bathroomInfo, .amenityInfo, .entireAPTInfo{
-  display:flex;
+.addressInfo, .dateInfo, .termInfo, .rentInfo, .descriptionInfo, .peopleInfo, .roomInfo, .parkingInfo, .bathroomInfo, .amenityInfo, .entireAPTInfo, .imageUpload{
+  display: flex;
   flex-direction: column;
   padding: 1rem;
   width: 35rem;
 }
+
+.autocomplete-root {
+  input {
+    width: 98%;
+  }
+}
 .houseAPTtext{
-  text-align:center;
+  text-align: center;
 }
 .imageUpload{
   margin-bottom: 2rem;
@@ -529,6 +536,32 @@ ul li:hover{
   height:3rem;
   margin-bottom:5rem;
 }
+
+#largeSubmit {
+  width: 300px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-image-upload-button {
+  width: 40%;
+  height: 30px;
+  background-color: #5a85c7;
+  color: white;
+  border-width: 0px;
+  border-radius: 5px;
+  align-self: center;
+  text-align: center;
+  padding-top: 4px;
+}
+
+#add-picture {
+  color: #5a85c7;
+  font-size: 2rem;
+}
+
 .new_listing input {
   height: 2rem;
 }

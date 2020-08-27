@@ -24,7 +24,7 @@ class Listing extends Component {
       numParkingSpaces: 0,
       numBaths: 0,
       description: '',
-      ammenities: [],
+      amenities: [],
       term: [],
       numPics: 1,
       editing: 0,

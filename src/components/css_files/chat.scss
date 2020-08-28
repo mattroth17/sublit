@@ -11,7 +11,7 @@
   overscroll-behavior: none;
 
   .convos {
-    width: 50%;
+    width: 35%;
     height: 80vh;
     display: flex;
     flex-direction: column;
@@ -25,7 +25,6 @@
       background-color: #d8e2dd;
       width: 100%;
       height: 10%;
-      // border: 1px solid #7D8581;
       padding: 3px;
       transition: all 200ms;
     }
@@ -56,7 +55,7 @@
   
 
   .conversation {
-    width: 50%;
+    width: 65%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -124,8 +123,9 @@
         text-align: left;
         border-radius: 10px;
         background-color: #4B7562;
-        padding: 6px;
+        padding: 10px;
         margin: 1vh;
+        margin-bottom: 2vh;
         color: white;
         max-width: 50%;
       }

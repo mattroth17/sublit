@@ -93,6 +93,7 @@ export function fetchListing(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        console.log(response.data);
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {

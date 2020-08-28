@@ -25,25 +25,24 @@ class Listing extends Component {
       numBaths: 0,
       description: '',
       amenities: [],
-      term: [],
       numPics: 1,
       editing: 0,
     };
   }
 
   componentDidMount() {
-    this.props.fetchListing(this.props.match.params.listingID);
     if (isEmpty(this.props.user)) {
       this.props.fetchUser(this.props.email);
     }
+    this.props.fetchListing(this.props.match.params.listingID);
   }
 
   onStartDateChange = (event) => {
-    this.setState({ date: event.target.value });
+    this.setState({ startDate: event.target.value });
   }
 
   onEndDateChange = (event) => {
-    this.setState({ date: event.target.value });
+    this.setState({ endDate: event.target.value });
   }
 
   onAddressChange = (event) => {
@@ -104,12 +103,25 @@ class Listing extends Component {
   }
 
   startEdits = () => {
-    this.setState({ ...this.props.currentListing }, () => {
-      if (this.props.email !== this.props.currentListing.author.email) {
-        return;
-      }
-      this.setState({ editing: 1, numPics: this.props.currentListing.pictures.length });
-    });
+    if (this.props.email === this.props.currentListing.author.email) {
+      console.log(this.props.currentListing.startDate);
+      this.setState({
+        editing: 1,
+        numPics: 1 + this.props.currentListing.pictures.length,
+        startDate: this.props.currentListing.startDate,
+        endDate: this.props.currentListing.endDate,
+        address: this.props.currentListing.address,
+        rent: this.props.currentListing.rent,
+        numberOfRooms: this.props.currentListing.numberOfRooms,
+        numberOfPeople: this.props.currentListing.numberOfPeople,
+        isFullApartment: this.props.currentListing.isFullApartment,
+        pictures: this.props.currentListing.pictures,
+        numParkingSpaces: this.props.currentListing.numParkingSpaces,
+        numBaths: this.props.currentListing.numBaths,
+        description: this.props.currentListing.description,
+        amenities: this.props.currentListing.amenities,
+      });
+    }
   }
 
   deleteListing = (event) => {
@@ -146,26 +158,6 @@ class Listing extends Component {
     }
   }
 
-  makeListing = () => {
-    if (this.state.files.length > 0) {
-      const promises = [];
-      this.state.files.forEach((file) => {
-        promises.push(s3.uploadImage(file));
-      });
-      Promise.all(promises).then((urls) => {
-        if (urls.length === this.state.files.length) {
-          const listing = { ...this.state, pictures: urls };
-          this.props.createListing(listing, this.props.history);
-        } else {
-          console.log('error uploading images');
-        }
-      });
-    } else {
-      const listing = { ...this.state };
-      this.props.createListing(listing, this.props.history);
-    }
-  }
-
   renderPlacesAutocomplete = ({
     getInputProps, getSuggestionItemProps, loading, suggestions,
   }) => (
@@ -194,20 +186,19 @@ class Listing extends Component {
 
   renderImages() {
     if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
-      return <div> Loading... </div>;
+      return <div>Loading...</div>;
     }
-    console.log(this.props.currentListing);
     return this.props.currentListing.pictures.map((pic) => {
       return (<img key={pic} alt="" src={pic} />);
     });
   }
 
   renderImageInputs() {
+    console.log(this.state.numPics);
     return (
       <div className="image-uploads">
         {_.range(this.state.numPics).map((pic) => {
           const imageCount = (pic > 0 ? 'Another Image' : 'Image');
-          console.log(imageCount);
           const buttonText = `Upload ${imageCount}`;
           return (
             <div key={pic} className="custom-image-upload">
@@ -246,10 +237,8 @@ class Listing extends Component {
 
   renderButtons() {
     if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
-      return <div> loading... </div>;
-    }
-
-    if (this.props.currentListing.author.email === this.props.email) {
+      return <div>Loading...</div>;
+    } else if (this.props.currentListing.author.email === this.props.email) {
       return (
         <ul className="icon-list">
           <li key="return" onClick={this.goBack}>
@@ -263,25 +252,26 @@ class Listing extends Component {
           </li>
         </ul>
       );
+    } else {
+      return (
+        <ul className="icon-list">
+          <li key="return" onClick={this.goBack}>
+            <i className="fas fa-chevron-left" />
+          </li>
+          <li key="chat" className="chatbutton">
+            {this.renderChatButton()}
+          </li>
+        </ul>
+      );
     }
-    return (
-      <ul className="icon-list">
-        <li key="return" onClick={this.goBack}>
-          <i className="fas fa-chevron-left" />
-        </li>
-        <li key="chat" className="chatbutton">
-          {this.renderChatButton()}
-        </li>
-      </ul>
-    );
   }
 
   render() {
     if (isEmpty(this.props.currentListing)) {
-      return <div> Loading... </div>;
+      return (<div>Loading...</div>);
     }
 
-    if (this.state.editing === 1) {
+    if (this.state.editing) {
       return (
         <div className="edit_listing">
           <div className="form-boxes">
@@ -292,16 +282,16 @@ class Listing extends Component {
             >
               {this.renderPlacesAutocomplete}
             </PlacesAutocomplete> <p> </p>
-            <input onChange={this.onStartDateChange} type="date" placeholder={`Start Date: ${this.props.currentListing.startDate}`} /> <p> </p>
-            <input onChange={this.onEndDateChange} type="date" placeholder={`End Date: ${this.props.currentListing.endDate}`} /> <p> </p>
-            <input onChange={this.onRentChange} type="number" placeholder={`Rent: ${this.props.currentListing.rent}`} /> <p> </p>
-            <input onChange={this.onNumberOfRoomsChange} placeholder={`Rooms: ${this.props.currentListing.numberOfRooms}`} /> <p> </p>
-            <input onChange={this.onNumPeopleChange} placeholder={`Number of People: ${this.props.currentListing.numberOfPeople}`} /> <p> </p>
-            <input onChange={this.onIsFullApartmentChange} placeholder={`Full? ${this.props.currentListing.isFullApartment}`} /> <p> </p>
-            <input onChange={this.onNumParkingSpacesChange} placeholder={`Parking: ${this.props.currentListing.numParkingSpaces}`} /> <p> </p>
-            <input onChange={this.onNumBathsChange} type="number" placeholder={`Baths: ${this.props.currentListing.numBaths}`} /> <p> </p>
-            <input onChange={this.onDescriptionChange} placeholder={`Desc.: ${this.props.currentListing.description}`} /> <p> </p>
-            <input onChange={this.onAmmenitiesChange} placeholder={`Amenities: ${this.props.currentListing.amenities}`} /> <p> </p>
+            <input onChange={this.onStartDateChange} type="date" placeholder={`Start Date: ${this.props.currentListing.startDate}`} value={this.state.startDate} /> <p> </p>
+            <input onChange={this.onEndDateChange} type="date" value={this.state.endDate} /> <p> </p>
+            <input onChange={this.onRentChange} type="number" placeholder={`Rent: ${this.props.currentListing.rent}`} value={this.state.rent} /> <p> </p>
+            <input onChange={this.onNumberOfRoomsChange} placeholder={`Rooms: ${this.props.currentListing.numberOfRooms}`} value={this.state.numberOfRooms} /> <p> </p>
+            <input onChange={this.onNumPeopleChange} placeholder={`Number of People: ${this.props.currentListing.numberOfPeople}`} value={this.state.numberOfPeople} /> <p> </p>
+            <input onChange={this.onIsFullApartmentChange} placeholder={`Full? ${this.props.currentListing.isFullApartment}`} value={this.state.isFullApartment} /> <p> </p>
+            <input onChange={this.onNumParkingSpacesChange} placeholder={`Parking: ${this.props.currentListing.numParkingSpaces}`} value={this.state.numParkingSpaces} /> <p> </p>
+            <input onChange={this.onNumBathsChange} type="number" placeholder={`Baths: ${this.props.currentListing.numBaths}`} value={this.state.numBaths} /> <p> </p>
+            <input onChange={this.onDescriptionChange} placeholder={`Desc.: ${this.props.currentListing.description}`} value={this.state.description} /> <p> </p>
+            <input onChange={this.onAmmenitiesChange} placeholder={`Amenities: ${this.props.currentListing.amenities}`} value={this.state.amenities} /> <p> </p>
           </div>
           <div className="radio">
             <h2> Is it an entire apartment/house? </h2>

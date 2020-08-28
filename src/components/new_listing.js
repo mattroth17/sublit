@@ -192,15 +192,6 @@ class NewListing extends Component {
               <h2> End Date </h2>
               <input onChange={this.onEndDateChange} type="date" placeholder="Date" value={this.state.endDate} />
             </div>
-            <div className="termInfo">
-              <h2> Which term(s) are you looking to sublet? (need backend support if we want to use this) </h2>
-              <div className="houseAPTtext" onChange={this.onTermsChange}>
-                <input type="checkbox" value="F" name="term" /> Fall
-                <input type="checkbox" value="W" name="term" /> Winter
-                <input type="checkbox" value="S" name="term" /> Spring
-                <input type="checkbox" value="X" name="term" /> Summer
-              </div>
-            </div>
             <div className="rentInfo">
               <h2> Cost of Rent (per month in U.S. dollars e.g. &quot;1000&quot;) </h2>
               <input onChange={this.onRentChange} type="number" placeholder="Cost of Rent" value={this.state.rent} />
@@ -235,7 +226,7 @@ class NewListing extends Component {
                 <input type="checkbox" value="wifi" name="term" /> wifi
                 <input type="checkbox" value="laundry service or washer/dryer" name="term" /> laundry service or washer/dryer
                 <input type="checkbox" value="tv" name="term" /> tv
-                <input type="checkbox" value="coffe or tea maker" name="term" /> coffee or tea maker
+                <input type="checkbox" value="coffee or tea maker" name="term" /> coffee or tea maker
               </div>
             </div>
             <div className="entireAPTInfo">

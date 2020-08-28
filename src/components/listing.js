@@ -82,11 +82,24 @@ class Listing extends Component {
   }
 
   remakeListing = () => {
-    const listing = { ...this.state };
-    delete listing.editing;
-    delete listing.numPics;
-    this.props.updateListing(listing, this.props.currentListing.id);
-    this.setState({ editing: 0 });
+    const listing = {
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
+      address: this.state.address,
+      rent: this.state.rent,
+      numberOfRooms: this.state.numberOfRooms,
+      numberOfPeople: this.state.numberOfPeople,
+      isFullApartment: this.state.isFullApartment,
+      pictures: this.state.pictures,
+      numParkingSpaces: this.state.numParkingSpaces,
+      numBaths: this.state.numBaths,
+      description: this.state.description,
+      amenities: this.state.amenities,
+    };
+    this.props.updateListing(listing, this.props.match.params.listingID, () => {
+      this.setState({ editing: 0 });
+    });
+    this.props.history.push('/');
   }
 
   startEdits = () => {

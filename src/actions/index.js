@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
+// export const ROOT_URL = 'http://localhost:9090/api';
 
 // keys for actiontypes
 // going to need chat actions
@@ -8,7 +9,9 @@ export const ActionTypes = {
   FETCH_LISTINGS: 'FETCH_LISTINGS',
   FETCH_LISTING: 'FETCH_LISTING',
   FETCH_FILTERED: 'FETCH_FILTERED',
+  UPDATE_LISTING: 'UPDATE_LISTING',
   AUTH_USER: 'AUTH_USER',
+  INIT_USER: 'INIT_USER',
   FETCH_USER: 'FETCH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
@@ -71,12 +74,10 @@ export function createListing(listing, history) {
 }
 
 export function updateListing(listing, id) {
-  console.log(listing);
   return (dispatch) => {
     axios.put(`${ROOT_URL}/listings/${id}`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        console.log(response);
-        dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
+        dispatch({ type: ActionTypes.UPDATE_LISTING, payload: response.data });
       })
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
@@ -139,9 +140,9 @@ export function startConversation(user1, user2, history) {
     };
     const conversation = { email: user2.email, firstName: user2.firstName };
     axios.put(`${ROOT_URL}/updateuserinfo`, person1, { headers: { authorization: localStorage.getItem('token') } })
-      .then((response) => {
+      .then(() => {
         axios.put(`${ROOT_URL}/updateuserinfo`, person2, { headers: { authorization: localStorage.getItem('token') } })
-          .then((res) => {
+          .then(() => {
             dispatch({ type: ActionTypes.FETCH_CONVERSATION, conversation, messages: [] });
             history.push('/chat');
           })
@@ -242,29 +243,134 @@ export function fetchUser(email) {
   };
 }
 
-export function signinUser({ email, password }, history) {
+export function sendResetEmail({ email }, history) {
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signin`, { email, password })
-      .then((response) => {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('email', email);
-        dispatch({ type: ActionTypes.AUTH_USER, email });
-        history.push('/');
+    axios.post(`${ROOT_URL}/reset`, { email })
+      .then(() => {
+        console.log('sent');
       })
       .catch((error) => {
-        if (error.response) {
-          dispatch(authError('Sign in failed: Incorrect username or password'));
+        dispatch(authError(`Reset email failed to send: ${error}`));
+      });
+  };
+}
+
+export function resetPassword({ email, password, token }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/resetpassword`, { email, password, token })
+      .then((response) => {
+        history.push('/signin');
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(authError(`Reset password failed: ${error}`));
+      });
+  };
+}
+
+export function signinUser({ email, password }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/getuser`, { email })
+      .then((response) => {
+        // email is confirmed, sign in
+        if (response.data[0].emailConfirmed) {
+          axios.post(`${ROOT_URL}/signin`, { email, password })
+            .then((resp) => {
+              localStorage.setItem('token', resp.data.token);
+              localStorage.setItem('email', email);
+              localStorage.setItem('confirmed', true);
+              dispatch({ type: ActionTypes.AUTH_USER, email });
+              history.push('/');
+            })
+            .catch((err) => {
+              if (err.response) {
+                console.log(err.response);
+                dispatch(authError('Sign in failed: Incorrect username or password'));
+              } else {
+                dispatch(authError(`Sign Up Failed: ${err}`));
+              }
+            });
+
+        // email is not confirmed
         } else {
-          dispatch(authError(`Sign Up Failed: ${error}`));
+          history.push('/confirmemail');
         }
+        return null;
+      })
+      .catch((error) => {
+        dispatch(authError(`Sign in failed: ${error}`));
+        console.log(error);
+      });
+  };
+}
+
+export function signInAndConfirmEmail({ email, password, confirmToken }, history) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/confirmemail`, { email, confirmToken })
+      .then((response) => {
+        if (response.data.length === 1) {
+          // token is confirmed, sign in and change emailConfirmed
+          return axios.post(`${ROOT_URL}/signin`, { email, password })
+            .then((resp) => {
+              localStorage.setItem('token', resp.data.token);
+              localStorage.setItem('email', email);
+
+              // updateUser, make emailConfirmed: true
+              const updates = {
+                email,
+                update: {
+                  emailConfirmed: true,
+                },
+              };
+              axios.put(`${ROOT_URL}/updateuserinfo`, updates, { headers: { authorization: resp.data.token } })
+                .then(() => {
+                  dispatch({ type: ActionTypes.AUTH_USER, email });
+                  history.push('/');
+                })
+                .catch((er) => {
+                  console.log(er);
+                  dispatch(authError(`Could not update user info: ${er}`));
+                  history.push('/confirmemail');
+                });
+            })
+            .catch((err) => {
+              if (err.response) {
+                dispatch(authError('Sign in failed: Incorrect username or password'));
+              } else {
+                dispatch(authError(`Sign Up Failed: ${err}`));
+              }
+            });
+        // token is not confirmed
+        } else {
+          dispatch(authError('Could not confirm email. Confirmation link may be old.'));
+        }
+        return null;
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(authError(error));
+      });
+  };
+}
+
+export function resendConfirmation({ email }) {
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/resendconfirmation`, { email })
+      .then(() => {
+        console.log('sent');
+      })
+      .catch((error) => {
+        dispatch(authError(error));
+        console.log(error);
       });
   };
 }
 
 export function signupUser({ email, password, firstName }, history) {
   return (dispatch) => {
-    const emailPattern = /^[A-Za-z0-9._%+-]+@dartmouth.edu$/;
-    const valid = emailPattern.test(email);
+    // const emailPattern = /^[A-Za-z0-9._%+-]+@dartmouth.edu$/;
+    // const valid = emailPattern.test(email);
+    const valid = true;
     if (!valid) {
       dispatch({ type: ActionTypes.AUTH_ERROR, message: 'Sign Up Failed: Email must be a valid Dartmouth address' });
     } else {
@@ -272,8 +378,8 @@ export function signupUser({ email, password, firstName }, history) {
         .then((response) => {
           localStorage.setItem('token', response.data.token);
           localStorage.setItem('email', email);
-          dispatch({ type: ActionTypes.AUTH_USER, email });
-          history.push('/');
+          dispatch({ type: ActionTypes.INIT_USER, email });
+          history.push('/confirmemail');
         })
         .catch((error) => {
           if (error.response) {
@@ -291,6 +397,7 @@ export function signupUser({ email, password, firstName }, history) {
 export function signoutUser(history) {
   return (dispatch) => {
     localStorage.removeItem('token');
+    localStorage.removeItem('confirmed');
     dispatch({ type: ActionTypes.DEAUTH_USER });
     history.push('/');
   };

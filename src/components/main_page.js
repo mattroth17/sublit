@@ -106,10 +106,12 @@ class Main extends Component {
 
   showMap() {
     if (this.props.listings.length > 0) {
+      console.log('returning map');
       return (
         <MapContainer listings={this.props.listings} testCallback={this.testCallback} />
       );
     } else {
+      console.log('loading map');
       return (
         <div>
           Loading...
@@ -151,10 +153,13 @@ class Main extends Component {
             Max rent per month: <input onChange={this.urentChange} />
             <button type="button" onClick={() => this.filter()}> Filter listings. </button>
           </div>
-        </div> <p> </p>
-        <div className="maincontent">
+        </div>
+        <div className="mainpage-flex">
           <div id="listings_cont">
             {this.showListings()}
+          </div>
+          <div>
+            {this.showMap()}
           </div>
         </div>
       </div>

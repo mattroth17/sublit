@@ -131,7 +131,9 @@ hr {
         height: 30px;
         font-size: 21px;
     }
-
+    img {
+        width: 40%;
+    }
     .radio {
         display: flex;
         flex-direction: row;
@@ -143,6 +145,14 @@ hr {
         flex-direction: row;
         justify-content: space-evenly;
         width: 60%;
+    }
+
+    .icon-list {
+        width: 100%;
+    }
+
+    .buttons {
+        width: 100%;
     }
 
     button {
@@ -162,4 +172,20 @@ hr {
         margin: 1%;
     }
 
+}
+
+.icon-list {
+    display:flex;
+    flex-direction: row;
+    margin-top:2rem;
+    padding-left:0rem;
+    border-width: 1px;
+    border-style: solid;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+
+    button {
+        width: 100%;
+    }
 }

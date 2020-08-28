@@ -26,6 +26,7 @@ h1{
   height: 550px;
   font-family: 'Rosarivo', serif;
 }
+
 #sublit-title{
   font-size: 125px;
   color: white;
@@ -67,9 +68,25 @@ h1{
     text-decoration: none;
     color: black;
   }
-
- 
 }
+
+.top_bar2 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: hidden;
+  max-width: 100%;
+  // background-color:#EFFEF7;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+
 .middle-section{
   display: flex;
   flex-direction: column;
@@ -244,6 +261,7 @@ a {
     align-self: center;
   }
 }
+
 @media screen and (max-width: 768px){
   #sublit-title{
     font-size: 75px;
@@ -266,6 +284,19 @@ a {
   .img-flex{
     width: 200px;
   }
+}
+
+.listing-images {
+  display: flex;
+  flex-direction: row;
+  img {
+    width: 25%;
+    height: auto;
+  }
+}
+
+#dd {
+  display: none;
 }
 
 .user-creator{
@@ -324,22 +355,16 @@ a {
   margin-left:2.75rem;
 }
 
+.smallView{
+  margin-top: 10px;
+}
+
 .iconsBox{
   display:flex;
   justify-content: center;
   align-content: center;
 }
 
-.icon-list {
-  display:flex;
-  margin-top:2rem;
-  padding-left:0rem;
-  border-width: 1px;
-  border-style: solid;
-}
-.smallView{
-  margin-top: 10px;
-}
 .smallview-outer{
   width: 100%;
   font-weight: bold;
@@ -445,6 +470,30 @@ ul li{
 ul li:hover{
   cursor: pointer;
 }
+
+.smallViewLink {
+  font: bold;
+  color: green;
+  background-color: green;
+}
+
+.submit {
+  display: flex;
+  width: 100%;
+}
+
+.chatbutton {
+  width: 100%;
+}
+
+.iconlist {
+  li {
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+}
 .new_listing{
   display: flex;
   flex-direction: row;
@@ -462,14 +511,20 @@ ul li:hover{
   background-color: #EFFEF7;
 }
 
-.addressInfo, .dateInfo, .termInfo, .rentInfo, .descriptionInfo, .lengthInfo, .roomInfo, .parkingInfo, .bathroomInfo, .amenityInfo, .entireAPTInfo{
-  display:flex;
+.addressInfo, .dateInfo, .termInfo, .rentInfo, .descriptionInfo, .peopleInfo, .roomInfo, .parkingInfo, .bathroomInfo, .amenityInfo, .entireAPTInfo, .imageUpload{
+  display: flex;
   flex-direction: column;
   padding: 1rem;
   width: 35rem;
 }
+
+.autocomplete-root {
+  input {
+    width: 98%;
+  }
+}
 .houseAPTtext{
-  text-align:center;
+  text-align: center;
 }
 .imageUpload{
   margin-bottom: 2rem;
@@ -481,6 +536,32 @@ ul li:hover{
   height:3rem;
   margin-bottom:5rem;
 }
+
+#largeSubmit {
+  width: 300px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-image-upload-button {
+  width: 40%;
+  height: 30px;
+  background-color: #5a85c7;
+  color: white;
+  border-width: 0px;
+  border-radius: 5px;
+  align-self: center;
+  text-align: center;
+  padding-top: 4px;
+}
+
+#add-picture {
+  color: #5a85c7;
+  font-size: 2rem;
+}
+
 .new_listing input {
   height: 2rem;
 }

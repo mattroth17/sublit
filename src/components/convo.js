@@ -21,6 +21,12 @@ class Convo extends Component {
     this.setState({ newMessage: '' });
   }
 
+  handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      this.onSendMessage();
+    }
+  }
+
   renderMessages = () => {
     if (!this.props.messages || isEmpty(this.props.messages)) {
       return <div className="no-messages">Send a message to get the conversation going</div>;
@@ -45,7 +51,7 @@ class Convo extends Component {
               {this.renderMessages()}
             </div>
             <div className="new-message-bar">
-              <input className="send-message" onChange={this.onMessageChange} placeholder="Message" value={this.state.newMessage} />
+              <input className="send-message" onChange={this.onMessageChange} placeholder="Message" value={this.state.newMessage} onKeyPress={this.handleKeyPress} />
               <i role="button" tabIndex={0} aria-label="Send Message" className="fas fa-paper-plane" onClick={this.onSendMessage} />
             </div>
           </div>

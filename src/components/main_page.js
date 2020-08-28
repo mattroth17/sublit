@@ -23,13 +23,11 @@ class Main extends Component {
     // eslint-disable-next-line array-callback-return
     listings.map((listing) => {
       if (listing.id === target.title) {
-        console.log('they match');
         const selected = document.getElementById(target.title);
         selected.style.backgroundColor = 'lightcoral';
       } else {
         const notSelected = document.getElementById(listing.id);
         notSelected.style.backgroundColor = 'lightblue';
-        console.log('no match');
       }
     });
   }

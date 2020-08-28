@@ -130,6 +130,7 @@ class Main extends Component {
     }
 
     if (this.state.filts === 1) {
+      console.log('filtering if statement?');
       return (
         <div id="filt_cont">
           Filtered results:
@@ -141,10 +142,10 @@ class Main extends Component {
 
     console.log(`listings are ${this.props.listings}`);
     return (
-      <div className="mainpage-flex">
+      <div>
         <div id="filt">
-          <button type="button" onClick={() => this.dropClick()}> Filter by... </button>
-          <div id="dd">
+          <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>
+          <div id="dd" className="modal-filter">
             Earliest start date: <input onChange={this.startDate} type="date" /> <p> </p>
             Latest end date: <input onChange={this.endDate} type="date" /> <p> </p>
             # Rooms wanted: <input onChange={this.roomsChange} /> <p> </p>
@@ -155,14 +156,17 @@ class Main extends Component {
           </div>
         </div>
         <div className="mainpage-flex">
-          <div id="listings_cont">
-            {this.showListings()}
-          </div>
-          <div>
-            {this.showMap()}
+          <div className="mainpage-flex">
+            <div id="listings-div">
+              {this.showListings()}
+            </div>
+            <div>
+              {this.showMap()}
+            </div>
           </div>
         </div>
       </div>
+
     );
   }
 }

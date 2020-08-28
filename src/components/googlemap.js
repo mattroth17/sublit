@@ -6,9 +6,9 @@ import {
 } from 'google-maps-react';
 import Geocode from 'react-geocode';
 
-const mapStyles = {
+const mapStyles = { // this isnt working ???
   width: '100%',
-  height: '100%',
+  height: '800px',
   position: 'relative',
 };
 

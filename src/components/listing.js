@@ -3,11 +3,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _, { isEmpty } from 'underscore';
 import PlacesAutocomplete from 'react-places-autocomplete';
+import Carousel from 'react-image-carousel';
 import {
   fetchListing, updateListing, deleteListing, startConversation, getConversation, sendError, fetchUser,
 } from '../actions';
 import './css_files/listing.scss';
 import * as s3 from '../s3';
+
+require('../../node_modules/react-image-carousel/lib/css/main.min.css');
 
 class Listing extends Component {
   constructor(props) {
@@ -188,9 +191,9 @@ class Listing extends Component {
     if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
       return <div>Loading...</div>;
     }
-    return this.props.currentListing.pictures.map((pic) => {
-      return (<img key={pic} alt="" src={pic} />);
-    });
+    return (
+      <Carousel images={this.props.currentListing.pictures} />
+    );
   }
 
   renderImageInputs() {

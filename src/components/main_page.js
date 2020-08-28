@@ -68,13 +68,11 @@ class Main extends Component {
     // eslint-disable-next-line array-callback-return
     listings.map((listing) => {
       if (listing.id === target.title) {
-        console.log('they match');
         const selected = document.getElementById(target.title);
         selected.style.backgroundColor = 'lightcoral';
       } else {
         const notSelected = document.getElementById(listing.id);
         notSelected.style.backgroundColor = 'lightblue';
-        console.log('no match');
       }
     });
   }
@@ -108,10 +106,12 @@ class Main extends Component {
 
   showMap() {
     if (this.props.listings.length > 0) {
+      console.log('returning map');
       return (
         <MapContainer listings={this.props.listings} testCallback={this.testCallback} />
       );
     } else {
+      console.log('loading map');
       return (
         <div>
           Loading...
@@ -130,6 +130,7 @@ class Main extends Component {
     }
 
     if (this.state.filts === 1) {
+      console.log('filtering if statement?');
       return (
         <div id="filt_cont">
           Filtered results:
@@ -141,10 +142,10 @@ class Main extends Component {
 
     console.log(`listings are ${this.props.listings}`);
     return (
-      <div className="mainpage-flex">
+      <div>
         <div id="filt">
-          <button type="button" onClick={() => this.dropClick()}> Filter by... </button>
-          <div id="dd">
+          <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>
+          <div id="dd" className="modal-filter">
             Earliest start date: <input onChange={this.startDate} type="date" /> <p> </p>
             Latest end date: <input onChange={this.endDate} type="date" /> <p> </p>
             # Rooms wanted: <input onChange={this.roomsChange} /> <p> </p>
@@ -153,13 +154,19 @@ class Main extends Component {
             Max rent per month: <input onChange={this.urentChange} />
             <button type="button" onClick={() => this.filter()}> Filter listings. </button>
           </div>
-        </div> <p> </p>
-        <div className="maincontent">
-          <div id="listings_cont">
-            {this.showListings()}
+        </div>
+        <div className="mainpage-flex">
+          <div className="mainpage-flex">
+            <div id="listings-div">
+              {this.showListings()}
+            </div>
+            <div>
+              {this.showMap()}
+            </div>
           </div>
         </div>
       </div>
+
     );
   }
 }

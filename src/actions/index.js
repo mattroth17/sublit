@@ -70,10 +70,12 @@ export function createListing(listing, history) {
   };
 }
 
-export function updateListing(listing) {
+export function updateListing(listing, id) {
+  console.log(listing);
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/listings/${listing.id}`, listing, { headers: { authorization: localStorage.getItem('token') } })
+    axios.put(`${ROOT_URL}/listings/${id}`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        console.log(response);
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
@@ -90,6 +92,7 @@ export function fetchListing(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        console.log(response.data);
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {

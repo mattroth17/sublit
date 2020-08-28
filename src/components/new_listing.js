@@ -147,9 +147,7 @@ class NewListing extends Component {
     return (
       <div className="image-uploads">
         {_.range(this.state.numPics).map((pic) => {
-          console.log(pic);
           const imageCount = (pic > 0 ? 'Another Image' : 'Image');
-          console.log(imageCount);
           const buttonText = `Upload ${imageCount}`;
           return (
             <div key={pic} className="custom-image-upload">

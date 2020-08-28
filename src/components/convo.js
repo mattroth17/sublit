@@ -23,7 +23,7 @@ class Convo extends Component {
 
   renderMessages = () => {
     if (!this.props.messages || isEmpty(this.props.messages)) {
-      return <div>Send a message to get the conversation going</div>;
+      return <div className="no-messages">Send a message to get the conversation going</div>;
     }
     return this.props.messages.map((message) => {
       const messageType = (message.senderEmail === this.props.user.email) ? 'sent' : 'received';
@@ -37,14 +37,24 @@ class Convo extends Component {
     if (!isEmpty(this.props.conversation)) {
       return (
         <div className="conversation">
-          {this.renderMessages()}
-          <input className="send-message" onChange={this.onMessageChange} placeholder="Message" value={this.state.newMessage} />
-          <button className="send-message" type="submit" onClick={this.onSendMessage}>Send</button>
+          <div className="convo-top">
+            <h2 className="conversation-with">{this.props.conversation.firstName}</h2>
+          </div>
+          <div className="convo-bottom">
+            <div className="messages">
+              {this.renderMessages()}
+            </div>
+            <div className="new-message-bar">
+              <input className="send-message" onChange={this.onMessageChange} placeholder="Message" value={this.state.newMessage} />
+              <i role="button" tabIndex={0} aria-label="Send Message" className="fas fa-paper-plane" onClick={this.onSendMessage} />
+            </div>
+          </div>
+
         </div>
       );
     }
     return (
-      <div> Select a conversation to see messages </div>
+      <div>Loading...</div>
     );
   }
 }

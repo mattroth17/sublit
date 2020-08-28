@@ -8,6 +8,7 @@ export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
 export const ActionTypes = {
   FETCH_LISTINGS: 'FETCH_LISTINGS',
   FETCH_LISTING: 'FETCH_LISTING',
+  FETCH_FILTERED: 'FETCH_FILTERED',
   AUTH_USER: 'AUTH_USER',
   INIT_USER: 'INIT_USER',
   FETCH_USER: 'FETCH_USER',
@@ -20,6 +21,23 @@ export const ActionTypes = {
   ERROR_CLEAR: 'ERROR_CLEAR',
 };
 
+export function fetchFiltered(filters) {
+  console.log(filters);
+  return (dispatch) => {
+    axios.post(`${ROOT_URL}/filter`, filters, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_FILTERED, payload: response.data });
+      })
+      .catch((error) => {
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
+      });
+  };
+}
+
 // need to incorporate sorting based on season, number of people, etc.
 export function fetchListings() {
   return (dispatch) => {
@@ -28,7 +46,11 @@ export function fetchListings() {
         dispatch({ type: ActionTypes.FETCH_LISTINGS, payload: response.data });
       })
       .catch((error) => {
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && error.response.data.includes('<')) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -41,8 +63,11 @@ export function createListing(listing, history) {
         history.push('/');
       })
       .catch((error) => {
-        console.log(error);
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -54,7 +79,11 @@ export function updateListing(listing) {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -66,7 +95,11 @@ export function fetchListing(id) {
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && ((!typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -78,7 +111,11 @@ export function deleteListing(id, history) {
         history.push('/');
       })
       .catch((error) => {
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -108,11 +145,19 @@ export function startConversation(user1, user2, history) {
             history.push('/chat');
           })
           .catch((err) => {
-            dispatch({ type: ActionTypes.ERROR_SET, err });
+            if (err.response && (!(typeof err.response.data === 'string') || err.response.data.includes('<'))) {
+              dispatch({ type: ActionTypes.ERROR_SET, errorMessage: err.response.statusText });
+            } else {
+              dispatch({ type: ActionTypes.ERROR_SET, errorMessage: err.response.data });
+            }
           });
       })
       .catch((error) => {
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -121,11 +166,14 @@ export function getConversation(conversation, person1Email, person2Email) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/getallmessages`, { person1Email, person2Email }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        console.log(response);
         dispatch({ type: ActionTypes.FETCH_CONVERSATION, conversation, messages: response.data });
       })
       .catch((error) => {
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -139,7 +187,11 @@ export function getConversations(email) {
         dispatch({ type: ActionTypes.FETCH_CONVERSATIONS, payload: response.data[0].conversations });
       })
       .catch((error) => {
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -155,7 +207,11 @@ export function sendChatMessage(senderEmail, senderFirstName, recipientEmail, re
         dispatch({ type: ActionTypes.FETCH_MESSAGE, message: response.data });
       })
       .catch((error) => {
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -176,8 +232,11 @@ export function fetchUser(email) {
         dispatch({ type: ActionTypes.FETCH_USER, payload: response.data[0] });
       })
       .catch((error) => {
-        console.log(error);
-        dispatch({ type: ActionTypes.ERROR_SET, error });
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        }
       });
   };
 }
@@ -345,5 +404,11 @@ export function signoutUser(history) {
 export function clearError() {
   return (dispatch) => {
     dispatch({ type: ActionTypes.ERROR_CLEAR });
+  };
+}
+
+export function sendError(message) {
+  return (dispatch) => {
+    dispatch({ type: ActionTypes.ERROR_SET, errorMessage: message });
   };
 }

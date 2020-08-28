@@ -4,6 +4,7 @@ import { ActionTypes } from '../actions';
 const init = {
   all: [],
   current: {},
+  filtered: [],
 };
 
 /**
@@ -14,6 +15,8 @@ const ListingReducer = (state = init, action) => {
     case ActionTypes.FETCH_LISTINGS:
       return { ...state, all: action.payload };
     case ActionTypes.FETCH_LISTING:
+      return { ...state, current: action.payload };
+    case ActionTypes.FETCH_FILTERED:
       return { ...state, current: action.payload };
     default:
       return state;

@@ -9,6 +9,10 @@ body, html {
   max-width: 100%;
 }
 
+h1{
+  background-color: rgb(243, 240, 240);
+}
+
 .header {
   background-image: url('img/dartmouth-img-figma.png');
   background-size: cover;
@@ -22,6 +26,7 @@ body, html {
   height: 550px;
   font-family: 'Rosarivo', serif;
 }
+
 #sublit-title{
   font-size: 125px;
   color: white;
@@ -57,15 +62,31 @@ body, html {
   overflow-x: hidden;
   max-width: 100%;
   margin-bottom: 2%;
-
+  background-color: rgb(243, 240, 240);
 
   a {
     text-decoration: none;
     color: black;
   }
-
- 
 }
+
+.top_bar2 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  overflow-x: hidden;
+  max-width: 100%;
+  background-color: rgb(243, 240, 240);
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+}
+
+
 .middle-section{
   display: flex;
   flex-direction: column;
@@ -189,6 +210,7 @@ a {
   display: flex;
   flex-direction: row;
   width: 100%;
+  height: fit-content;
 }
 .page{
   font-family: 'Rosarivo', serif;
@@ -196,6 +218,8 @@ a {
 }
 .map-div{
   width: 800px;
+  height: fit-content;
+  height: 900px;
 }
 .flex-btn{
   display: flex;
@@ -217,8 +241,6 @@ a {
 
 }
 
-
-
 .new_listing {
   display: flex;
   flex-direction: column;
@@ -239,6 +261,7 @@ a {
     align-self: center;
   }
 }
+
 @media screen and (max-width: 768px){
   #sublit-title{
     font-size: 75px;
@@ -263,8 +286,21 @@ a {
   }
 }
 
+.listing-images {
+  display: flex;
+  flex-direction: row;
+  img {
+    width: 25%;
+    height: auto;
+  }
+}
+
+#dd {
+  display: none;
+}
+
 .user-creator{
-  height: 40rem;
+  height: 47rem;
   background-image: url("darthall.png");
   opacity: 1;
   background-size: 80rem 48rem;
@@ -289,7 +325,7 @@ a {
 .email-input, .password-input, .name-input{
   width:14rem;
   height:2rem;
-  margin-top:1rem;
+  margin-bottom:.5rem;
   margin-left:1rem;
 }
 
@@ -301,11 +337,26 @@ a {
   display:flex;
   flex-direction:row;
   justify-content: center;
+  align-items: center;
   padding:.5rem;
 }
-
+.email{
+  margin-top:3rem;
+  margin-left:3.25rem;
+}
 .firstName{
-  margin-right:3.75rem;
+  margin-right:2rem;
+  margin-top:3rem;
+}
+.signUpEmail{
+  margin-left:3.25rem;
+}
+.pass{
+  margin-left:2.75rem;
+}
+
+.smallView{
+  margin-top: 10px;
 }
 
 .iconsBox{
@@ -314,14 +365,6 @@ a {
   align-content: center;
 }
 
-.icon-list {
-  padding-left:0rem;
-  border-width: 1px;
-  border-style: solid;
-}
-.smallView{
-  margin-top: 10px;
-}
 .smallview-outer{
   width: 100%;
   font-weight: bold;
@@ -335,6 +378,8 @@ a {
 #listings-div{
   background-color: lightblue;
   width: 400px;
+  height: 900px;
+  overflow: scroll;
 }
 .listing-images {
   display: flex;
@@ -343,6 +388,55 @@ a {
     width: 25%;
     height: auto;
   }
+}
+
+#filter-btn{
+  border: 1px solid black;
+  background-color: lightcoral;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+#filter-btn:hover{
+  text-decoration: underline;
+}
+
+/* The Modal (background) */
+.modal-filter {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  animation: zoomIn;
+  animation-duration: 2s;
+  left: 0;
+  top: 0;
+  margin-left: 400px;
+  margin-top: 100px;
+  width: 800px; /* Full width */
+  height: 500px; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(216, 119, 119); /* Fallback color */
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 50px;
+  // background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+@keyframes zoomIn {
+  0%{
+      transform:scale(0, 0); 
+  }
+  100% {
+      transform: scale(1, 1);
+  }
+}
+
+#filt{
+  width: 100%;
+  height: fit-content;
+  background-color: rgb(243, 240, 240);
+  padding-left: 30px;
+  padding-bottom: 10px;
 }
 
 .chat {
@@ -406,6 +500,7 @@ a {
 
 #listings-list{
   width: 100%;
+  height: 100%;
 
 }
 
@@ -476,4 +571,102 @@ ul li:hover{
   .sent {
     color: red;
   }
+}
+
+.smallViewLink {
+  font: bold;
+  color: green;
+  background-color: green;
+}
+
+.submit {
+  display: flex;
+  width: 100%;
+}
+
+.chatbutton {
+  width: 100%;
+}
+
+.iconlist {
+  li {
+    width: 100%;
+    button {
+      width: 100%;
+    }
+  }
+}
+.new_listing{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 0px;
+}
+.allListings{
+  display:flex;
+  flex-direction:column;
+}
+.allListing{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: #EFFEF7;
+}
+
+.addressInfo, .dateInfo, .termInfo, .rentInfo, .descriptionInfo, .peopleInfo, .roomInfo, .parkingInfo, .bathroomInfo, .amenityInfo, .entireAPTInfo, .imageUpload{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  width: 35rem;
+}
+
+.autocomplete-root {
+  input {
+    width: 98%;
+  }
+}
+.houseAPTtext{
+  text-align: center;
+}
+.imageUpload{
+  margin-bottom: 2rem;
+}
+.new_listing button{
+  width:15rem;
+}
+.new_listing #largeSubmit{
+  height:3rem;
+  margin-bottom:5rem;
+}
+
+#largeSubmit {
+  width: 300px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-image-upload-button {
+  width: 40%;
+  height: 30px;
+  background-color: #5a85c7;
+  color: white;
+  border-width: 0px;
+  border-radius: 5px;
+  align-self: center;
+  text-align: center;
+  padding-top: 4px;
+}
+
+#add-picture {
+  color: #5a85c7;
+  font-size: 2rem;
+}
+
+.new_listing input {
+  height: 2rem;
+}
+.descriptionInfo textarea, .amenityInfo textarea{
+  height:8rem;
 }

@@ -11,7 +11,6 @@ import Login from './login';
 import Listing from './listing';
 import SignIn from './sign_in';
 import SignUp from './sign_up';
-import SignOut from './sign_out';
 import Chat from './chat';
 import Error from './error';
 import ConfirmEmail from './confirm_email';
@@ -27,8 +26,8 @@ class App extends Component {
     if (this.props.auth) {
       return (
         <div className="page">
-          <div className="top_bar">
-            <div className="screen">  </div>
+          <div className="top_bar2">
+            <h1 id="sublitLogo">  </h1>
             <NavBar />
           </div>
           <Switch>
@@ -36,7 +35,6 @@ class App extends Component {
             <Route path="/listings/new" component={NewListing} />
             <Route path="/listings/:listingID" component={Listing} />
             <Route path="/chat" component={Chat} />
-            <Route path="/signout" component={SignOut} />
             <Route render={() => (<div>Listing Not Found</div>)} />
           </Switch>
           <Error />

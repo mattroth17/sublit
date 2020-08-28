@@ -9,6 +9,7 @@ export const ActionTypes = {
   FETCH_LISTINGS: 'FETCH_LISTINGS',
   FETCH_LISTING: 'FETCH_LISTING',
   FETCH_FILTERED: 'FETCH_FILTERED',
+  UPDATE_LISTING: 'UPDATE_LISTING',
   AUTH_USER: 'AUTH_USER',
   INIT_USER: 'INIT_USER',
   FETCH_USER: 'FETCH_USER',
@@ -72,11 +73,11 @@ export function createListing(listing, history) {
   };
 }
 
-export function updateListing(listing) {
+export function updateListing(listing, id) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/listings/${listing.id}`, listing, { headers: { authorization: localStorage.getItem('token') } })
+    axios.put(`${ROOT_URL}/listings/${id}`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
+        dispatch({ type: ActionTypes.UPDATE_LISTING, payload: response.data });
       })
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {

@@ -237,7 +237,7 @@ class NewListing extends Component {
                 <input type="checkbox" value="wifi" name="term" /> wifi
                 <input type="checkbox" value="laundry service or washer/dryer" name="term" /> laundry service or washer/dryer
                 <input type="checkbox" value="tv" name="term" /> tv
-                <input type="checkbox" value="coffe or tea maker" name="term" /> coffee or tea maker
+                <input type="checkbox" value="coffee or tea maker" name="term" /> coffee or tea maker
               </div>
             </div>
             <div className="entireAPTInfo">

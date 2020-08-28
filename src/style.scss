@@ -521,6 +521,58 @@ ul li:hover{
   cursor: pointer;
 }
 
+// email confirmation
+.confirm {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+
+  p {
+    margin: 10px;
+  }
+
+  input {
+    width: 80%;
+    max-width: 500px;
+    align-self: center;
+    margin: 10px;
+  }
+  button {
+    width: 80%;
+    max-width: 200px;
+    align-self: center;
+    margin: 10px;
+    cursor: pointer;
+  }
+
+  #message {
+    align-self: center;
+    text-align: center;
+    color: red;
+  }
+}
+
+// forgot password
+.forgotPassword {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  margin-top: 200px;
+
+  p, input, button {
+    margin: 10px;
+  }
+
+  .sent {
+    color: red;
+  }
+}
+
 .smallViewLink {
   font: bold;
   color: green;

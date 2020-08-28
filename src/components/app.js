@@ -13,6 +13,9 @@ import SignIn from './sign_in';
 import SignUp from './sign_up';
 import Chat from './chat';
 import Error from './error';
+import ConfirmEmail from './confirm_email';
+import EmailConfirmed from './email_confirmed';
+import ResetPassword from './reset_password';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // eventually include frontend for dropdown menu and chat
@@ -47,6 +50,9 @@ class App extends Component {
           <Route exact path="/" component={Login} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
+          <Route exact path="/confirmemail" component={ConfirmEmail} />
+          <Route path="/confirmemail/:token" component={EmailConfirmed} />
+          <Route path="/reset/:passwordtoken" component={ResetPassword} />
         </Switch>
         <Error />
       </div>

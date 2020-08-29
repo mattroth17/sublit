@@ -188,9 +188,13 @@ class Listing extends Component {
   }
 
   renderImages() {
-    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
+    if (!this.props.currentListing) {
       return <div>Loading...</div>;
     }
+    if (isEmpty(this.props.currentListing.pictures)) {
+      return <div> </div>;
+    }
+
     return (
       <Carousel images={this.props.currentListing.pictures} />
     );

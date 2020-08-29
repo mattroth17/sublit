@@ -9,11 +9,14 @@ html {
     flex-direction: row;
     height: 10vh;
     justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 1%;
 
     a, button {
         background-color: #C2E6C8;
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-        border: 2.5px solid #136A11;
+        border: 0px;
+        border-radius: 10px;
         text-decoration: none;
         color: black;
         display: flex;
@@ -22,5 +25,9 @@ html {
         padding-right: 5%;
         margin-top: 5px;
         height: 75%;
+    }
+
+    a:hover, button:hover {
+        transform: translateY(-0.25em);
     }
 }

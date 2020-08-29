@@ -15,7 +15,7 @@ class NavBar extends Component {
     return (
       <div id="nav_bar">
         <NavLink exact to="/"> Main Page </NavLink>
-        <NavLink to="/listings/new"> Add a listing </NavLink>
+        <NavLink to="/listings/new"> Add New Listing </NavLink>
         <NavLink to="/chat"> Messages </NavLink>
         <button onClick={this.signOut} type="button">Sign Out</button>
       </div>

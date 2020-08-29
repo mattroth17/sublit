@@ -76,6 +76,8 @@ class Main extends Component {
         notSelected.style.backgroundColor = 'transparent';
       }
     });
+    const preview = document.getElementById('housePreview');
+    preview.style.display = 'block';
   }
 
   showListings() {
@@ -122,6 +124,11 @@ class Main extends Component {
   }
 
   // eslint-disable-next-line class-methods-use-this
+  showPreview() {
+    console.log('show preview');
+  }
+
+  // eslint-disable-next-line class-methods-use-this
   closeModal() {
     console.log('close modal');
     const modal = document.getElementById('dd');
@@ -162,6 +169,9 @@ class Main extends Component {
             Min rent per month: <input onChange={this.lrentChange} />
             Max rent per month: <input onChange={this.urentChange} />
             <button type="button" onClick={() => this.filter()}> Filter listings. </button>
+          </div>
+          <div id="housePreview">
+            {this.showPreview()}
           </div>
         </div>
         <div className="mainpage-flex">

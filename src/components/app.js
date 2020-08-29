@@ -43,7 +43,7 @@ class App extends Component {
     }
     return (
       <div className="page">
-        <div className="top_bar-login">
+        <div className="top-bar-login">
           <div id="sublitLogo" />
         </div>
         <Switch>

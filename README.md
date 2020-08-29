@@ -2,6 +2,7 @@
 *SubLit is a platform where students can post listings and students looking to sublet can find places. They can then chat in the web app to discuss a sublet agreement.*
 
 Sublit team:
+
 <img width="608" alt="Screen Shot 2020-08-13 at 1 43 43 PM" src="https://user-images.githubusercontent.com/62867125/90168444-17472880-dd6b-11ea-922d-962cfbbc5aeb.png">
 
 ## Final Site

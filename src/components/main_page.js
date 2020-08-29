@@ -197,7 +197,7 @@ class Main extends Component {
             Full apartment/house wanted, enter false or true: <input onChange={this.fullChange} /> <p> </p>
             Min rent per month: <input onChange={this.lrentChange} />
             Max rent per month: <input onChange={this.urentChange} />
-            <button type="button" onClick={() => this.filter()}> Filter listings. </button>
+            <button id="filt-submit" type="button" onClick={() => this.filter()}> Filter listings. </button>
           </div>
           {/* <div id="housePreview" className="modal-filter">
             <button className="close" type="button" onClick={() => this.closePreview()}>&times;</button>

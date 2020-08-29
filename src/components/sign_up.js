@@ -36,28 +36,32 @@ class SignUp extends Component {
   render() {
     return (
       <div className="user-creator">
-        <h1 className="signInHeader">Welcome to Sublit!</h1>
-        <div className="firstName">
-          <h2>First Name:</h2>
-          <input className="name-input" placeholder="First Name" onChange={this.onFirstNameChange} value={this.state.name} />
-        </div>
-        <div className="signUpEmail">
-          <h2>Email:</h2>
-          <input className="email-input" placeholder="Email Address" onChange={this.onEmailChange} value={this.state.email} />
-        </div>
-        <div className="pass">
-          <h2>Password:</h2>
-          <input type="password" className="password-input" placeholder="Password" onChange={this.onPasswordChange} value={this.state.password} />
-        </div>
-        <div className="iconsBox">
-          <ul className="icon-list">
-            <li key="cancel" onClick={this.onCancel}>
-              <i className="fas fa-window-close" />
-            </li>
-            <li key="signup" onClick={this.onSubmit}>
-              <i className="fas fa-sign-in-alt" />
-            </li>
-          </ul>
+        <div className="auth_cont">
+          <div className="auth_background">
+            <h1 className="signInHeader">Welcome to Sublit!</h1>
+            <p> Fill out the following information to sign up.</p>
+            <div className="auth_form">
+              <div>
+                <input className="auth_input" placeholder="First Name" onChange={this.onFirstNameChange} value={this.state.name} />
+              </div>
+              <div>
+                <input className="auth_input" placeholder="Email Address" onChange={this.onEmailChange} value={this.state.email} />
+              </div>
+              <div>
+                <input type="password" className="auth_input" placeholder="Password" onChange={this.onPasswordChange} value={this.state.password} />
+              </div>
+            </div>
+            <div className="iconsBox">
+              <ul className="icon-list">
+                <li key="signup" onClick={this.onSubmit}>
+                  <button type="button" className="auth_button">Sign Up</button>
+                </li>
+                <li key="cancel" onClick={this.onCancel}>
+                  <i className="fas fa-window-close" />
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     );

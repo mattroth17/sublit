@@ -27,21 +27,25 @@ class EmailConfirmed extends Component {
   render() {
     return (
       <div className="user-creator">
-        <h1 className="signInHeader">Sign in to Confirm Your Email</h1>
-        <div className="email">
-          <h2>Email:</h2>
-          <input className="email-input" placeholder="Email Address" onChange={this.onEmailChange} value={this.state.email} />
-        </div>
-        <div className="pass">
-          <h2>Password:</h2>
-          <input type="password" className="password-input" placeholder="Password" onChange={this.onPasswordChange} value={this.state.password} />
-        </div>
-        <div className="iconsBox">
-          <ul className="icon-list">
-            <li key="return" onClick={this.onSubmit}>
-              <i className="fas fa-sign-in-alt" />
-            </li>
-          </ul>
+        <div className="auth_cont">
+          <div className="auth_background">
+            <h1 className="signInHeader">Sign in to Verify Account</h1>
+            <div className="auth_form">
+              <div>
+                <input className="auth_input" placeholder="Email Address" onChange={this.onEmailChange} value={this.state.email} />
+              </div>
+              <div>
+                <input className="auth_input" type="password" placeholder="Password" onChange={this.onPasswordChange} value={this.state.password} />
+              </div>
+            </div>
+            <div className="iconsBox">
+              <ul className="icon-list">
+                <li key="return" onClick={this.onSubmit}>
+                  <button className="auth_button" type="button">SIGN IN</button>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     );

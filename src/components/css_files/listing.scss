@@ -181,16 +181,33 @@ hr {
 
 .icon-list {
     display:flex;
-    flex-direction: row;
-    margin-top:2rem;
-    padding-left:0rem;
-    border-width: 1px;
-    border-style: solid;
+    flex-direction: column;
+    border: none;
     width: 60%;
     justify-content: center;
     align-items: center;
-
-    button {
+    margin-bottom: 20px;
+    li {
+        list-style: none;
+        margin-top: 20px;
+    }
+    .auth_button {
         width: 100%;
+    }
+    p {
+        cursor: pointer;
+        text-decoration: underline;
+        margin: 0;
+        font-size: 18px;
+    }
+    p:hover {
+        color: gray;
+    }
+    i {
+        cursor: pointer;
+        font-size: 30px;
+    }
+    i:hover {
+        color: gray;
     }
 }

@@ -17,7 +17,7 @@ const ListingReducer = (state = init, action) => {
     case ActionTypes.FETCH_LISTING:
       return { ...state, current: action.payload };
     case ActionTypes.FETCH_FILTERED:
-      return { ...state, current: action.payload };
+      return { ...state, filtered: action.payload };
     case ActionTypes.UPDATE_LISTING:
       return { ...state, current: action.payload };
     default:

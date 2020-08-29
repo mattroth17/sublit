@@ -8,8 +8,9 @@ import Geocode from 'react-geocode';
 
 const mapStyles = { // this isnt working ???
   width: '100%',
-  height: '800px',
+  height: '84%',
   position: 'relative',
+  fullscreenControl: false,
 };
 
 // do i need initMap function?
@@ -66,12 +67,11 @@ class MapContainer extends Component {
 
   getMarkers = () => {
     console.log('getMarkers');
-    console.log(this.state.stores);
     return this.state.stores.map((store, index) => {
       console.log('returning marker');
       console.log(`${store.lat} ${store.lng} ${store.id}`);
       // eslint-disable-next-line react/no-array-index-key
-      return (<Marker key={store.id} title={store.id} label={store.address} position={{ lat: store.lat, lng: store.lng }} onClick={this.onMarkerClick} />);
+      return (<Marker key={store.id} title={store.id} position={{ lat: store.lat, lng: store.lng }} onClick={this.onMarkerClick} />);
     });
   }
 

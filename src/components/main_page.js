@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
@@ -72,7 +73,7 @@ class Main extends Component {
         selected.style.backgroundColor = 'lightcoral';
       } else {
         const notSelected = document.getElementById(listing.id);
-        notSelected.style.backgroundColor = 'lightblue';
+        notSelected.style.backgroundColor = 'transparent';
       }
     });
   }
@@ -120,6 +121,13 @@ class Main extends Component {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  closeModal() {
+    console.log('close modal');
+    const modal = document.getElementById('dd');
+    modal.style.display = 'none';
+  }
+
   backToMain() {
     this.setState({ filts: 0 });
   }
@@ -146,6 +154,7 @@ class Main extends Component {
         <div id="filt">
           <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>
           <div id="dd" className="modal-filter">
+            <button className="close" type="button" onClick={() => this.closeModal()}>&times;</button>
             Earliest start date: <input onChange={this.startDate} type="date" /> <p> </p>
             Latest end date: <input onChange={this.endDate} type="date" /> <p> </p>
             # Rooms wanted: <input onChange={this.roomsChange} /> <p> </p>
@@ -157,11 +166,11 @@ class Main extends Component {
         </div>
         <div className="mainpage-flex">
           <div className="mainpage-flex">
-            <div id="listings-div">
-              {this.showListings()}
-            </div>
             <div>
               {this.showMap()}
+            </div>
+            <div id="listings-div">
+              {this.showListings()}
             </div>
           </div>
         </div>

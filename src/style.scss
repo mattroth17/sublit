@@ -209,18 +209,29 @@ a {
 .mainpage-flex{
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   width: 100%;
-  height: fit-content;
+  height: 500px;
 }
 .page{
   font-family: 'Rosarivo', serif;
+  height: 100%;
 
 }
-.map-div{
-  width: 800px;
-  height: fit-content;
-  height: 900px;
+#footer{
+  background-color: rgb(243, 240, 240);
+  width: 100%;
+  height: 300px;
 }
+// .map-div{
+//   width: 800px;
+//   height: fit-content;
+//   height: 900px;
+
+//   div{
+//     position: relative !important;
+//   }
+// }
 .flex-btn{
   display: flex;
   flex-direction: row;
@@ -364,7 +375,11 @@ a {
   justify-content: center;
   align-content: center;
 }
-
+#outer-flex{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 80px;
+}
 .smallview-outer{
   width: 100%;
   font-weight: bold;
@@ -375,10 +390,17 @@ a {
     font-size: 14px;
   }
 }
+#main{
+  height: 100vh;
+}
 #listings-div{
-  background-color: lightblue;
+  // background-color: rgb(255, 122, 122) !important;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
+  filter: blurbackground(100px);
+  color: black;
   width: 400px;
-  height: 900px;
+  height: 548px;
+  z-index: 98;
   overflow: scroll;
 }
 .listing-images {
@@ -401,11 +423,26 @@ a {
   text-decoration: underline;
 }
 
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 /* The Modal (background) */
+//inspired by w3w//
 .modal-filter {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 99; /* Sit on top */
   animation: zoomIn;
   animation-duration: 2s;
   left: 0;

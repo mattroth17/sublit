@@ -1,27 +1,24 @@
 # Sublit
+*SubLit is a platform where students can post listings and students looking to sublet can find places. They can then chat in the web app to discuss a sublet agreement.*
 
+Sublit team:
 <img width="608" alt="Screen Shot 2020-08-13 at 1 43 43 PM" src="https://user-images.githubusercontent.com/62867125/90168444-17472880-dd6b-11ea-922d-962cfbbc5aeb.png">
-[*how?*](https://help.github.com/articles/about-readmes/#relative-links-and-image-paths-in-readme-files)
 
-SubLit is a platform where students can post listings and students looking to sublet can find places. They can then chat in the web app to discuss a sublet agreement.
-
-## Dev Site
+## Final Site
 ### What worked
-Laying out all the components and modeling our listing management off of lab4/5 worked well. 
+All of the components are connected and functional on the frontend and backend. Users are able to sign up/in, and once authorized, can post listings, browse them, edit/delete listings, and chat each other. This application supports all the integral functionality for a subletting site.
 
 ### What Didn't 
-We tried to get chat working but the API calls and React components got pretty complicated so we're still working on that. 
+We ran into a few debugging difficulties with filtering, so we chose to not implement searching for listings by address, name, etc. as originally planned.
 
 ## Architecture
 
-There are essentially five pages in this web app:  
-1. sign in/up: where users can create accounts or sign in. checks for a @dartmouth.edu email address  
-2. main page: all the listings are here. can search by keyword or sort by different things  
-3. single listing: each listing expands into its own page with more detail and information
-4. new listing: students with leases can create a new listing
-5. chat: where students can talk to one another about listings
-
-May also add a profile page for each person where they can manage their listings, update email etc. 
+There are five pages in this web app:  
+1. sign in/up: where users can create accounts or sign in. checks for a @dartmouth.edu email address. sends email for verification, which is required to access site.
+2. main page: all the listings are here stored here. a map using GoogleMaps API displays all listings with pins. users can filter listings by date available, rooms available, rent, and whether the listing is a full house/apartment. 
+3. single listing: each listing expands into its own page with more detail and information, including images and the ability to message the user. if this is your listing, you have the ability to edit or delete it.
+4. new listing: students with leases can create a new listing.
+5. chat: where students can talk to one another about listings.
 
 We're using Boostrap to help design the app. 
 
@@ -33,11 +30,9 @@ We're using Boostrap to help design the app.
 
 ## Deployment
 
-The page is deployed on surge and the listings are stored in mongoDB's cloud services. 
+The page is deployed on surge, and the listings and users are stored in mongoDB's cloud services. 
 [deployed site](http://sublit.surge.sh/)
 
 
 ## Authors
-Caroline Tornquist, Chase Krivickas, Jonah Kalsner Kershen, Jack Vasu, Matthew Roth, Sada Nichols-Worley,
-
-## Acknowledgments
+Caroline Tornquist, Chase Krivickas, Jack Vasu, Jonah Kalsner Kershen, Matthew Roth, Sada Nichols-Worley

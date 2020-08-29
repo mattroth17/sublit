@@ -17,7 +17,7 @@ class Main extends Component {
     this.state = {
       filts: 0,
       numberOfRooms: '',
-      isFullApartment: false,
+      isFullApartment: '',
       startDate: '',
       endDate: '',
       lowerRent: '',
@@ -60,6 +60,14 @@ class Main extends Component {
 
   dropClick = () => {
     document.getElementById('dd').style.display = 'block';
+    this.setState({
+      numberOfRooms: '',
+      isFullApartment: '',
+      startDate: '',
+      endDate: '',
+      lowerRent: '',
+      upperRent: '',
+    });
   }
 
   // eslint-disable-next-line class-methods-use-this

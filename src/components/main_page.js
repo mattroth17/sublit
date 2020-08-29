@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
@@ -84,8 +85,12 @@ class Main extends Component {
         notSelected.style.backgroundColor = 'transparent';
       }
     });
-    const preview = document.getElementById('housePreview');
-    preview.style.display = 'block';
+
+    // now get modal to pop up showing address with button to listing page
+    // ACTUALLY MIGHT NOT DO THIS
+    // const preview = document.getElementById('housePreview');
+    // preview.style.display = 'block';
+    // const currTarget = target;
   }
 
   showListings() {
@@ -139,15 +144,23 @@ class Main extends Component {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   showPreview() {
-    console.log('show preview');
+    console.log(`currTarget is ${this.currTarget}`);
+    return (
+      <div>
+        Address: {this.currTarget}
+      </div>
+    );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   closeModal() {
     console.log('close modal');
     const modal = document.getElementById('dd');
+    modal.style.display = 'none';
+  }
+
+  closePreview() {
+    const modal = document.getElementById('housePreview');
     modal.style.display = 'none';
   }
 
@@ -186,9 +199,10 @@ class Main extends Component {
             Max rent per month: <input onChange={this.urentChange} />
             <button type="button" onClick={() => this.filter()}> Filter listings. </button>
           </div>
-          <div id="housePreview">
+          {/* <div id="housePreview" className="modal-filter">
+            <button className="close" type="button" onClick={() => this.closePreview()}>&times;</button>
             {this.showPreview()}
-          </div>
+          </div> */}
         </div>
         <div className="mainpage-flex">
           <div className="mainpage-flex">

@@ -93,6 +93,7 @@ export function fetchListing(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        console.log(response.data);
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
@@ -162,7 +163,7 @@ export function startConversation(user1, user2, history) {
       });
   };
 }
-// needs to be filled in (not sure what parameters/body to send... do we need both id and convo id?)
+
 export function getConversation(conversation, person1Email, person2Email) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/getallmessages`, { person1Email, person2Email }, { headers: { authorization: localStorage.getItem('token') } })
@@ -197,7 +198,6 @@ export function getConversations(email) {
   };
 }
 
-// needs to be altered
 export function sendChatMessage(senderEmail, senderFirstName, recipientEmail, recipientFirstName, text) {
   return (dispatch) => {
     const fields = {
@@ -218,7 +218,6 @@ export function sendChatMessage(senderEmail, senderFirstName, recipientEmail, re
 }
 
 // trigger to deauth if there is error
-// added auth actions/reducers, still needs to be implemented on backend and in components
 export function authError(error) {
   return {
     type: ActionTypes.AUTH_ERROR,

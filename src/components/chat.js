@@ -3,11 +3,38 @@ import { connect } from 'react-redux';
 import { isEmpty } from 'underscore';
 import { getConversations, getConversation, fetchUser } from '../actions';
 import Convo from './convo';
+import './css_files/chat.scss';
 
 class Chat extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentConvo: {},
+      intervalID: 0,
+    };
+  }
+
   componentDidMount() {
     this.props.getConversations(this.props.email);
     this.props.fetchUser(this.props.email);
+    const intervalID = setInterval(() => {
+      if (!isEmpty(this.state.currentConvo) && !isEmpty(this.props.user)) {
+        this.props.getConversation(this.state.currentConvo, this.props.user.email, this.state.currentConvo.email);
+      } else if (this.props.conversations.length > 0) {
+        this.setState({ currentConvo: this.props.conversations[0] });
+      }
+    }, 1000);
+    this.setState({ intervalID });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalID);
+  }
+
+  changeCurrentConvo = (c) => {
+    this.props.getConversation(c, this.props.user.email, c.email);
+    this.setState({ currentConvo: c });
   }
 
   // eslint-disable-next-line consistent-return
@@ -20,15 +47,15 @@ class Chat extends Component {
       return <div>Loading...</div>;
     }
 
-    return this.props.conversations.map((convo) => {
-      let selected = '';
-      if (!isEmpty(this.props.conversation) && this.props.conversation.email === convo.email) {
-        selected = 'selected';
+    return this.props.conversations.map((c, i) => {
+      let isSelected = 'not-selected';
+      if ((!isEmpty(this.state.currentConvo) && this.state.currentConvo.email === c.email) || (isEmpty(this.state.currentConvo) && i === 0)) {
+        isSelected = 'selected';
       }
       return (
-        <div tabIndex={0} role="button" className={`convo_preview ${selected}`} key={convo.email} onClick={() => this.props.getConversation(convo, this.props.user.email, convo.email)}>
-          <div>{convo.firstName}</div>
-          <div>{convo.email}</div>
+        <div tabIndex={0} role="button" className={`convo_preview ${isSelected} noSelect`} key={c.email} onClick={() => this.changeCurrentConvo(c)}>
+          <div>Chat with: {c.firstName}</div>
+          <div>Email: {c.email}</div>
         </div>
       );
     });
@@ -38,6 +65,7 @@ class Chat extends Component {
     return (
       <div className="chat">
         <div className="convos">
+          <h2 className="convos-title">Conversations</h2>
           {this.renderConversations()}
         </div>
         <Convo />

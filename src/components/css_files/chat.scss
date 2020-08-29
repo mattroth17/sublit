@@ -1,0 +1,150 @@
+@import "~bootstrap/scss/bootstrap";
+
+.chat {
+  position: absolute;
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  flex-direction: row;
+  background-color: #EFFEF7;
+  color: #353837;
+  overscroll-behavior: none;
+
+  .convos {
+    width: 35%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+
+    .convos-title {
+      align-self: center;
+      margin-bottom: 0px;
+    }
+    .convo_preview {
+      background-color: #d8e2dd;
+      width: 100%;
+      height: 10%;
+      padding: 3px;
+      transition: all 200ms;
+    }
+
+    .not-selected {
+      transition: all 200ms;
+    }
+
+    .not-selected:hover {
+      background-color: #C5D1CB;
+    }
+
+    .selected {
+      background-color: #026637;
+      color: #D8E6DF;
+      border-color: #D8E6DF;
+    }
+  }
+
+  .select-convo-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+
+  .conversation {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #e8eeeb;
+    border-left: .5px solid #C7D4CE;
+    
+    .conversation-with {
+      text-align: center;
+      margin-bottom: 0px;
+      background-color: #EFFEF7;
+    }
+    .convo-bottom {
+      display: flex;
+      flex-direction: column;
+
+      .messages {
+        display: flex;
+        flex-direction: column-reverse;
+        overflow-y: scroll;
+        height: 76.7vh;
+
+        .sent {
+          align-self: flex-end;
+          margin-right: 15px;
+        }
+        .received {
+          align-self: flex-start;
+        }
+      }
+      
+
+      .new-message-bar {
+        display: flex;
+        flex-direction: row;
+        width: 95%;
+        background-color: #ffffff;
+        border-radius: 10px;
+        margin: 1vh;
+        height: 6vh;
+        align-self: center;
+
+        input {
+          padding: 1vh;
+          width: 90%;
+          border: none;
+          border-radius: 5px;
+        }
+
+        i {
+          padding-top: 10px;
+          padding-right: 10px;
+          font-size: 3vh;
+          transition: all 200ms;
+        }
+
+        i:hover {
+          color: #215C2B;
+          transform: scale(1.1);
+        }
+
+
+      }
+
+      .message {
+        text-align: left;
+        border-radius: 10px;
+        background-color: #4B7562;
+        padding: 10px;
+        margin: 1vh;
+        margin-bottom: 2vh;
+        color: white;
+        max-width: 50%;
+      }
+
+      .no-messages {
+        align-self: center;
+        margin-bottom: 30vh;
+      }
+    }
+    
+  }
+}
+
+.noSelect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}

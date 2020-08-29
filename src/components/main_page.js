@@ -100,10 +100,18 @@ class Main extends Component {
   showFiltered() {
     const filts = { ...this.state };
     this.props.fetchFiltered(filts);
-    console.log(this.props.filtered);
     return this.props.filtered.map((listing) => {
       console.log(listing);
-      return (<ListingSmallView key={listing.id} listing={listing} />);
+      return (
+        <div key={listing.id} id={listing.id}>
+          <Link className="smallViewLink" to={`/listings/${listing.id}`}>
+            <ListItem button>
+              <ListingSmallView key={listing.id} listing={listing} />
+            </ListItem>
+            <Divider />
+          </Link>
+        </div>
+      );
     });
   }
 

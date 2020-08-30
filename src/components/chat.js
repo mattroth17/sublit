@@ -10,7 +10,7 @@ class Chat extends Component {
     super(props);
 
     this.state = {
-      currentConvo: {},
+      currentConvo: (!isEmpty(this.props.conversation) ? this.props.conversation : {}),
       intervalID: 0,
     };
   }
@@ -21,6 +21,8 @@ class Chat extends Component {
     const intervalID = setInterval(() => {
       if (!isEmpty(this.state.currentConvo) && !isEmpty(this.props.user)) {
         this.props.getConversation(this.state.currentConvo, this.props.user.email, this.state.currentConvo.email);
+      } else if (!isEmpty(this.props.conversation)) {
+        this.setState({ currentConvo: this.props.conversation });
       } else if (this.props.conversations.length > 0) {
         this.setState({ currentConvo: this.props.conversations[0] });
       }
@@ -40,11 +42,11 @@ class Chat extends Component {
   // eslint-disable-next-line consistent-return
   renderConversations = () => {
     if (isEmpty(this.props.user)) {
-      return <div>Loading...</div>;
+      return <div className="place-holder">Loading...</div>;
     } else if (this.props.user.conversations.length === 0) {
-      return <div>You have no conversations</div>;
+      return <div className="place-holder">You have no conversations. Find a listing you like and start a conversation from there.</div>;
     } else if (this.props.conversations.length === 0) {
-      return <div>Loading...</div>;
+      return <div className="place-holder">Loading...</div>;
     }
 
     return this.props.conversations.map((c, i) => {
@@ -66,7 +68,9 @@ class Chat extends Component {
       <div className="chat">
         <div className="convos">
           <h2 className="convos-title">Conversations</h2>
-          {this.renderConversations()}
+          <div className="convo-previews">
+            {this.renderConversations()}
+          </div>
         </div>
         <Convo />
       </div>

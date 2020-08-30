@@ -919,3 +919,19 @@ input[type="file"] {
 .auth_button:hover {
   background-color: gray;
 }
+
+#return-button {
+  width: 25%;
+  height: 30px;
+  background-color: #5a85c7;
+  color: white;
+  border-width: 0px;
+  border-radius: 10px;
+  align-self: center;
+  margin-left: 10px;
+  transition: all 300ms;
+}
+
+#return-button:hover {
+  transform: scale(1.05);
+}

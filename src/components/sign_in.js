@@ -75,17 +75,17 @@ class SignIn extends Component {
                 </div>
               </div>
               <div className="iconsBox">
-                <div className="icon-list">
+                <ul className="icon-list">
                   <li onClick={this.forgotPasswordClicked}>
-                    <p>Forgot Password</p>
+                    <button className="auth_button" type="button" id="width"> Forgot Password</button>
                   </li>
                   <li key="return" onClick={this.onSubmit}>
-                    <button className="auth_button" type="button">SIGN IN</button>
+                    <button className="auth_button" type="button" id="width">Sign In</button>
                   </li>
                   <li key="save" onClick={this.onCancel}>
                     <i className="fas fa-window-close" />
                   </li>
-                </div>
+                </ul>
               </div>
             </div>
             <div className="forgotPassword" style={{ display: this.state.forgot ? 'flex' : 'none' }}>

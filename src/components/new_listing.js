@@ -119,6 +119,11 @@ class NewListing extends Component {
   }
 
   makeListing = () => {
+    // eslint-disable-next-line consistent-return
+    if (this.state.startDate === '' || this.state.endDate === '' || this.state.address === '' || this.state.description === '') {
+      this.props.sendError('Error: must fill out all fields to post new listing');
+      return;
+    }
     if (this.state.files.length > 0) {
       const promises = [];
       this.state.files.forEach((file) => {

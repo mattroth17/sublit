@@ -60,7 +60,7 @@ class Main extends Component {
   }
 
   dropClick = () => {
-    document.getElementById('dd').style.display = 'block';
+    document.getElementById('filt').style.display = 'block';
     this.setState({
       numberOfRooms: '',
       isFullApartment: '',
@@ -155,7 +155,7 @@ class Main extends Component {
 
   closeModal() {
     console.log('close modal');
-    const modal = document.getElementById('dd');
+    const modal = document.getElementById('filt');
     modal.style.display = 'none';
   }
 
@@ -186,17 +186,17 @@ class Main extends Component {
 
     console.log(`listings are ${this.props.listings}`);
     return (
-      <div>
+      <div id="main-page-div">
+        <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>
         <div id="filt">
-          <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>
           <div id="dd" className="modal-filter">
             <button className="close" type="button" onClick={() => this.closeModal()}>&times;</button>
-            Earliest start date: <input onChange={this.startDate} type="date" /> <p> </p>
-            Latest end date: <input onChange={this.endDate} type="date" /> <p> </p>
-            # Rooms wanted: <input onChange={this.roomsChange} /> <p> </p>
-            Full apartment/house wanted, enter false or true: <input onChange={this.fullChange} /> <p> </p>
-            Min rent per month: <input onChange={this.lrentChange} />
-            Max rent per month: <input onChange={this.urentChange} />
+            <p>Earliest start date: </p><input onChange={this.startDate} type="date" /> <p> </p>
+            <p>Latest end date:</p> <input onChange={this.endDate} type="date" /> <p> </p>
+            <p># Rooms wanted:</p> <input onChange={this.roomsChange} /> <p> </p>
+            <p>Full apartment/house wanted, enter false or true:</p> <input onChange={this.fullChange} /> <p> </p>
+            <p>Min rent per month:</p> <input onChange={this.lrentChange} />
+            <p>Max rent per month:</p> <input onChange={this.urentChange} />
             <button id="filt-submit" type="button" onClick={() => this.filter()}> Filter listings. </button>
           </div>
           {/* <div id="housePreview" className="modal-filter">

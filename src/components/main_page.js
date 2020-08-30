@@ -112,7 +112,7 @@ class Main extends Component {
     this.setState({ filts: 1 });
   }
 
-  showFiltered() {
+  showFiltered = () => {
     return this.props.filtered.map((listing) => {
       return (
         <div key={listing.id} id={listing.id}>
@@ -127,7 +127,7 @@ class Main extends Component {
     });
   }
 
-  showMap() {
+  showMap = () => {
     if (this.props.listings.length > 0) {
       return (
         <MapContainer listings={this.props.listings} testCallback={this.testCallback} />
@@ -141,7 +141,7 @@ class Main extends Component {
     }
   }
 
-  showPreview() {
+  showPreview = () => {
     return (
       <div>
         Address: {this.currTarget}
@@ -149,21 +149,21 @@ class Main extends Component {
     );
   }
 
-  closeModal() {
+  closeModal = () => {
     const modal = document.getElementById('filt');
     modal.style.display = 'none';
   }
 
-  closePreview() {
+  closePreview = () => {
     const modal = document.getElementById('housePreview');
     modal.style.display = 'none';
   }
 
-  backToMain() {
+  backToMain = () => {
     this.setState({ filts: 0 });
   }
 
-  render() {
+  render = () => {
     if (!this.props.listings) {
       return <div> Loading... </div>;
     }
@@ -180,30 +180,32 @@ class Main extends Component {
 
     return (
       <div id="main-page-div">
-        <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>
-        <div id="filt">
-          <div id="dd" className="modal-filter">
-            <button className="close" type="button" onClick={() => this.closeModal()}>&times;</button>
-            <p>Earliest start date: </p><input onChange={this.startDate} type="date" /> <p> </p>
-            <p>Latest end date:</p> <input onChange={this.endDate} type="date" /> <p> </p>
-            <p># Rooms wanted:</p> <input onChange={this.roomsChange} /> <p> </p>
-            <p>Full apartment/house wanted, enter false or true:</p> <input onChange={this.fullChange} /> <p> </p>
-            <p>Min rent per month:</p> <input onChange={this.lrentChange} />
-            <p>Max rent per month:</p> <input onChange={this.urentChange} />
-            <button id="filt-submit" type="button" onClick={this.getFiltered}> Filter listings. </button>
-          </div>
-          {/* <div id="housePreview" className="modal-filter">
-            <button className="close" type="button" onClick={() => this.closePreview()}>&times;</button>
-            {this.showPreview()}
-          </div> */}
-        </div>
         <div className="mainpage-flex">
           <div className="mainpage-flex">
             <div>
               {this.showMap()}
             </div>
             <div id="listings-div">
-              {this.showListings()}
+              <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>
+              <div id="filt">
+                <div id="dd" className="modal-filter">
+                  <button className="close" type="button" onClick={() => this.closeModal()}>&times;</button>
+                  <p>Earliest start date: </p><input onChange={this.startDate} type="date" /> <p> </p>
+                  <p>Latest end date:</p> <input onChange={this.endDate} type="date" /> <p> </p>
+                  <p># Rooms wanted:</p> <input onChange={this.roomsChange} /> <p> </p>
+                  <p>Full apartment/house wanted, enter false or true:</p> <input onChange={this.fullChange} /> <p> </p>
+                  <p>Min rent per month:</p> <input onChange={this.lrentChange} />
+                  <p>Max rent per month:</p> <input onChange={this.urentChange} />
+                  <button id="filt-submit" type="button" onClick={this.getFiltered}> Filter listings. </button>
+                </div>
+                {/* <div id="housePreview" className="modal-filter">
+            <button className="close" type="button" onClick={() => this.closePreview()}>&times;</button>
+            {this.showPreview()}
+          </div> */}
+              </div>
+              <div id="listing-previews">
+                {this.showListings()}
+              </div>
             </div>
           </div>
         </div>

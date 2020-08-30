@@ -424,14 +424,11 @@ a {
 }
 
 .signInHeader{
+  color: black;
+  background-color: rgba(255, 255, 255, 0);
   text-align: center;
-  background-color:white;
-  border: 2px solid;
-  padding:1rem;
-  margin-right:25rem;
-  margin-left:25rem;
-  border-radius: 25px;
-  margin-top:5rem;
+  align-self: center;
+  margin-top: 20px;
 }
 
 .email-input, .password-input, .name-input{
@@ -450,16 +447,21 @@ a {
   flex-direction:row;
   justify-content: center;
   align-items: center;
-  padding:.5rem;
+  
+  input {
+    border: none;
+    outline: none;
+    padding: 20px;
+    font-size: 20px;
+    max-width: 600px;
+    width: 40%
+  }
 }
-.email{
-  margin-top:3rem;
-  margin-left:3.25rem;
+
+.email {
+  margin-top: 2%;
 }
-.firstName{
-  margin-right:2rem;
-  margin-top:3rem;
-}
+
 .signUpEmail{
   margin-left:3.25rem;
 }
@@ -476,6 +478,7 @@ a {
   justify-content: center;
   align-content: center;
 }
+
 #outer-flex{
   display: flex;
   flex-direction: column;
@@ -691,14 +694,29 @@ ul li:hover{
   justify-content: center;
   align-self: center;
   align-items: center;
-  margin-top: 200px;
-
-  p, input, button {
-    margin: 10px;
+  margin-top: 20px;
+  p {
+    margin-top: 10px;
   }
-
   .sent {
     color: red;
+  }
+  .auth_button {
+    margin-top: 20px;
+    width: 100px;
+    padding: 10px;
+  }
+
+  .back_button {
+    margin: 10px;
+    cursor: pointer;
+    font-size: 30px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    outline: none;
+  }
+  .back_button:hover {
+    color: gray;
   }
 }
 
@@ -807,4 +825,54 @@ input[type="file"] {
   outline: none !important;
 }
 
+// auth forms
+.auth_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
 
+.auth_input {
+  border: none;
+  outline: none;
+  font-size: 20px;
+  padding: 15px;
+  width: 500px;
+  margin-top: 15px;
+}
+
+.auth_cont {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  .auth_background {
+    border-radius: 20px;
+    margin-top: 100px;
+    // color: #c3c7c4;
+    background-image: linear-gradient(#C2E6C8, #c3c7c4);
+    width: 600px;
+
+    p {
+      align-self: center;
+      text-align: center;
+    }
+  }
+}
+
+.auth_button {
+  border: none;
+  outline: none;
+  padding: 15px;
+  background-color: white;
+  border-radius: 30px;
+  font-size: 20px;
+  margin: 0;
+  cursor: pointer;
+}
+.auth_button:hover {
+  background-color: gray;
+}

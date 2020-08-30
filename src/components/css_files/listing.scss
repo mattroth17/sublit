@@ -275,8 +275,6 @@ hr {
 .icon-list {
     font-size: 25px;
     display:flex;
-<<<<<<< HEAD
-    flex-direction: row;
     margin-top:2rem;
     padding-left:0rem;
     width: 60%;
@@ -292,9 +290,7 @@ hr {
     }
 
     button {
-=======
     flex-direction: column;
-    border: none;
     width: 60%;
     justify-content: center;
     align-items: center;
@@ -304,10 +300,8 @@ hr {
         margin-top: 20px;
     }
     .auth_button {
->>>>>>> 5dde0305fb1db4ab2e885e99ac4032d7431a1e6b
         width: 100%;
     }
-    p {
         cursor: pointer;
         text-decoration: underline;
         margin: 0;

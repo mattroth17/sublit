@@ -73,11 +73,12 @@ export function createListing(listing, history) {
   };
 }
 
-export function updateListing(listing, id) {
+export function updateListing(listing, id, callback) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/listings/${id}`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.UPDATE_LISTING, payload: response.data });
+        callback();
       })
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {

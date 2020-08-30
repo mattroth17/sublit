@@ -20,6 +20,7 @@ h1{
   display: flex;
   // filter: brightness(90%);
   flex-direction: column;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   justify-content: space-evenly;
   width: 100%;
   min-height: 550px;
@@ -36,7 +37,15 @@ h1{
   position: relative;
 
 }
+.rectangle{
+  position: relative;
+  border-radius: 10px;
+  width: 15px;
+  height: 220px;
+  margin-left: 40px;
 
+  background: #00693E;
+}
 .login-page{
   display: flex;
   flex-direction: row;
@@ -87,7 +96,7 @@ h1{
   }
 }
 .create-txt{
-  font-size: 40px;
+  font-size: 40px !important;
 }
 .top-bar-middle {
   width: 100%;
@@ -140,9 +149,10 @@ h1{
 .middle-section{
   display: flex;
   flex-direction: column;
-  margin-top: -15px;
   padding: 20px;
-  background-color: rgb(48, 48, 48);
+  // background-color: rgb(48, 48, 48);
+  // background-color: rgba(255, 255, 255, .5);
+
 }
 
 .middle-section-login{
@@ -159,8 +169,8 @@ h1{
   display: flex;
   flex-direction: row;
   // margin-top: -15px;
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   padding-left: 40px;
   padding-right: 40px;
   justify-content: space-between;
@@ -172,17 +182,19 @@ h1{
 .middle-oval{
   width: 500px;
   height: 200px;
-  border-radius: 50px;
+  // border-radius: 50px;
+  margin-left: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   // background-color: white;
-  background-color: rgb(48, 48, 48);
+  // background-color: rgb(48, 48, 48);
   // border: 1px solid black;
-  color: white;
+  color: black;
   margin-bottom: 20px;
   p{
     text-align: center;
+    font-size: 20px;
   }
 }
 img{
@@ -192,8 +204,9 @@ img{
 
 .row-flex{
   display: flex;
+  justify-content: space-between;
+  margin: 20px;
   flex-direction: row;
-  justify-content: space-evenly;
 }
 #oval-one{
   align-self: flex-start;
@@ -210,6 +223,7 @@ img{
   align-self: center;
   display: flex;
   align-items: center;
+  width: 100%;
   justify-content: center;
 }
 #bottom-img{
@@ -254,19 +268,19 @@ a {
 }
 
 .bottom-nav{
-  border-top: 1px solid white;
+  border-top: 1px solid darkgreen;
   padding-top: 5px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-  background-color: rgb(48, 48, 48);
+  // background-color: rgb(48, 48, 48);
 }
 .right-side{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  color: white;
+  color: black;
   font-size: 24px;
   width: 200px;
   margin-right: 20px;
@@ -276,7 +290,7 @@ a {
   flex-direction: row;
   justify-content: space-between;
   width: 600px;
-  color: white;
+  color: black;
   font-family: 'Rosarivo', serif;
   margin-left: 20px;
   font-size: 14px;
@@ -574,7 +588,8 @@ a {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: rgb(255, 255, 255);
+  // background-color: rgb(255, 255, 255);
+  background-color: darkgreen;
   padding-right: 30px;
   padding-bottom: 10px;
   width: 40%;
@@ -604,7 +619,9 @@ a {
   }
 
   p {
-    color: black;
+    // color: black;
+    color: white;
+
     margin: 0;
   }
 }

@@ -73,8 +73,8 @@ class Main extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   testCallback(target, listings) {
-    console.log('mainpage testCallback');
-    console.log(target.title);
+    // console.log('mainpage testCallback');
+    // console.log(target.title);
     // eslint-disable-next-line array-callback-return
     listings.map((listing) => {
       if (listing.id === target.title) {
@@ -95,7 +95,6 @@ class Main extends Component {
 
   showListings() {
     return this.props.listings.map((listing) => {
-      console.log(listing);
       return (
         <div key={listing.id} id={listing.id}>
           <Link className="smallViewLink" to={`/listings/${listing.id}`}>
@@ -114,7 +113,6 @@ class Main extends Component {
     const filts = { ...this.state };
     this.props.fetchFiltered(filts);
     return this.props.filtered.map((listing) => {
-      console.log(listing);
       return (
         <div key={listing.id} id={listing.id}>
           <Link className="smallViewLink" to={`/listings/${listing.id}`}>
@@ -130,12 +128,10 @@ class Main extends Component {
 
   showMap() {
     if (this.props.listings.length > 0) {
-      console.log('returning map');
       return (
         <MapContainer listings={this.props.listings} testCallback={this.testCallback} />
       );
     } else {
-      console.log('loading map');
       return (
         <div>
           Loading...
@@ -145,7 +141,6 @@ class Main extends Component {
   }
 
   showPreview() {
-    console.log(`currTarget is ${this.currTarget}`);
     return (
       <div>
         Address: {this.currTarget}
@@ -154,7 +149,6 @@ class Main extends Component {
   }
 
   closeModal() {
-    console.log('close modal');
     const modal = document.getElementById('filt');
     modal.style.display = 'none';
   }
@@ -174,7 +168,6 @@ class Main extends Component {
     }
 
     if (this.state.filts === 1) {
-      console.log('filtering if statement?');
       return (
         <div id="filt_cont">
           Filtered results:
@@ -184,7 +177,6 @@ class Main extends Component {
       );
     }
 
-    console.log(`listings are ${this.props.listings}`);
     return (
       <div id="main-page-div">
         <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>

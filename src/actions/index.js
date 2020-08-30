@@ -23,7 +23,7 @@ export const ActionTypes = {
 };
 
 export function fetchFiltered(filters) {
-  console.log(filters);
+  // console.log(filters);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/filter`, filters, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {

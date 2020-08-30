@@ -412,10 +412,10 @@ a {
 }
 
 .user-creator{
-  height: 47rem;
+  height: 52rem;
   background-image: url("darthall.png");
   opacity: 1;
-  background-size: 80rem 48rem;
+  background-size: 90rem 52rem;
   padding-top:1rem;
   padding-bottom:6rem;
   margin-left:-1rem;
@@ -910,4 +910,7 @@ input[type="file"] {
 }
 .auth_button:hover {
   background-color: gray;
+}
+#width{
+  width:8rem;
 }

@@ -54,7 +54,7 @@ class SignUp extends Component {
             <div className="iconsBox">
               <ul className="icon-list">
                 <li key="signup" onClick={this.onSubmit}>
-                  <button type="button" className="auth_button">Sign Up</button>
+                  <button type="button" className="auth_button" id="width">Sign Up</button>
                 </li>
                 <li key="cancel" onClick={this.onCancel}>
                   <i className="fas fa-window-close" />

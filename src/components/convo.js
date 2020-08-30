@@ -60,7 +60,9 @@ class Convo extends Component {
       );
     }
     return (
-      <div>Loading...</div>
+      <div className="conversation">
+        <div className="place-holder">Loading...</div>
+      </div>
     );
   }
 }

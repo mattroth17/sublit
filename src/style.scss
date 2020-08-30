@@ -39,6 +39,7 @@ h1{
 }
 .rectangle{
   position: relative;
+  border-radius: 10px;
   width: 15px;
   height: 220px;
   margin-left: 40px;
@@ -182,6 +183,7 @@ h1{
   width: 500px;
   height: 200px;
   // border-radius: 50px;
+  margin-left: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -266,19 +268,19 @@ a {
 }
 
 .bottom-nav{
-  border-top: 1px solid white;
+  border-top: 1px solid darkgreen;
   padding-top: 5px;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
-  background-color: rgb(48, 48, 48);
+  // background-color: rgb(48, 48, 48);
 }
 .right-side{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  color: white;
+  color: black;
   font-size: 24px;
   width: 200px;
   margin-right: 20px;
@@ -288,7 +290,7 @@ a {
   flex-direction: row;
   justify-content: space-between;
   width: 600px;
-  color: white;
+  color: black;
   font-family: 'Rosarivo', serif;
   margin-left: 20px;
   font-size: 14px;
@@ -586,7 +588,8 @@ a {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: rgb(255, 255, 255);
+  // background-color: rgb(255, 255, 255);
+  background-color: darkgreen;
   padding-right: 30px;
   padding-bottom: 10px;
   width: 40%;
@@ -616,7 +619,9 @@ a {
   }
 
   p {
-    color: black;
+    // color: black;
+    color: white;
+
     margin: 0;
   }
 }

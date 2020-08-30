@@ -43,9 +43,9 @@ class App extends Component {
     }
     return (
       <div className="page">
-        <div className="top_bar-login">
+        {/* <div className="top-bar-login">
           <div id="sublitLogo" />
-        </div>
+        </div> */}
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/signin" component={SignIn} />

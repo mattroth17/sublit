@@ -83,11 +83,11 @@ class NewListing extends Component {
     const newamms = [];
     checks.forEach((check) => {
       if (check.checked) {
-        console.log(check.value);
+        // console.log(check.value);
         newamms.push(check.value);
       }
     });
-    console.log(newamms);
+    // console.log(newamms);
     this.setState({ amenities: newamms });
   }
 

@@ -17,7 +17,15 @@
     flex-direction: column;
     overflow: auto;
 
+    .convo-previews {
+      height: 74.2vh;
+      display: flex;
+      flex-direction: column;
+      overflow-y: scroll;
+    }
+
     .convos-title {
+      height: 5.8vh;
       align-self: center;
       margin-bottom: 0px;
     }

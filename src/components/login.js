@@ -11,7 +11,7 @@ import BottomNav from './bottom-nav';
 
 const Login = (props) => { // sort out the buttons
   return (
-    <div className="top-bar-login">
+    <div className="top-bar-middle">
       <div className="header"> <div id="sublit-title">Sublit</div>
         <div className="flex-btn">
 
@@ -23,6 +23,40 @@ const Login = (props) => { // sort out the buttons
               Sign Up
             </div>
           </NavLink>
+        </div>
+
+      </div>
+      <div className="middle-section">
+        <div className="row-flex">
+          <div className="row-flex">
+            <div className="rectangle" />
+            <div className="middle-oval" id="oval-one">
+              <p>
+                Are you looking for off-campus housing?
+              </p>
+              <p>
+                For 1, 2, or 3 trimesters?
+              </p>
+              <p>
+
+                <strong>
+                  Welcome to SubLit
+                </strong>
+                , where you can find hundreds of off campus listing options around Dartmouth for the Fall, Winter, and/or Spring terms!
+              </p>
+            </div>
+          </div>
+          <div className="row-flex">
+            <div className="rectangle" />
+            <div className="middle-oval" id="oval-two">
+              <p>
+                Looking to sublet your off-campus place?
+              </p>
+              <p>
+                With SubLit, you can add your house/apartment as a listing and specify which terms you’re looking to sublet for!
+              </p>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -53,33 +87,14 @@ const Login = (props) => { // sort out the buttons
 
         </div>
       </div>
-      <div className="middle-section">
-        <div className="middle-oval" id="oval-one">
-          <p>
-            Are you looking for off-campus housing?
-          </p>
-          <p>
-            For 1, 2, or 3 trimesters?
-          </p>
-          <p>
-            Welcome to SubLit, where you can find hundreds of off campus listing options around Dartmouth for the Fall, Winter, and/or Spring terms!
-          </p>
-        </div>
-        <div className="middle-oval" id="oval-two">
-          <p>
-            Looking to sublet your off-campus place?
-          </p>
-          <p>
-            With SubLit, you can add your house/apartment as a listing and specify which terms you’re looking to sublet for!
-          </p>
-        </div>
+      <div className="row-flex">
         <div className="middle-oval" id="oval-three">
-          <p>
+          <p className="create-txt">
             Create your free account today!
           </p>
         </div>
-
       </div>
+
       <BottomNav />
     </div>
   );

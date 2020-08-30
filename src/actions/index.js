@@ -23,7 +23,7 @@ export const ActionTypes = {
 };
 
 export function fetchFiltered(filters) {
-  console.log(filters);
+  // console.log(filters);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/filter`, filters, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
@@ -164,17 +164,24 @@ export function startConversation(user1, user2, history) {
   };
 }
 
-export function getConversation(conversation, person1Email, person2Email) {
+export function getConversation(conversation, person1Email, person2Email, history = null) {
+  console.log(conversation);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/getallmessages`, { person1Email, person2Email }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_CONVERSATION, conversation, messages: response.data });
+        if (history) {
+          history.push('/chat');
+        }
       })
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
         } else {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+          if (history) {
+            history.push('/chat');
+          }
         }
       });
   };
@@ -366,9 +373,8 @@ export function resendConfirmation({ email }) {
 
 export function signupUser({ email, password, firstName }, history) {
   return (dispatch) => {
-    // const emailPattern = /^[A-Za-z0-9._%+-]+@dartmouth.edu$/;
-    // const valid = emailPattern.test(email);
-    const valid = true;
+    const emailPattern = /^[A-Za-z0-9._%+-]+@dartmouth.edu$/;
+    const valid = emailPattern.test(email.toLowerCase());
     if (!valid) {
       dispatch({ type: ActionTypes.AUTH_ERROR, message: 'Sign Up Failed: Email must be a valid Dartmouth address' });
     } else {
@@ -381,7 +387,7 @@ export function signupUser({ email, password, firstName }, history) {
         })
         .catch((error) => {
           if (error.response) {
-            dispatch(authError(`Sign Up Failed: ${error.response.data}`));
+            dispatch(authError(`Sign Up Failed: ${error.response.data.error}`));
           } else {
             dispatch(authError(`Sign Up Failed: ${error}`));
           }

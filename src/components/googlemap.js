@@ -24,8 +24,8 @@ class MapContainer extends Component {
   }
 
   componentDidMount() {
-    console.log('googlemaps component did mount');
-    console.log(this.props.listings);
+    // console.log('googlemaps component did mount');
+    // console.log(this.props.listings);
 
     // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
     Geocode.setApiKey('AIzaSyC4YOXX43hNkUFFtxLlALsnWk49LAlvz70');
@@ -34,15 +34,15 @@ class MapContainer extends Component {
 
     this.props.listings.map((listing) => {
       if (listing.address !== '') {
-        console.log(`listing is ${listing}`);
+      // console.log(`listing is ${listing}`);
 
         Geocode.fromAddress(listing.address).then(
           (response) => {
             const latitude = response.results[0].geometry.location.lat;
             const longitude = response.results[0].geometry.location.lng;
-            console.log('lat and long below');
-            console.log(latitude, longitude);
-            console.log('component did mount');
+            // console.log('lat and long below');
+            // console.log(latitude, longitude);
+            // console.log('component did mount');
             this.setState((previousState) => ({
               stores: [...previousState.stores, {
                 lat: latitude, lng: longitude, id: listing.id, address: listing.address,
@@ -59,17 +59,17 @@ class MapContainer extends Component {
   }
 
   onMarkerClick = (target) => {
-    console.log('onMarkerClick');
-    console.log(target.title);
-    console.log(`props is ${this.props.listings}`);
+    // console.log('onMarkerClick');
+    // console.log(target.title);
+    // console.log(`props is ${this.props.listings}`);
     this.props.testCallback(target, this.props.listings);
   }
 
   getMarkers = () => {
-    console.log('getMarkers');
+    // console.log('getMarkers');
     return this.state.stores.map((store, index) => {
-      console.log('returning marker');
-      console.log(`${store.lat} ${store.lng} ${store.id}`);
+      // console.log('returning marker');
+      // console.log(`${store.lat} ${store.lng} ${store.id}`);
       // eslint-disable-next-line react/no-array-index-key
       return (<Marker key={store.id} title={store.id} position={{ lat: store.lat, lng: store.lng }} onClick={this.onMarkerClick} />);
     });
@@ -77,7 +77,7 @@ class MapContainer extends Component {
 
   renderMap = () => {
     if (this.state.stores.length > 0) {
-      console.log(this.state.stores.length);
+      // console.log(this.state.stores.length);
       return (
         <Map
           google={this.props.google}
@@ -98,7 +98,7 @@ class MapContainer extends Component {
   }
 
   render() {
-    console.log('rendering map');
+    // console.log('rendering map');
     return (
       <div className="map-div">
         {this.renderMap()}

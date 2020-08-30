@@ -140,10 +140,9 @@ class Listing extends Component {
   }
 
   goToConversation = () => {
-    const email = this.props.currentListing.author;
-    const firstName = this.props.currentListing.author;
-    this.props.getConversation({ email, firstName }, this.props.user.email, email);
-    this.props.history.push('/chat');
+    const { email } = this.props.currentListing.author;
+    const { firstName } = this.props.currentListing.author;
+    this.props.getConversation({ email, firstName }, this.props.user.email, email, this.props.history);
   }
 
   onImageUpload = (event) => {
@@ -188,9 +187,13 @@ class Listing extends Component {
   }
 
   renderImages() {
-    if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
+    if (!this.props.currentListing) {
       return <div>Loading...</div>;
     }
+    if (isEmpty(this.props.currentListing.pictures)) {
+      return <div> </div>;
+    }
+
     return (
       <Carousel images={this.props.currentListing.pictures} />
     );

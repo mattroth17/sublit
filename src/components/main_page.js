@@ -60,7 +60,7 @@ class Main extends Component {
   }
 
   dropClick = () => {
-    document.getElementById('dd').style.display = 'block';
+    document.getElementById('filt').style.display = 'block';
     this.setState({
       numberOfRooms: '',
       isFullApartment: '',
@@ -73,8 +73,8 @@ class Main extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   testCallback(target, listings) {
-    console.log('mainpage testCallback');
-    console.log(target.title);
+    // console.log('mainpage testCallback');
+    // console.log(target.title);
     // eslint-disable-next-line array-callback-return
     listings.map((listing) => {
       if (listing.id === target.title) {
@@ -95,7 +95,6 @@ class Main extends Component {
 
   showListings() {
     return this.props.listings.map((listing) => {
-      console.log(listing);
       return (
         <div key={listing.id} id={listing.id}>
           <Link className="smallViewLink" to={`/listings/${listing.id}`}>
@@ -114,7 +113,6 @@ class Main extends Component {
     const filts = { ...this.state };
     this.props.fetchFiltered(filts);
     return this.props.filtered.map((listing) => {
-      console.log(listing);
       return (
         <div key={listing.id} id={listing.id}>
           <Link className="smallViewLink" to={`/listings/${listing.id}`}>
@@ -130,12 +128,10 @@ class Main extends Component {
 
   showMap() {
     if (this.props.listings.length > 0) {
-      console.log('returning map');
       return (
         <MapContainer listings={this.props.listings} testCallback={this.testCallback} />
       );
     } else {
-      console.log('loading map');
       return (
         <div>
           Loading...
@@ -145,7 +141,6 @@ class Main extends Component {
   }
 
   showPreview() {
-    console.log(`currTarget is ${this.currTarget}`);
     return (
       <div>
         Address: {this.currTarget}
@@ -154,8 +149,7 @@ class Main extends Component {
   }
 
   closeModal() {
-    console.log('close modal');
-    const modal = document.getElementById('dd');
+    const modal = document.getElementById('filt');
     modal.style.display = 'none';
   }
 
@@ -174,7 +168,6 @@ class Main extends Component {
     }
 
     if (this.state.filts === 1) {
-      console.log('filtering if statement?');
       return (
         <div id="filt_cont">
           Filtered results:
@@ -184,20 +177,19 @@ class Main extends Component {
       );
     }
 
-    console.log(`listings are ${this.props.listings}`);
     return (
-      <div>
+      <div id="main-page-div">
+        <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>
         <div id="filt">
-          <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>
           <div id="dd" className="modal-filter">
             <button className="close" type="button" onClick={() => this.closeModal()}>&times;</button>
-            Earliest start date: <input onChange={this.startDate} type="date" /> <p> </p>
-            Latest end date: <input onChange={this.endDate} type="date" /> <p> </p>
-            # Rooms wanted: <input onChange={this.roomsChange} /> <p> </p>
-            Full apartment/house wanted, enter false or true: <input onChange={this.fullChange} /> <p> </p>
-            Min rent per month: <input onChange={this.lrentChange} />
-            Max rent per month: <input onChange={this.urentChange} />
-            <button type="button" onClick={() => this.filter()}> Filter listings. </button>
+            <p>Earliest start date: </p><input onChange={this.startDate} type="date" /> <p> </p>
+            <p>Latest end date:</p> <input onChange={this.endDate} type="date" /> <p> </p>
+            <p># Rooms wanted:</p> <input onChange={this.roomsChange} /> <p> </p>
+            <p>Full apartment/house wanted, enter false or true:</p> <input onChange={this.fullChange} /> <p> </p>
+            <p>Min rent per month:</p> <input onChange={this.lrentChange} />
+            <p>Max rent per month:</p> <input onChange={this.urentChange} />
+            <button id="filt-submit" type="button" onClick={() => this.filter()}> Filter listings. </button>
           </div>
           {/* <div id="housePreview" className="modal-filter">
             <button className="close" type="button" onClick={() => this.closePreview()}>&times;</button>

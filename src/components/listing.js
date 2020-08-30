@@ -140,10 +140,9 @@ class Listing extends Component {
   }
 
   goToConversation = () => {
-    const email = this.props.currentListing.author;
-    const firstName = this.props.currentListing.author;
-    this.props.getConversation({ email, firstName }, this.props.user.email, email);
-    this.props.history.push('/chat');
+    const { email } = this.props.currentListing.author;
+    const { firstName } = this.props.currentListing.author;
+    this.props.getConversation({ email, firstName }, this.props.user.email, email, this.props.history);
   }
 
   onImageUpload = (event) => {

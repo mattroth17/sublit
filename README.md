@@ -10,7 +10,7 @@ Sublit team:
 All of the components are connected and functional on the frontend and backend. Users are able to sign up/in, and once authorized, can post listings, browse them, edit/delete listings, and chat each other. This application supports all the integral functionality for a subletting site.
 
 ### What Didn't 
-We ran into a few debugging difficulties with filtering, so we chose to not implement searching for listings by address, name, etc. as originally planned.
+The page throws an error on the main page saying that Google Javascript API loads twice, but we haven't noticed any actual errors and are not sure how to debug this after multiple meetings. We also ran into a few debugging difficulties with filtering, so we chose to not implement searching for listings by address, name, etc. as originally planned.
 
 ## Architecture
 

@@ -1,8 +1,9 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import _ from 'underscore';
+// import _ from 'underscore';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { createListing, sendError } from '../actions/index';
 import * as s3 from '../s3';
@@ -83,11 +84,9 @@ class NewListing extends Component {
     const newamms = [];
     checks.forEach((check) => {
       if (check.checked) {
-        // console.log(check.value);
         newamms.push(check.value);
       }
     });
-    // console.log(newamms);
     this.setState({ amenities: newamms });
   }
 
@@ -104,6 +103,21 @@ class NewListing extends Component {
     }
   }
 
+  onChangeImageUpload = (file, i) => {
+    // Handle null file
+    // Get url of the file and set it to the src of preview
+    if (file) {
+      const newPreviews = this.state.previews.slice();
+      newPreviews[i] = window.URL.createObjectURL(file);
+      const newFiles = this.state.files.slice();
+      newFiles[i] = file;
+      this.setState(() => ({
+        previews: newPreviews,
+        files: newFiles,
+      }));
+    }
+  }
+
   makeListing = () => {
     if (this.state.files.length > 0) {
       const promises = [];
@@ -115,12 +129,11 @@ class NewListing extends Component {
           const listing = { ...this.state, pictures: urls };
           this.props.createListing(listing, this.props.history);
         } else {
-          console.log('error uploading images');
+          this.props.sendError('Error uploading images');
         }
       });
     } else {
       const listing = { ...this.state };
-      console.log(listing);
       this.props.createListing(listing, this.props.history);
     }
   }
@@ -143,10 +156,7 @@ class NewListing extends Component {
     </div>
   );
 
-  renderImageInputs() {
-    return (
-      <div className="image-uploads">
-        {_.range(this.state.numPics).map((pic) => {
+  /* {_.range(this.state.numPics).map((pic) => {
           const imageCount = (pic > 0 ? 'Another Image' : 'Image');
           const buttonText = `Upload ${imageCount}`;
           return (
@@ -157,16 +167,38 @@ class NewListing extends Component {
               </label>
             </div>
           );
-        })}
+        })} */
+
+  renderImageInputs() {
+    const imageCount = (this.state.numPics > 1 ? 'Another Image' : 'Image');
+    const buttonText = `Upload ${imageCount}`;
+    return (
+      <div key="uploads" className="image-uploads">
+        <div key="upload-button" className="custom-image-upload">
+          <label htmlFor="upload-button" className="custom-image-upload-button">
+            {buttonText}
+            <input id="upload-button" type="file" name="coverImage" onChange={this.onImageUpload} />
+          </label>
+        </div>
       </div>
     );
   }
 
   renderPreviews() {
     return (
-      <div className="image-previews">
-        {this.state.previews.map((pic) => {
-          return (<img key={pic} id="preview" alt="" src={pic} />);
+      <div key="previews" className="image-previews">
+        {this.state.previews.map((pic, i) => {
+          return (
+            <div key={i} className="image-preview-and-input">
+              <div key={i + 1} className="custom-image-upload">
+                <label htmlFor={i} className="custom-image-upload-button">
+                  Change Image
+                  <input id={i} type="file" name="coverImage" onChange={(event) => this.onChangeImageUpload(event.target.files[0], i)} />
+                </label>
+              </div>
+              <img key={i + 2} id="preview" alt="" src={pic} />
+            </div>
+          );
         })}
       </div>
     );
@@ -201,7 +233,7 @@ class NewListing extends Component {
               <input onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" value={this.state.description} />
             </div>
             <div className="roomInfo">
-              <h2> Number of Rooms </h2>
+              <h2> Number of Bedrooms </h2>
               <input onChange={this.onNumberOfRoomsChange} type="range" min="0" max="10" placeholder="Number of Rooms" value={this.state.numberOfRooms} />
               <div>{this.state.numberOfRooms} rooms</div>
             </div>
@@ -223,10 +255,21 @@ class NewListing extends Component {
             <div className="amenityInfo">
               <h2> List the Ammenities </h2>
               <div className="amms" onChange={this.onAmmenitiesChange}>
-                <input type="checkbox" value="wifi" name="term" /> wifi
-                <input type="checkbox" value="laundry service or washer/dryer" name="term" /> laundry service or washer/dryer
-                <input type="checkbox" value="tv" name="term" /> tv
-                <input type="checkbox" value="coffee or tea maker" name="term" /> coffee or tea maker
+                <div className="checkbox-container">
+                  <input type="checkbox" value="wifi" name="term" /> <span>wifi</span>
+                </div>
+                <div className="checkbox-container">
+                  <input type="checkbox" value="laundry service or washer/dryer" name="term" />
+                  <span>laundry service or washer/dryer</span>
+                </div>
+                <div className="checkbox-container">
+                  <input type="checkbox" value="tv" name="term" />
+                  <span>tv</span>
+                </div>
+                <div className="checkbox-container">
+                  <input type="checkbox" value="coffee or tea maker" name="term" />
+                  <span>coffee or tea maker</span>
+                </div>
               </div>
             </div>
             <div className="entireAPTInfo">

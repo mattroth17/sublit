@@ -825,6 +825,41 @@ input[type="file"] {
   outline: none !important;
 }
 
+.image-previews {
+  img {
+    width: 200px;
+    margin: 5px;
+  }
+}
+
+.amms {
+  display: flex;
+  flex-direction: column-reverse;
+
+  input {
+    margin: 0px;
+  }
+
+  span {
+    margin-top: 5px;
+    margin-left: 10px;
+  }
+
+  .checkbox-container {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.custom-image-upload-button, .custom-image-upload, #largeSubmit {
+  transition: all 300ms;
+}
+
+.custom-image-upload-button:hover, .custom-image-upload:hover, #largeSubmit:hover {
+  transform: scale(1.02);
+}
+
+
 // auth forms
 .auth_form {
   display: flex;

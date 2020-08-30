@@ -23,7 +23,6 @@ export const ActionTypes = {
 };
 
 export function fetchFiltered(filters) {
-  // console.log(filters);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/filter`, filters, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
@@ -94,7 +93,6 @@ export function fetchListing(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        console.log(response.data);
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
@@ -166,7 +164,6 @@ export function startConversation(user1, user2, history) {
 }
 
 export function getConversation(conversation, person1Email, person2Email, history = null) {
-  console.log(conversation);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/getallmessages`, { person1Email, person2Email }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
@@ -190,10 +187,8 @@ export function getConversation(conversation, person1Email, person2Email, histor
 
 export function getConversations(email) {
   return (dispatch) => {
-    console.log('test');
     axios.post(`${ROOT_URL}/getuser`, { email }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        console.log(response);
         dispatch({ type: ActionTypes.FETCH_CONVERSATIONS, payload: response.data[0].conversations });
       })
       .catch((error) => {

@@ -39,27 +39,23 @@ class ResetPassword extends Component {
   render() {
     return (
       <div className="user-creator">
-        <div>
-          <div className="email">
-            <h2>Email:</h2>
-            <input className="email-input" placeholder="Email Address" onChange={this.onEmailChange} value={this.state.email} />
+        <div className="auth_cont">
+          <div className="auth_background">
+            <h1 className="signInHeader">Create New Password</h1>
+            <div className="auth_form">
+              <div>
+                <input className="auth_input" placeholder="Email Address" onChange={this.onEmailChange} value={this.state.email} />
+              </div>
+              <div>
+                <input type="password" className="auth_input" placeholder="New Password" onChange={this.onPasswordChange} value={this.state.password} />
+              </div>
+              <div>
+                <input type="password" className="auth_input" placeholder="Confirm Password" onChange={this.onConfrimPasswordChange} value={this.state.confirmPassword} />
+              </div>
+              <button id="new_pass_submit" type="button" onClick={this.onSubmit}>Submit</button>
+              <p style={{ display: this.state.passwordsMatch ? 'none' : 'flex' }}>Passwords must match</p>
+            </div>
           </div>
-          <div className="pass">
-            <h2>New Password:</h2>
-            <input type="password" className="password-input" placeholder="New Password" onChange={this.onPasswordChange} value={this.state.password} />
-          </div>
-          <div className="pass">
-            <h2>Confirm Password:</h2>
-            <input type="password" className="password-input" placeholder="Confirm Password" onChange={this.onConfrimPasswordChange} value={this.state.confirmPassword} />
-          </div>
-          <div className="iconsBox">
-            <ul className="icon-list">
-              <li>
-                <button type="button" onClick={this.onSubmit}>Submit</button>
-              </li>
-            </ul>
-          </div>
-          <p style={{ display: this.state.passwordsMatch ? 'none' : 'flex' }}>Passwords must match</p>
         </div>
       </div>
     );

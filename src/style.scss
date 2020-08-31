@@ -504,7 +504,7 @@ a {
   filter: blurbackground(100px);
   color: black;
   width: 400px;
-  height: 570px;
+  height: 85vh;
   z-index: 98;
   div{
     opacity: 1;
@@ -514,7 +514,7 @@ a {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    height: 520px;
+    height: 76vh;
   }
 }
 

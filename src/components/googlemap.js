@@ -8,7 +8,7 @@ import Geocode from 'react-geocode';
 
 const mapStyles = {
   width: '100%',
-  height: '84%',
+  height: '88vh',
   position: 'relative',
   fullscreenControl: false,
 };

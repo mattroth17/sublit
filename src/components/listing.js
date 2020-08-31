@@ -339,7 +339,7 @@ class Listing extends Component {
             <input onChange={this.onDescriptionChange} placeholder={`Desc.: ${this.props.currentListing.description}`} value={this.state.description} /> <p> </p>
             <h2> Amenities - please check all available amenities </h2>
             <div className="amenityInfo">
-              <h2> List the Ammenities </h2>
+              <h2> Check amenities you have in your listing. </h2>
               <div className="amms" onChange={this.onAmmenitiesChange}>
                 <div className="checkbox-container">
                   <input type="checkbox" value="wifi" name="term" /> <span>wifi</span>

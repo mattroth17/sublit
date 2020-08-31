@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+body {
+    height: 110vh;
+}
+
 .indlisting {
     font-family: Roboto;
     // background-color: #EFFEF7;
@@ -19,6 +23,7 @@
     margin: 1%;
     width: 50vw;
     align-items: center;
+    height: 100vh;
     color: #2F4A3E;
     // taken from Airbnb
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;;
@@ -85,6 +90,8 @@
 
     ul {
         border: none; 
+        margin: 0px;
+        padding-bottom: 10px;
     }
 
     .buttons {

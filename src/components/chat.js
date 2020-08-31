@@ -18,6 +18,7 @@ class Chat extends Component {
   componentDidMount() {
     this.props.getConversations(this.props.email);
     this.props.fetchUser(this.props.email);
+    // set interval to continuosly check for new messages
     const intervalID = setInterval(() => {
       if (!isEmpty(this.state.currentConvo) && !isEmpty(this.props.user)) {
         this.props.getConversation(this.state.currentConvo, this.props.user.email, this.state.currentConvo.email);
@@ -31,6 +32,7 @@ class Chat extends Component {
   }
 
   componentWillUnmount() {
+    // kill interval
     clearInterval(this.state.intervalID);
   }
 

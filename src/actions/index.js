@@ -4,7 +4,6 @@ export const ROOT_URL = 'https://sublit-cs52-project.herokuapp.com/api';
 // export const ROOT_URL = 'http://localhost:9090/api';
 
 // keys for actiontypes
-// going to need chat actions
 export const ActionTypes = {
   FETCH_LISTINGS: 'FETCH_LISTINGS',
   FETCH_LISTING: 'FETCH_LISTING',
@@ -23,7 +22,6 @@ export const ActionTypes = {
 };
 
 export function fetchFiltered(filters) {
-  // console.log(filters);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/filter`, filters, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
@@ -32,8 +30,10 @@ export function fetchFiltered(filters) {
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
-        } else {
+        } else if (error.response && (typeof error.response.data === 'string')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.message });
         }
       });
   };
@@ -47,10 +47,12 @@ export function fetchListings() {
         dispatch({ type: ActionTypes.FETCH_LISTINGS, payload: response.data });
       })
       .catch((error) => {
-        if (error.response && error.response.data.includes('<')) {
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
-        } else {
+        } else if (error.response && (typeof error.response.data === 'string')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.message });
         }
       });
   };
@@ -66,8 +68,10 @@ export function createListing(listing, history) {
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
-        } else {
+        } else if (error.response && (typeof error.response.data === 'string')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.message });
         }
       });
   };
@@ -83,8 +87,10 @@ export function updateListing(listing, id, callback) {
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
-        } else {
+        } else if (error.response && (typeof error.response.data === 'string')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.message });
         }
       });
   };
@@ -94,14 +100,15 @@ export function fetchListing(id) {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/listings/${id}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        console.log(response.data);
         dispatch({ type: ActionTypes.FETCH_LISTING, payload: response.data });
       })
       .catch((error) => {
-        if (error.response && ((!typeof error.response.data === 'string') || error.response.data.includes('<'))) {
+        if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
-        } else {
+        } else if (error.response && (typeof error.response.data === 'string')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.message });
         }
       });
   };
@@ -116,8 +123,10 @@ export function deleteListing(id, history) {
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
-        } else {
+        } else if (error.response && (typeof error.response.data === 'string')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.message });
         }
       });
   };
@@ -150,23 +159,26 @@ export function startConversation(user1, user2, history) {
           .catch((err) => {
             if (err.response && (!(typeof err.response.data === 'string') || err.response.data.includes('<'))) {
               dispatch({ type: ActionTypes.ERROR_SET, errorMessage: err.response.statusText });
-            } else {
+            } else if (err.response && (typeof err.response.data === 'string')) {
               dispatch({ type: ActionTypes.ERROR_SET, errorMessage: err.response.data });
+            } else {
+              dispatch({ type: ActionTypes.ERROR_SET, errorMessage: err.message });
             }
           });
       })
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
-        } else {
+        } else if (error.response && (typeof error.response.data === 'string')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.message });
         }
       });
   };
 }
 
 export function getConversation(conversation, person1Email, person2Email, history = null) {
-  console.log(conversation);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/getallmessages`, { person1Email, person2Email }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
@@ -178,11 +190,13 @@ export function getConversation(conversation, person1Email, person2Email, histor
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
-        } else {
+        } else if (error.response && (typeof error.response.data === 'string')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
-          if (history) {
-            history.push('/chat');
-          }
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.message });
+        }
+        if (history) {
+          history.push('/chat');
         }
       });
   };
@@ -190,17 +204,17 @@ export function getConversation(conversation, person1Email, person2Email, histor
 
 export function getConversations(email) {
   return (dispatch) => {
-    console.log('test');
     axios.post(`${ROOT_URL}/getuser`, { email }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        console.log(response);
         dispatch({ type: ActionTypes.FETCH_CONVERSATIONS, payload: response.data[0].conversations });
       })
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
-        } else {
+        } else if (error.response && (typeof error.response.data === 'string')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.message });
         }
       });
   };
@@ -218,8 +232,10 @@ export function sendChatMessage(senderEmail, senderFirstName, recipientEmail, re
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
-        } else {
+        } else if (error.response && (typeof error.response.data === 'string')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.message });
         }
       });
   };
@@ -242,8 +258,10 @@ export function fetchUser(email) {
       .catch((error) => {
         if (error.response && (!(typeof error.response.data === 'string') || error.response.data.includes('<'))) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.statusText });
-        } else {
+        } else if (error.response && (typeof error.response.data === 'string')) {
           dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.response.data });
+        } else {
+          dispatch({ type: ActionTypes.ERROR_SET, errorMessage: error.message });
         }
       });
   };
@@ -268,7 +286,6 @@ export function resetPassword({ email, password, token }, history) {
         history.push('/signin');
       })
       .catch((error) => {
-        console.log(error);
         dispatch(authError(`Reset password failed: ${error}`));
       });
   };
@@ -279,7 +296,9 @@ export function signinUser({ email, password }, history) {
     axios.post(`${ROOT_URL}/getuser`, { email })
       .then((response) => {
         // email is confirmed, sign in
-        if (response.data[0].emailConfirmed) {
+        if (response.data.length === 0) {
+          dispatch(authError('Sign in failed: Invalid email address'));
+        } else if (response.data[0].emailConfirmed) {
           axios.post(`${ROOT_URL}/signin`, { email, password })
             .then((resp) => {
               localStorage.setItem('token', resp.data.token);
@@ -290,7 +309,6 @@ export function signinUser({ email, password }, history) {
             })
             .catch((err) => {
               if (err.response) {
-                console.log(err.response);
                 dispatch(authError('Sign in failed: Incorrect username or password'));
               } else {
                 dispatch(authError(`Sign Up Failed: ${err}`));
@@ -305,7 +323,6 @@ export function signinUser({ email, password }, history) {
       })
       .catch((error) => {
         dispatch(authError(`Sign in failed: ${error}`));
-        console.log(error);
       });
   };
 }
@@ -334,7 +351,6 @@ export function signInAndConfirmEmail({ email, password, confirmToken }, history
                   history.push('/');
                 })
                 .catch((er) => {
-                  console.log(er);
                   dispatch(authError(`Could not update user info: ${er}`));
                   history.push('/confirmemail');
                 });
@@ -353,7 +369,6 @@ export function signInAndConfirmEmail({ email, password, confirmToken }, history
         return null;
       })
       .catch((error) => {
-        console.log(error);
         dispatch(authError(error));
       });
   };
@@ -367,7 +382,6 @@ export function resendConfirmation({ email }) {
       })
       .catch((error) => {
         dispatch(authError(error));
-        console.log(error);
       });
   };
 }

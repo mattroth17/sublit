@@ -412,10 +412,10 @@ a {
 }
 
 .user-creator{
-  height: 47rem;
+  height: 52rem;
   background-image: url("darthall.png");
   opacity: 1;
-  background-size: 80rem 48rem;
+  background-size: 90rem 52rem;
   padding-top:1rem;
   padding-bottom:6rem;
   margin-left:-1rem;
@@ -695,6 +695,12 @@ ul li:hover{
   }
 }
 
+#message {
+  align-self: center;
+  text-align: center;
+  color: red;
+}
+
 // forgot password
 .forgotPassword {
   display: flex;
@@ -917,5 +923,58 @@ input[type="file"] {
   cursor: pointer;
 }
 .auth_button:hover {
+  background-color: gray;
+}
+
+.auth_buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  .auth_button {
+    align-self: center;
+  }
+  p {
+    font-size: 40px;
+    margin-top: 5px;
+  }
+  p:hover {
+    color: gray;
+  }
+  #message {
+    font-size: 20px;
+  }
+}
+
+#return-button {
+  width: 25%;
+  height: 30px;
+  background-color: #5a85c7;
+  color: white;
+  border-width: 0px;
+  border-radius: 10px;
+  align-self: center;
+  margin-left: 10px;
+  transition: all 300ms;
+}
+
+#return-button:hover {
+  transform: scale(1.05);
+}
+#width{
+  width:8rem;
+}
+
+#new_pass_submit {
+  padding: 15px;
+  outline: none;
+  border: none;
+  background-color: white;
+  border-radius: 20px;
+  margin: 20px;
+}
+
+#new_pass_submit:hover {
   background-color: gray;
 }

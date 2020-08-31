@@ -8,6 +8,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import BottomNav from './bottom-nav';
+import HouseOne from '../img/house-one.jpg';
 
 const Login = (props) => { // sort out the buttons
   return (
@@ -38,7 +39,6 @@ const Login = (props) => { // sort out the buttons
                 For 1, 2, or 3 trimesters?
               </p>
               <p>
-
                 <strong>
                   Welcome to SubLit
                 </strong>
@@ -63,7 +63,7 @@ const Login = (props) => { // sort out the buttons
       <div className="middle-section-row">
         <div className="img-flex">
           <Card>
-            <CardMedia component="img" wide image="src/img/house-one.jpg" alt="house text" className="house" />
+            <CardMedia component="img" image={HouseOne} alt="house text" className="house" />
             <CardContent className="img-text">
               Beautiful home in Hanover, NH up for lease!
             </CardContent>

@@ -9,6 +9,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import BottomNav from './bottom-nav';
 import HouseOne from '../img/house-one.jpg';
+import HouseTwo from '../img/house-two.jpeg';
+import HouseThree from '../img/house-three.jpg';
 
 const Login = (props) => { // sort out the buttons
   return (
@@ -71,7 +73,7 @@ const Login = (props) => { // sort out the buttons
         </div>
         <div className="img-flex">
           <Card>
-            <CardMedia component="img" image="src/img/house-two.jpeg" alt="house text" className="house" />
+            <CardMedia component="img" image={HouseTwo} alt="house text" className="house" />
             <CardContent className="img-text">
               Beautiful home in Hanover, NH up for lease!
             </CardContent>
@@ -79,7 +81,7 @@ const Login = (props) => { // sort out the buttons
         </div>
         <div className="img-flex">
           <Card>
-            <CardMedia component="img" image="src/img/house-three.jpg" alt="house text" className="house" />
+            <CardMedia component="img" image={HouseThree} alt="house text" className="house" />
             <CardContent className="img-text">
               Beautiful home in Hanover, NH up for lease!
             </CardContent>

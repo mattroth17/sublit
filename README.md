@@ -29,6 +29,9 @@ We're using Boostrap to help design the app.
 1. `yarn install`
 2. `yarn start`
 
+### To Connect to Local API
+* switch out `ROOT_URL` in `src/actions/index.js` by commenting out heroku url and uncommenting localhost url
+
 ## Deployment
 
 The page is deployed on surge, and the listings and users are stored in mongoDB's cloud services. 

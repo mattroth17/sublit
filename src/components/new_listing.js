@@ -161,19 +161,6 @@ class NewListing extends Component {
     </div>
   );
 
-  /* {_.range(this.state.numPics).map((pic) => {
-          const imageCount = (pic > 0 ? 'Another Image' : 'Image');
-          const buttonText = `Upload ${imageCount}`;
-          return (
-            <div key={pic} className="custom-image-upload">
-              <label htmlFor={pic} className="custom-image-upload-button">
-                {buttonText}
-                <input id={pic} type="file" name="coverImage" onChange={this.onImageUpload} />
-              </label>
-            </div>
-          );
-        })} */
-
   renderImageInputs() {
     const imageCount = (this.state.numPics > 1 ? 'Another Image' : 'Image');
     const buttonText = `Upload ${imageCount}`;

@@ -6,14 +6,13 @@ import {
 } from 'google-maps-react';
 import Geocode from 'react-geocode';
 
-const mapStyles = { // this isnt working ???
+const mapStyles = {
   width: '100%',
   height: '84%',
   position: 'relative',
   fullscreenControl: false,
 };
 
-// do i need initMap function?
 class MapContainer extends Component {
   constructor(props) {
     super(props);
@@ -41,6 +40,7 @@ class MapContainer extends Component {
               }],
             }));
           }, (error) => {
+            // not sure we can do any other error handling here (no mapStateToProps)
             console.error(error);
           },
         );
@@ -91,7 +91,6 @@ class MapContainer extends Component {
   }
 }
 
-// map state to props? redux shi?
 // eslint-disable-next-line new-cap
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyCs8zgkvXjenh0x2eZSuaBma0_9iZAnbV0',

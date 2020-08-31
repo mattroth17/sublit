@@ -171,7 +171,6 @@ class Listing extends Component {
           pictures: newPictures,
         }));
       }).catch((error) => {
-        console.log(error);
         this.props.sendError('Error uploading image. Try Again.');
       });
     }

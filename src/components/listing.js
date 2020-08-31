@@ -115,7 +115,6 @@ class Listing extends Component {
 
   startEdits = () => {
     if (this.props.email === this.props.currentListing.author.email) {
-      console.log(this.props.currentListing.startDate);
       this.setState({
         editing: 1,
         numPics: 1 + this.props.currentListing.pictures.length,
@@ -179,7 +178,6 @@ class Listing extends Component {
           pictures: newPictures,
         }));
       }).catch((error) => {
-        console.log(error);
         this.props.sendError('Error uploading image. Try Again.');
       });
     }
@@ -275,8 +273,6 @@ class Listing extends Component {
     if (!this.props.currentListing || isEmpty(this.props.currentListing)) {
       return <div>Loading...</div>;
     } else if (this.props.currentListing.author.email === this.props.email) {
-      console.log(this.props.currentListing.author.email);
-      console.log(this.props.email);
       return (
         <ul className="icon-list">
           <li key="return" onClick={this.goBack}>
@@ -291,8 +287,6 @@ class Listing extends Component {
         </ul>
       );
     } else {
-      console.log(this.props.currentListing.author.email);
-      console.log(this.props.email);
       return (
         <ul className="icon-list">
           <li key="return" onClick={this.goBack}>

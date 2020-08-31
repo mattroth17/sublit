@@ -6,14 +6,13 @@ import {
 } from 'google-maps-react';
 import Geocode from 'react-geocode';
 
-const mapStyles = { // this isnt working ???
+const mapStyles = {
   width: '100%',
-  height: '84%',
+  height: '88vh',
   position: 'relative',
   fullscreenControl: false,
 };
 
-// do i need initMap function?
 class MapContainer extends Component {
   constructor(props) {
     super(props);
@@ -24,9 +23,6 @@ class MapContainer extends Component {
   }
 
   componentDidMount() {
-    // console.log('googlemaps component did mount');
-    // console.log(this.props.listings);
-
     // set Google Maps Geocoding API for purposes of quota management. Its optional but recommended.
     Geocode.setApiKey('AIzaSyC4YOXX43hNkUFFtxLlALsnWk49LAlvz70');
     // Enable or disable logs. Its optional.
@@ -34,21 +30,17 @@ class MapContainer extends Component {
 
     this.props.listings.map((listing) => {
       if (listing.address !== '') {
-      // console.log(`listing is ${listing}`);
-
         Geocode.fromAddress(listing.address).then(
           (response) => {
             const latitude = response.results[0].geometry.location.lat;
             const longitude = response.results[0].geometry.location.lng;
-            // console.log('lat and long below');
-            // console.log(latitude, longitude);
-            // console.log('component did mount');
             this.setState((previousState) => ({
               stores: [...previousState.stores, {
                 lat: latitude, lng: longitude, id: listing.id, address: listing.address,
               }],
             }));
           }, (error) => {
+            // not sure we can do any other error handling here (no mapStateToProps)
             console.error(error);
           },
         );
@@ -59,17 +51,11 @@ class MapContainer extends Component {
   }
 
   onMarkerClick = (target) => {
-    // console.log('onMarkerClick');
-    // console.log(target.title);
-    // console.log(`props is ${this.props.listings}`);
     this.props.testCallback(target, this.props.listings);
   }
 
   getMarkers = () => {
-    // console.log('getMarkers');
     return this.state.stores.map((store, index) => {
-      // console.log('returning marker');
-      // console.log(`${store.lat} ${store.lng} ${store.id}`);
       // eslint-disable-next-line react/no-array-index-key
       return (<Marker key={store.id} title={store.id} position={{ lat: store.lat, lng: store.lng }} onClick={this.onMarkerClick} />);
     });
@@ -77,7 +63,6 @@ class MapContainer extends Component {
 
   renderMap = () => {
     if (this.state.stores.length > 0) {
-      // console.log(this.state.stores.length);
       return (
         <Map
           google={this.props.google}
@@ -98,7 +83,6 @@ class MapContainer extends Component {
   }
 
   render() {
-    // console.log('rendering map');
     return (
       <div className="map-div">
         {this.renderMap()}
@@ -107,7 +91,6 @@ class MapContainer extends Component {
   }
 }
 
-// map state to props? redux shi?
 // eslint-disable-next-line new-cap
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyCs8zgkvXjenh0x2eZSuaBma0_9iZAnbV0',

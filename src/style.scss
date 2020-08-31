@@ -504,7 +504,7 @@ a {
   filter: blurbackground(100px);
   color: black;
   width: 400px;
-  height: 570px;
+  height: 85vh;
   z-index: 98;
   div{
     opacity: 1;
@@ -514,7 +514,7 @@ a {
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
-    height: 520px;
+    height: 76vh;
   }
 }
 
@@ -693,6 +693,12 @@ ul li:hover{
     text-align: center;
     color: red;
   }
+}
+
+#message {
+  align-self: center;
+  text-align: center;
+  color: red;
 }
 
 // forgot password
@@ -920,6 +926,27 @@ input[type="file"] {
   background-color: gray;
 }
 
+.auth_buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  .auth_button {
+    align-self: center;
+  }
+  p {
+    font-size: 40px;
+    margin-top: 5px;
+  }
+  p:hover {
+    color: gray;
+  }
+  #message {
+    font-size: 20px;
+  }
+}
+
 #return-button {
   width: 25%;
   height: 30px;
@@ -937,4 +964,17 @@ input[type="file"] {
 }
 #width{
   width:8rem;
+}
+
+#new_pass_submit {
+  padding: 15px;
+  outline: none;
+  border: none;
+  background-color: white;
+  border-radius: 20px;
+  margin: 20px;
+}
+
+#new_pass_submit:hover {
+  background-color: gray;
 }

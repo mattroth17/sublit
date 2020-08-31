@@ -38,12 +38,8 @@ class EmailConfirmed extends Component {
                 <input className="auth_input" type="password" placeholder="Password" onChange={this.onPasswordChange} value={this.state.password} />
               </div>
             </div>
-            <div className="iconsBox">
-              <ul className="icon-list">
-                <li key="return" onClick={this.onSubmit}>
-                  <button className="auth_button" type="button">SIGN IN</button>
-                </li>
-              </ul>
+            <div className="auth_buttons">
+              <button key="return" onClick={this.onSubmit} className="auth_button" type="button">SIGN IN</button>
             </div>
           </div>
         </div>

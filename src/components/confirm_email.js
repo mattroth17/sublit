@@ -41,17 +41,11 @@ class ConfirmEmail extends Component {
               <div className="auth_form">
                 <input className="auth_input" placeholder="enter email" onChange={this.onEmailChange} value={this.state.email} />
               </div>
-              <div className="iconsBox">
-                <div className="icon-list">
-                  <li key="return" onClick={this.resend}>
-                    <button className="auth_button" type="button">RESEND LINK</button>
-                  </li>
-                  <li key="save" onClick={this.onCancel}>
-                    <i className="fas fa-window-close" />
-                  </li>
-                </div>
+              <div className="auth_buttons">
+                <button key="return" onClick={this.resend} className="auth_button" type="button">RESEND LINK</button>
+                <p key="save" onClick={this.onCancel}><i className="fas fa-window-close" /></p>
+                <p id="message" style={{ display: this.state.showMessage ? 'flex' : 'none' }}>Email Sent.</p>
               </div>
-              <p id="message" style={{ display: this.state.showMessage ? 'flex' : 'none' }}>Email Sent.</p>
             </div>
           </div>
         </div>

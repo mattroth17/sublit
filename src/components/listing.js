@@ -83,7 +83,14 @@ class Listing extends Component {
   }
 
   onAmmenitiesChange = (event) => {
-    this.setState({ amenities: event.target.value });
+    const checks = document.getElementsByName('term');
+    const newamms = [];
+    checks.forEach((check) => {
+      if (check.checked) {
+        newamms.push(check.value);
+      }
+    });
+    this.setState({ amenities: newamms });
   }
 
   remakeListing = () => {
@@ -336,8 +343,27 @@ class Listing extends Component {
             <div>{this.state.numBaths} bathrooms</div> <p> </p>
             <h2> A Short Description </h2>
             <input onChange={this.onDescriptionChange} placeholder={`Desc.: ${this.props.currentListing.description}`} value={this.state.description} /> <p> </p>
-            <h2> Amenities </h2>
-            <input onChange={this.onAmmenitiesChange} placeholder={`Amenities: ${this.props.currentListing.amenities}`} value={this.state.amenities} /> <p> </p>
+            <h2> Amenities - please check all available amenities </h2>
+            <div className="amenityInfo">
+              <h2> List the Ammenities </h2>
+              <div className="amms" onChange={this.onAmmenitiesChange}>
+                <div className="checkbox-container">
+                  <input type="checkbox" value="wifi" name="term" /> <span>wifi</span>
+                </div>
+                <div className="checkbox-container">
+                  <input type="checkbox" value="laundry service or washer/dryer" name="term" />
+                  <span>laundry service or washer/dryer</span>
+                </div>
+                <div className="checkbox-container">
+                  <input type="checkbox" value="tv" name="term" />
+                  <span>tv</span>
+                </div>
+                <div className="checkbox-container">
+                  <input type="checkbox" value="coffee or tea maker" name="term" />
+                  <span>coffee or tea maker</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="radio">
             <h2> Is it an entire apartment/house? </h2>

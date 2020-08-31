@@ -63,9 +63,9 @@ const Login = (props) => { // sort out the buttons
       <div className="middle-section-row">
         <div className="img-flex">
           <Card>
-            <CardMedia component="img" image="src/img/house-one.jpg" alt="house text" className="house" />
+            <CardMedia component="img" wide image="src/img/house-one.jpg" alt="house text" className="house" />
             <CardContent className="img-text">
-              Beautiful home in Hanover, NH up for lease! Change this later.
+              Beautiful home in Hanover, NH up for lease!
             </CardContent>
           </Card>
         </div>

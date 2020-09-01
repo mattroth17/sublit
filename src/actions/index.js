@@ -388,8 +388,9 @@ export function resendConfirmation({ email }) {
 
 export function signupUser({ email, password, firstName }, history) {
   return (dispatch) => {
-    const emailPattern = /^[A-Za-z0-9._%+-]+@dartmouth.edu$/;
-    const valid = emailPattern.test(email.toLowerCase());
+    // const emailPattern = /^[A-Za-z0-9._%+-]+@dartmouth.edu$/;
+    // const valid = emailPattern.test(email.toLowerCase());
+    valid = true;
     if (!valid) {
       dispatch({ type: ActionTypes.AUTH_ERROR, message: 'Sign Up Failed: Email must be a valid Dartmouth address' });
     } else {

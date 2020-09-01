@@ -325,3 +325,12 @@ hr {
         color: gray;
     }
 }
+
+.checkbox-container {
+    box-shadow: none;
+
+    input {
+        box-shadow: none !important;
+        width: auto !important;
+    }
+}

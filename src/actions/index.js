@@ -39,6 +39,12 @@ export function fetchFiltered(filters) {
   };
 }
 
+export function clearFiltered() {
+  return (dispatch) => {
+    dispatch({ type: ActionTypes.FETCH_FILTERED, payload: [] });
+  };
+}
+
 // need to incorporate sorting based on season, number of people, etc.
 export function fetchListings() {
   return (dispatch) => {

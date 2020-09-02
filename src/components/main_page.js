@@ -8,7 +8,9 @@ import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import { fetchListings, fetchUser, fetchFiltered } from '../actions/index';
+import {
+  fetchListings, fetchUser, fetchFiltered, clearFiltered, sendError,
+} from '../actions/index';
 import ListingSmallView from './listingSmallView';
 import MapContainer from './googlemap';
 
@@ -104,6 +106,10 @@ class Main extends Component {
   }
 
   getFiltered = () => {
+    if ((this.state.lowerRent && !this.state.upperRent) || (this.state.upperRent && !this.state.lowerRent)) {
+      this.props.sendError('Enter both a max and min for rent');
+      return;
+    }
     const filts = { ...this.state };
     this.props.fetchFiltered(filts);
     this.setState({ filts: 1 });
@@ -115,7 +121,7 @@ class Main extends Component {
         <div key={listing.id} id={listing.id}>
           <Link className="smallViewLink" to={`/listings/${listing.id}`}>
             <ListItem button>
-              <ListingSmallView key={listing.id} listing={listing} />
+              <ListingSmallView key={listing.id} listing={listing} filtered />
             </ListItem>
             <Divider />
           </Link>
@@ -158,6 +164,7 @@ class Main extends Component {
 
   backToMain = () => {
     this.setState({ filts: 0 });
+    this.props.clearFiltered();
   }
 
   render = () => {
@@ -165,12 +172,12 @@ class Main extends Component {
       return <div> Loading... </div>;
     }
 
-    if (this.state.filts === 1) {
+    if (this.state.filts === 1 || this.props.filtered.length > 0) {
       return (
         <div id="filt_cont">
-          Filtered results:
-          {this.showFiltered()} <p> </p>
           <button id="return-button" type="button" onClick={() => this.backToMain()}> Return to main page. </button>
+          <div>Filtered results:</div>
+          {this.showFiltered()} <p> </p>
         </div>
       );
     }
@@ -218,4 +225,6 @@ const mapStateToProps = (reduxState) => ({
   filtered: reduxState.listings.filtered,
 });
 
-export default connect(mapStateToProps, { fetchListings, fetchUser, fetchFiltered })(Main);
+export default connect(mapStateToProps, {
+  fetchListings, fetchUser, fetchFiltered, clearFiltered, sendError,
+})(Main);

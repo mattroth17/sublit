@@ -218,7 +218,7 @@ class Listing extends Component {
     }
 
     return (
-      <Carousel images={this.props.currentListing.pictures} />
+      <Carousel thumb={false} images={this.props.currentListing.pictures} />
     );
   }
 

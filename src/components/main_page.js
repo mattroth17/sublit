@@ -76,6 +76,10 @@ class Main extends Component {
       if (listing.id === target.title) {
         const selected = document.getElementById(target.title);
         selected.style.backgroundColor = 'lightcoral';
+        // if a listing is selected in google, turn it coral
+        // can also auto-scroll down to the listing: accessed be selected.style
+        // can scroll down a listing if it is "active"
+        selected.scrollIntoView({ behavior: 'smooth' });
       } else {
         const notSelected = document.getElementById(listing.id);
         notSelected.style.backgroundColor = 'transparent';

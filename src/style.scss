@@ -324,15 +324,9 @@ a {
   margin-top: 30px;
   text-align: center;
 }
-// .map-div{
-//   width: 800px;
-//   height: fit-content;
-//   height: 900px;
-
-//   div{
-//     position: relative !important;
-//   }
-// }
+.map-div > *{
+  height:80% !important;
+}
 .flex-btn{
   display: flex;
   flex-direction: row;

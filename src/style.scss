@@ -558,7 +558,7 @@ a {
   position: fixed; /* Stay in place */
   z-index: 99; /* Sit on top */
   animation: zoomIn;
-  animation-duration: 2s;
+  animation-duration: .5s;
   left: 0;
   color: white;
   top: 0;
@@ -611,8 +611,11 @@ a {
     padding-left: 5%;
     padding-right: 5%;
     margin: 3%;
-    height: 10%;
-    width: 30%;
+    height: 3rem;
+    width: 45%;
+  }
+  #filt-submit:hover{
+    transform:translateY(-0.25em);
   }
 
   input {

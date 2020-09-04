@@ -324,15 +324,9 @@ a {
   margin-top: 30px;
   text-align: center;
 }
-// .map-div{
-//   width: 800px;
-//   height: fit-content;
-//   height: 900px;
-
-//   div{
-//     position: relative !important;
-//   }
-// }
+.map-div > *{
+  height:80% !important;
+}
 .flex-btn{
   display: flex;
   flex-direction: row;
@@ -564,7 +558,7 @@ a {
   position: fixed; /* Stay in place */
   z-index: 99; /* Sit on top */
   animation: zoomIn;
-  animation-duration: 2s;
+  animation-duration: .5s;
   left: 0;
   color: white;
   top: 0;
@@ -617,8 +611,11 @@ a {
     padding-left: 5%;
     padding-right: 5%;
     margin: 3%;
-    height: 10%;
-    width: 30%;
+    height: 3rem;
+    width: 45%;
+  }
+  #filt-submit:hover{
+    transform:translateY(-0.25em);
   }
 
   input {

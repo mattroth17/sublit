@@ -71,3 +71,15 @@ The page is deployed on surge, and the listings and users are stored in mongoDB'
 Caroline Tornquist, Chase Krivickas, Jack Vasu, Jonah Kalsner Kershen, Matthew Roth, Sada Nichols-Worley
 
 ## Screen Caps
+
+#### Landing Page
+<img width="1353" alt="Screen Shot 2020-09-05 at 8 21 54 PM" src="https://user-images.githubusercontent.com/59703535/92316116-72102080-efb5-11ea-9021-7a02e068eaf5.png">
+
+#### Main Page 
+<img width="1362" alt="Screen Shot 2020-09-05 at 8 23 16 PM" src="https://user-images.githubusercontent.com/59703535/92316125-a2f05580-efb5-11ea-9ec3-9d7589226669.png">
+
+#### Chat
+<img width="1371" alt="Screen Shot 2020-09-05 at 8 24 02 PM" src="https://user-images.githubusercontent.com/59703535/92316129-bef3f700-efb5-11ea-9d13-48460f66f0bc.png">
+
+#### Listing
+<img width="1358" alt="Screen Shot 2020-09-05 at 8 24 32 PM" src="https://user-images.githubusercontent.com/59703535/92316134-d0d59a00-efb5-11ea-9d39-824e276eb776.png">

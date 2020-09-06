@@ -25,12 +25,12 @@
   * `components/`
     * overview of main components below
    * `actions/`
-    * `index.js`
+     * `index.js`
        * contains actions for:
-         * performing CRUD operations on listings 
-         * authorizing/deauthorizing users (sign in/up and sign out) 
-         * creating conversations and sending/getting messages
-         * handling errors
+          * performing CRUD operations on listings 
+          * authorizing/deauthorizing users (sign in/up and sign out) 
+          * creating conversations and sending/getting messages
+          * handling errors
    * `reducers/`
      * `listings_reducer.js`: manages all lisstings and current listings
      * `auth_reducer.js`: manages authorizing/deauthorizing user and storing user object

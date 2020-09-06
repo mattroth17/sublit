@@ -67,9 +67,6 @@ The page is deployed on surge, and the listings and users are stored in mongoDB'
 ### To Deploy
 1. `yarn deploy`
 
-## Authors
-Caroline Tornquist, Chase Krivickas, Jack Vasu, Jonah Kalsner Kershen, Matthew Roth, Sada Nichols-Worley
-
 ## Screen Caps
 
 #### Landing Page
@@ -83,3 +80,6 @@ Caroline Tornquist, Chase Krivickas, Jack Vasu, Jonah Kalsner Kershen, Matthew R
 
 #### Listing
 <img width="1358" alt="Screen Shot 2020-09-05 at 8 24 32 PM" src="https://user-images.githubusercontent.com/59703535/92316134-d0d59a00-efb5-11ea-9d39-824e276eb776.png">
+
+## Authors
+Caroline Tornquist, Chase Krivickas, Jack Vasu, Jonah Kalsner Kershen, Matthew Roth, Sada Nichols-Worley

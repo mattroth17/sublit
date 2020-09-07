@@ -12,7 +12,7 @@ import Listing from './listing';
 import SignIn from './sign_in';
 import SignUp from './sign_up';
 import Chat from './chat';
-import Error from './error';
+import MessageModal from './messageModal';
 import ConfirmEmail from './confirm_email';
 import EmailConfirmed from './email_confirmed';
 import ResetPassword from './reset_password';
@@ -37,7 +37,7 @@ class App extends Component {
             <Route path="/chat" component={Chat} />
             <Route render={() => (<div>Listing Not Found</div>)} />
           </Switch>
-          <Error />
+          <MessageModal />
         </div>
       );
     }
@@ -54,7 +54,7 @@ class App extends Component {
           <Route path="/confirmemail/:token" component={EmailConfirmed} />
           <Route path="/reset/:passwordtoken" component={ResetPassword} />
         </Switch>
-        <Error />
+        <MessageModal />
       </div>
 
     );

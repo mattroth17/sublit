@@ -110,13 +110,22 @@ class Main extends Component {
   }
 
   getFiltered = () => {
-    if ((this.state.lowerRent && !this.state.upperRent) || (this.state.upperRent && !this.state.lowerRent)) {
-      this.props.sendError('Enter both a max and min for rent');
-      return;
+    if (this.state.lowerRent && !this.state.upperRent) {
+      // fixes upperRent to a crazy high number (filtering by minimum rent)
+      const filts = { ...this.state, upperRent: '10000000' };
+      this.props.fetchFiltered(filts);
+      this.setState({ filts: 1 });
+    } else if (this.state.upperRent && !this.state.lowerRent) {
+      // fixes upperRent to 0 (filtering by maximum rent)
+      const filts = { ...this.state, lowerRent: '0' };
+      this.props.fetchFiltered(filts);
+      this.setState({ filts: 1 });
+    } else {
+      // max and min in place, filter normally
+      const filts = { ...this.state };
+      this.props.fetchFiltered(filts);
+      this.setState({ filts: 1 });
     }
-    const filts = { ...this.state };
-    this.props.fetchFiltered(filts);
-    this.setState({ filts: 1 });
   }
 
   showFiltered = () => {

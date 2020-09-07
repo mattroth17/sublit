@@ -129,7 +129,7 @@ class Main extends Component {
   }
 
   clearListings = () => {
-    document.getElementById('allInputs').reset();
+    document.getElementById('dd').reset();
     this.setState({
       numberOfRooms: '',
       isFullApartment: '',
@@ -217,25 +217,23 @@ class Main extends Component {
             <div id="listings-div">
               <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>
               <div id="filt">
-                <div id="dd" className="modal-filter">
-                  <form id="allInputs">
-                    <button className="close" type="button" onClick={() => this.closeModal()}>&times;</button>
-                    <p>Earliest start date: </p><input onChange={this.startDate} type="date" />
-                    <p>Latest end date:</p> <input onChange={this.endDate} type="date" />
-                    <p># Rooms wanted:</p> <input onChange={this.roomsChange} />
-                    <p>Full apartment/house wanted</p>
-                    <div className="buttonsRow">
-                      <input type="radio" value="true" name="fullHouse" onChange={this.fullChange} /> Yes
-                      <input type="radio" value="false" name="fullHouse" onChange={this.fullChange} /> No
-                    </div>
-                    <p>Min rent per month:</p> <input onChange={this.lrentChange} />
-                    <p>Max rent per month:</p> <input onChange={this.urentChange} />
-                    <div className="buttonsRow" id="filterClear">
-                      <button id="filt-submit" type="button" onClick={this.clearListings}> Clear. </button>
-                      <button id="filt-submit" type="button" onClick={this.getFiltered}> Filter listings. </button>
-                    </div>
-                  </form>
-                </div>
+                <form id="dd" className="modal-filter">
+                  <button className="close" type="button" onClick={() => this.closeModal()}>&times;</button>
+                  <p>Earliest start date: </p><input onChange={this.startDate} type="date" />
+                  <p>Latest end date:</p> <input onChange={this.endDate} type="date" />
+                  <p># Rooms wanted:</p> <input onChange={this.roomsChange} />
+                  <p>Full apartment/house wanted</p>
+                  <div className="buttonsRow">
+                    <input type="radio" value="true" name="fullHouse" onChange={this.fullChange} /> Yes
+                    <input type="radio" value="false" name="fullHouse" onChange={this.fullChange} /> No
+                  </div>
+                  <p>Min rent per month:</p> <input onChange={this.lrentChange} />
+                  <p>Max rent per month:</p> <input onChange={this.urentChange} />
+                  <div className="buttonsRow" id="filterClear">
+                    <button id="filt-submit" type="button" onClick={this.clearListings}> Clear. </button>
+                    <button id="filt-submit" type="button" onClick={this.getFiltered}> Filter listings. </button>
+                  </div>
+                </form>
                 {/* <div id="housePreview" className="modal-filter">
             <button className="close" type="button" onClick={() => this.closePreview()}>&times;</button>
             {this.showPreview()}

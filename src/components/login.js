@@ -7,7 +7,7 @@ import Card from '@material-ui/core/Card';
 // import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import BottomNav from './bottom-nav';
+// import BottomNav from './bottom-nav';
 import HouseOne from '../img/house-one.jpg';
 import HouseTwo from '../img/house-two.jpeg';
 import HouseThree from '../img/house-three.jpg';
@@ -29,6 +29,13 @@ const Login = (props) => { // sort out the buttons
         </div>
 
       </div>
+      {/* <div className="row-flex">
+        <div className="middle-oval" id="oval-three">
+          <p className="create-txt">
+            Create your free account today!
+          </p>
+        </div>
+      </div> */}
       <div className="middle-section">
         <div className="row-flex">
           <div className="row-flex">
@@ -38,13 +45,10 @@ const Login = (props) => { // sort out the buttons
                 Are you looking for off-campus housing?
               </p>
               <p>
-                For 1, 2, or 3 trimesters?
+                For 1, 2, or 3 trimesters or even the year?
               </p>
               <p>
-                <strong>
-                  Welcome to SubLit
-                </strong>
-                , where you can find hundreds of off campus listing options around Dartmouth for the Fall, Winter, and/or Spring terms!
+                Welcome to Sublit, where you can find off campus housing options around Dartmouth for any term!
               </p>
             </div>
           </div>
@@ -55,7 +59,7 @@ const Login = (props) => { // sort out the buttons
                 Looking to sublet your off-campus place?
               </p>
               <p>
-                With SubLit, you can add your house/apartment as a listing and specify which terms you’re looking to sublet for!
+                With SubLit, you can add your room, house, or apartment as a listing and get chatting with potential buyers!
               </p>
             </div>
           </div>
@@ -89,15 +93,6 @@ const Login = (props) => { // sort out the buttons
 
         </div>
       </div>
-      <div className="row-flex">
-        <div className="middle-oval" id="oval-three">
-          <p className="create-txt">
-            Create your free account today!
-          </p>
-        </div>
-      </div>
-
-      <BottomNav />
     </div>
   );
 };

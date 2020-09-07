@@ -1,7 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 
 body, html {
-  font-family: 'Rosarivo', serif;
+  font-family: 'Kumbh Sans', sans-serif;
   height: 100%;
   box-sizing: border-box;
   margin: 0;    //jonah testing this
@@ -43,8 +43,8 @@ h1{
   width: 15px;
   height: 220px;
   margin-left: 40px;
-
   background: #00693E;
+  margin-right:10px;
 }
 .login-page{
   display: flex;
@@ -181,7 +181,7 @@ h1{
 
 .middle-oval{
   width: 500px;
-  height: 200px;
+  height: 100px;
   // border-radius: 50px;
   margin-left: 5px;
   display: flex;
@@ -209,7 +209,7 @@ img{
   flex-direction: row;
 }
 #oval-one{
-  align-self: flex-start;
+  align-self: center;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -225,6 +225,8 @@ img{
   align-items: center;
   width: 100%;
   justify-content: center;
+  padding-top:35px;
+  
 }
 #bottom-img{
   background-image: url('img/house-img.png');
@@ -309,7 +311,7 @@ a {
   height: 500px;
 }
 .page{
-  font-family: 'Rosarivo', serif;
+  font-family: "Roboto";
   height: 100%;
 
 }
@@ -341,10 +343,11 @@ a {
 
 .navlink{
   height: fit-content;
-  width: fit-content;
+  //width: fit-content;
   font-size: 30px;
   text-align: center;
-
+  font-family: "Roboto";
+  margin-right:0px;
 }
 
 .new_listing {
@@ -483,6 +486,7 @@ a {
   font-weight: bold;
   font-size: 20px;
   text-align: center;
+  font-family: "Roboto";
   div{
     font-weight: normal;
     font-size: 14px;

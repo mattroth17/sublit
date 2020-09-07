@@ -54,6 +54,9 @@ There are five pages in this web app:
 2. `yarn install`
 3. `yarn start`
 
+* NOTE: In order to run, you must enter get an `API key` from the Google Developer Console for the `Google Maps JavaScript` API
+ * Then, enter the key at the bottom of `scr/components/googlemap.js` where it says `YOUR_API_KEY_HERE`
+
 ### To Connect to Local API
 * switch out `ROOT_URL` in `src/actions/index.js` by commenting out heroku url and uncommenting localhost url
 

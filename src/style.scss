@@ -986,3 +986,15 @@ input[type="file"] {
     margin-left: 10px;
   }
 }
+.buttonsRow{
+  display:flex;
+  //flex-direction: row;
+  width:10rem;
+  align-items:center
+}
+#filt-submit{
+  width:25rem;
+}
+#filterClear{
+  width:80%;
+}

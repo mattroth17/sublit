@@ -417,7 +417,7 @@ class Listing extends Component {
           </div>
           <hr />
           <div className="amenities">
-            <h3>Amenities</h3>
+            <h3>Amenities:</h3>
             <ul>
               {this.retAmms()}
               <li key="full">{`Full Apartment: ${fullHouse}`}</li>

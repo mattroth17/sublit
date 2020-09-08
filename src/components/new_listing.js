@@ -213,7 +213,7 @@ class NewListing extends Component {
             <div className="dateInfo">
               <h2> Start Date </h2>
               <input onChange={this.onStartDateChange} type="date" placeholder="Date" value={this.state.startDate} />
-              <h2> End Date </h2>
+              <h2 id="endDate"> End Date </h2>
               <input onChange={this.onEndDateChange} type="date" placeholder="Date" value={this.state.endDate} />
             </div>
             <div className="rentInfo">
@@ -222,7 +222,7 @@ class NewListing extends Component {
             </div>
             <div className="descriptionInfo">
               <h2> Description of the Space </h2>
-              <input onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" value={this.state.description} />
+              <textarea onChange={this.onDescriptionChange} placeholder="Enter a short description of the space" value={this.state.description} />
             </div>
             <div className="roomInfo">
               <h2> Number of Bedrooms </h2>
@@ -267,8 +267,10 @@ class NewListing extends Component {
             <div className="entireAPTInfo">
               <h2> Is it an entire apartment/house? </h2>
               <div className="houseAPTtext" onChange={this.onIsFullApartmentChange}>
-                <input type="radio" value="true" name="full" /> Yes
-                <input type="radio" value="false" name="full" /> No
+                <input type="radio" value="true" name="full" />
+                <p>Yes</p>
+                <input type="radio" value="false" name="full" />
+                <p> No </p>
               </div>
             </div>
             <div className="imageUpload">

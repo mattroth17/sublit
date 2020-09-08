@@ -789,7 +789,16 @@ ul li:hover{
 }
 .houseAPTtext{
   text-align: center;
+  justify-content:center;
+  display:flex;
+  flex-direction:row;
+  p{
+    padding-left:10px;
+    padding-right:20px;
+    margin-top:9px;
+  }
 }
+
 #housePreview{
   display: none;
 }
@@ -997,4 +1006,7 @@ input[type="file"] {
 }
 #filterClear{
   width:80%;
+}
+#endDate{
+  padding-top:2rem;
 }

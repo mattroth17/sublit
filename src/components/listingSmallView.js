@@ -30,12 +30,25 @@ class ListingSmallView extends Component {
   }
 
   render() {
+    if (this.props.listing.description.length < 55) {
+      return (
+        <div className="smallview-outer">
+          {this.props.listing.address}.
+          <div className="smallView">
+            <p className="name"> Posted by: { this.props.listing.author.firstName }</p>
+            <p className="desc"> Description: { this.props.listing.description }</p>
+            {this.renderAdditionalInfo()}
+          </div>
+        </div>
+      );
+    }
+    const res = `${this.props.listing.description.substring(0, 50)}...`;
     return (
       <div className="smallview-outer">
         {this.props.listing.address}.
         <div className="smallView">
           <p className="name"> Posted by: { this.props.listing.author.firstName }</p>
-          <p className="desc"> Description: { this.props.listing.description }</p>
+          <p className="desc"> Description: { res } </p>
           {this.renderAdditionalInfo()}
         </div>
       </div>

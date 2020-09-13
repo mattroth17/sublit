@@ -28,6 +28,7 @@ class NewListing extends Component {
       numPics: 1,
       previews: [],
       files: [],
+      phoneNum: null,
     };
   }
 
@@ -118,9 +119,13 @@ class NewListing extends Component {
     }
   }
 
+  onPhoneNumChange = (event) => {
+    this.setState({ phoneNum: event.target.value });
+  }
+
   makeListing = () => {
     // eslint-disable-next-line consistent-return
-    if (this.state.startDate === '' || this.state.endDate === '' || this.state.address === '' || this.state.description === '') {
+    if (this.state.startDate === '' || this.state.endDate === '' || this.state.address === '' || this.state.description === '' || this.state.phoneNum == null) {
       this.props.sendError('Error: must fill out all fields to post new listing');
       return;
     }
@@ -272,6 +277,10 @@ class NewListing extends Component {
                 <input type="radio" value="false" name="full" />
                 <p> No </p>
               </div>
+            </div>
+            <div className="phoneNumber">
+              <h2> Phone Number</h2>
+              <input type="number" onChange={this.onPhoneNumChange} placeholder="(XXX)-XXX-XXX" value={this.state.phoneNum} />
             </div>
             <div className="imageUpload">
               <h2> Upload Images of the Space </h2>

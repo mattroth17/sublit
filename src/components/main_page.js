@@ -110,13 +110,34 @@ class Main extends Component {
   }
 
   getFiltered = () => {
-    if ((this.state.lowerRent && !this.state.upperRent) || (this.state.upperRent && !this.state.lowerRent)) {
-      this.props.sendError('Enter both a max and min for rent');
-      return;
+    if (this.state.lowerRent && !this.state.upperRent) {
+      // fixes upperRent to a crazy high number (filtering by minimum rent)
+      const filts = { ...this.state, upperRent: '10000000' };
+      this.props.fetchFiltered(filts);
+      this.setState({ filts: 1 });
+    } else if (this.state.upperRent && !this.state.lowerRent) {
+      // fixes upperRent to 0 (filtering by maximum rent)
+      const filts = { ...this.state, lowerRent: '0' };
+      this.props.fetchFiltered(filts);
+      this.setState({ filts: 1 });
+    } else {
+      // max and min in place, filter normally
+      const filts = { ...this.state };
+      this.props.fetchFiltered(filts);
+      this.setState({ filts: 1 });
     }
-    const filts = { ...this.state };
-    this.props.fetchFiltered(filts);
-    this.setState({ filts: 1 });
+  }
+
+  clearListings = () => {
+    document.getElementById('dd').reset();
+    this.setState({
+      numberOfRooms: '',
+      isFullApartment: '',
+      startDate: '',
+      endDate: '',
+      lowerRent: '',
+      upperRent: '',
+    });
   }
 
   showFiltered = () => {
@@ -196,16 +217,23 @@ class Main extends Component {
             <div id="listings-div">
               <button type="button" id="filter-btn" onClick={() => this.dropClick()}> Filter by... </button>
               <div id="filt">
-                <div id="dd" className="modal-filter">
+                <form id="dd" className="modal-filter">
                   <button className="close" type="button" onClick={() => this.closeModal()}>&times;</button>
-                  <p>Earliest start date: </p><input onChange={this.startDate} type="date" /> <p> </p>
-                  <p>Latest end date:</p> <input onChange={this.endDate} type="date" /> <p> </p>
-                  <p># Rooms wanted:</p> <input onChange={this.roomsChange} /> <p> </p>
-                  <p>Full apartment/house wanted, enter false or true:</p> <input onChange={this.fullChange} /> <p> </p>
+                  <p>Earliest start date: </p><input onChange={this.startDate} type="date" />
+                  <p>Latest end date:</p> <input onChange={this.endDate} type="date" />
+                  <p># Rooms wanted:</p> <input onChange={this.roomsChange} />
+                  <p>Full apartment/house wanted</p>
+                  <div className="buttonsRow">
+                    <input type="radio" value="true" name="fullHouse" onChange={this.fullChange} /> Yes
+                    <input type="radio" value="false" name="fullHouse" onChange={this.fullChange} /> No
+                  </div>
                   <p>Min rent per month:</p> <input onChange={this.lrentChange} />
                   <p>Max rent per month:</p> <input onChange={this.urentChange} />
-                  <button id="filt-submit" type="button" onClick={this.getFiltered}> Filter listings. </button>
-                </div>
+                  <div className="buttonsRow" id="filterClear">
+                    <button id="filt-submit" type="button" onClick={this.clearListings}> Clear. </button>
+                    <button id="filt-submit" type="button" onClick={this.getFiltered}> Filter listings. </button>
+                  </div>
+                </form>
                 {/* <div id="housePreview" className="modal-filter">
             <button className="close" type="button" onClick={() => this.closePreview()}>&times;</button>
             {this.showPreview()}

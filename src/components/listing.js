@@ -309,7 +309,7 @@ class Listing extends Component {
       return (
         <div className="edit_listing">
           <div className="form-boxes">
-            <h2> Addres </h2>
+            <h2> Address </h2>
             <PlacesAutocomplete
               value={this.state.address}
               onChange={(value) => this.setState({ address: value })}
@@ -335,8 +335,8 @@ class Listing extends Component {
             <h2> Number of Bathrooms </h2>
             <input onChange={this.onNumBathsChange} type="range" max="10" min="0" value={this.state.numBaths} />
             <div>{this.state.numBaths} bathrooms</div> <p> </p>
-            <h2> A Short Description </h2>
-            <input onChange={this.onDescriptionChange} placeholder={`Desc.: ${this.props.currentListing.description}`} value={this.state.description} /> <p> </p>
+            <h2> Description </h2>
+            <textarea className="descSizing" onChange={this.onDescriptionChange} placeholder={`Desc.: ${this.props.currentListing.description}`} value={this.state.description} /> <p> </p>
             <h2> Amenities - please check all available amenities </h2>
             <div className="amenityInfo">
               <div className="amms" onChange={this.onAmmenitiesChange}>
@@ -357,18 +357,20 @@ class Listing extends Component {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="radio">
-            <h2> Is it an entire apartment/house? </h2>
-            <div onChange={this.onIsFullApartmentChange}>
-              <input type="radio" value="true" name="full" /> Yes
-              <input type="radio" value="false" name="full" /> No
+            <div className="radio">
+              <h2> Is it an entire apartment/house? </h2>
+              <div className="houseAPTtext" onChange={this.onIsFullApartmentChange}>
+                <input type="radio" value="true" name="full" id="sizing" />
+                <p>Yes</p>
+                <input type="radio" value="false" name="full" id="sizing" />
+                <p> No </p>
+              </div>
             </div>
-          </div>
-          <div className="imageUpload">
-            <h2> Upload More Images of the Space </h2>
-            {this.renderPreviews()}
-            {this.renderImageInputs()}
+            <div className="imageUpload">
+              <h2> Upload More Images of the Space </h2>
+              {this.renderPreviews()}
+              {this.renderImageInputs()}
+            </div>
           </div>
           <div className="edit-buttons">
             <button type="button" onClick={() => this.remakeListing()}> Update your listing. </button>
@@ -385,7 +387,6 @@ class Listing extends Component {
 
     const sDate = moment(this.props.currentListing.startDate).format('MMMM Do YYYY');
     const eDate = moment(this.props.currentListing.endDate).format('MMMM Do YYYY');
-
     return (
       <div className="indlisting">
         <div className="leftColumn">
@@ -412,12 +413,12 @@ class Listing extends Component {
             </div>
             <hr />
             <div className="description">
-              {this.props.currentListing.description}
+              {this.props.currentListing.description} <br /> Phone Number: {this.props.currentListing.phoneNum}
             </div>
           </div>
           <hr />
           <div className="amenities">
-            <h3>Amenities</h3>
+            <h3>Amenities:</h3>
             <ul>
               {this.retAmms()}
               <li key="full">{`Full Apartment: ${fullHouse}`}</li>

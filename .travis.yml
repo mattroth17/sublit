@@ -5,9 +5,3 @@ install:
   - yarn --ignore-engines
 script:
   - yarn build
-deploy:
-  provider: surge
-  project: ./dist/
-  domain: sublit.surge.sh
-  on:
-    branch: master

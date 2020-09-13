@@ -18,7 +18,8 @@ export const ActionTypes = {
   FETCH_CONVERSATION: 'FETCH_CONVERSATION',
   FETCH_MESSAGE: 'FETCH_MESSAGE',
   ERROR_SET: 'ERROR_SET',
-  ERROR_CLEAR: 'ERROR_CLEAR',
+  OTHER_MESSAGE_SET: 'OTHER_MESSAGE_SET',
+  ERROR_OR_MESSAGE_CLEAR: 'ERROR_OR_MESSAGE_CLEAR',
 };
 
 export function fetchFiltered(filters) {
@@ -69,6 +70,7 @@ export function createListing(listing, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/listings`, listing, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        dispatch({ type: ActionTypes.OTHER_MESSAGE_SET, message: 'Please wait at most 24hrs for moderators to review the listing.' });
         history.push('/');
       })
       .catch((error) => {
@@ -428,9 +430,9 @@ export function signoutUser(history) {
   };
 }
 
-export function clearError() {
+export function clearModal() {
   return (dispatch) => {
-    dispatch({ type: ActionTypes.ERROR_CLEAR });
+    dispatch({ type: ActionTypes.ERROR_OR_MESSAGE_CLEAR });
   };
 }
 

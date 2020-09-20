@@ -14,10 +14,23 @@ class NavBar extends Component {
   render() {
     return (
       <div id="nav_bar">
-        <NavLink exact to="/"> Main Page </NavLink>
-        <NavLink to="/listings/new"> Add New Listing </NavLink>
-        <NavLink to="/chat"> Messages </NavLink>
-        <button onClick={this.signOut} type="button">Sign Out</button>
+        <div id="name">
+          <h1 id="sublit">SubLit</h1>
+        </div>
+        <ul id="nav_buttons">
+          <li>
+            <NavLink exact to="/"> Listings </NavLink>
+          </li>
+          <li>
+            <NavLink to="/listings/new"> New Listing </NavLink>
+          </li>
+          <li>
+            <NavLink to="/chat"> Messages </NavLink>
+          </li>
+          <li>
+            <button onClick={this.signOut} type="button">Sign Out</button>
+          </li>
+        </ul>
       </div>
     );
   }

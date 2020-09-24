@@ -398,7 +398,7 @@ export function signupUser({ email, password, firstName }, history) {
   return (dispatch) => {
 //     const emailPattern = /^[A-Za-z0-9._%+-]+@dartmouth.edu$/;
 //     const valid = emailPattern.test(email.toLowerCase());
-    if (true) {
+    if (false) {
       dispatch({ type: ActionTypes.AUTH_ERROR, message: 'Sign Up Failed: Email must be a valid Dartmouth address' });
     } else {
       axios.post(`${ROOT_URL}/signup`, { email, password, firstName })

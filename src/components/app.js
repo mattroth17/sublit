@@ -27,7 +27,6 @@ class App extends Component {
       return (
         <div className="page">
           <div className="top_bar2">
-            <h1 id="sublitLogo">  </h1>
             <NavBar />
           </div>
           <Switch>

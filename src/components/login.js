@@ -7,7 +7,7 @@ import Card from '@material-ui/core/Card';
 // import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-// import BottomNav from './bottom-nav';
+import BottomNav from './bottom-nav';
 import HouseOne from '../img/house-one.jpg';
 import HouseTwo from '../img/house-two.jpeg';
 import HouseThree from '../img/house-three.jpg';
@@ -93,6 +93,7 @@ const Login = (props) => { // sort out the buttons
 
         </div>
       </div>
+      <BottomNav />
     </div>
   );
 };

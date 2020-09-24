@@ -4,30 +4,91 @@ html {
 
 #nav_bar {
     font-family: "Roboto";
-    width: 50%;
+    width: 100vw;
     display: flex;
     flex-direction: row;
-    height: 10vh;
-    justify-content: space-evenly;
+    height: 8vh;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 1%;
+    color: #ffffff !important;
+    text-align: center;
+    margin-bottom: 1vh;
+
+    #name {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+
+        h1 {
+            background-color: #ffffff;
+            color: #00693E;
+            margin-left: 2vw;
+            font-family: Rosarivo;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 50px;
+            letter-spacing: 0.05em;
+            text-transform: capitalize;
+            margin-top: 3vh;
+        }
+    }
 
     a, button {
-        background-color: #C2E6C8;
-        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
         border: 0px;
-        border-radius: 10px;
+        // border-radius: 10px;
         text-decoration: none;
-        color: black;
-        display: flex;
-        align-items: center;
-        padding-left: 5%;
-        padding-right: 5%;
-        margin-top: 5px;
-        height: 75%;
+        text-align: center;
     }
 
     a:hover, button:hover {
         transform: translateY(-0.25em);
     }
+
+    #nav_buttons {
+        margin-top: 2vh;
+        font-size: .8rem;
+        text-align: center;
+        width: 50vw;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+
+        li {
+            text-align: center;
+            padding: 0rem;
+            padding-top: 1.5vh;
+            margin: .25vw;
+            height: 6vh;
+            width: 8vw;
+            background-color: #00693E;
+            color: #ffffff;
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+            border: 0px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-family: Rosarivo;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 16px;
+
+            button {
+                background-color: #00693E;
+                color: #ffffff;
+                border: 0px;
+                border-radius: 10px;
+                text-decoration: none;
+            }
+        }
+
+        li:hover {
+            transform: translateY(-0.25em);
+        }
+
+    }
+
+    #name {
+        width: 50vw;
+    }
 }
+

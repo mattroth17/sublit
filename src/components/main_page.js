@@ -189,7 +189,6 @@ class Main extends Component {
 
   backToMain = () => {
     this.setState({ filts: 0 });
-    this.props.clearFiltered();
   }
 
   render = () => {

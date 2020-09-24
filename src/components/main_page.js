@@ -189,6 +189,7 @@ class Main extends Component {
 
   backToMain = () => {
     this.setState({ filts: 0 });
+    this.clearListings();
   }
 
   render = () => {

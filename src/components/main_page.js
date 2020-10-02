@@ -71,6 +71,7 @@ class Main extends Component {
 
   // eslint-disable-next-line class-methods-use-this
   testCallback = (target, listings) => {
+    this.props.history.push(`/listings/${target.title}`);
     // eslint-disable-next-line array-callback-return
     listings.map((listing) => {
       if (listing.id === target.title) {

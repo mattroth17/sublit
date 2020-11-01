@@ -93,5 +93,5 @@ class MapContainer extends Component {
 
 // eslint-disable-next-line new-cap
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyCs8zgkvXjenh0x2eZSuaBma0_9iZAnbV0',
+  apiKey: 'YOUR_API_KEY_HERE',
 })(MapContainer);
